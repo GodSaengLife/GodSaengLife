@@ -2,6 +2,7 @@
 import UIKit
 
 final class RegistrationViewController: UIViewController {
+    // MARK: - Component
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +47,7 @@ final class RegistrationViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -56,6 +58,7 @@ final class RegistrationViewController: UIViewController {
         setConstraints()
     }
     
+    // MARK: - Constraints
     private func setConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
