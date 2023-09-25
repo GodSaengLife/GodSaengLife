@@ -2,12 +2,18 @@
 import UIKit
 
 final class RegistrationViewController: UIViewController {
+    // MARK: - Constants
+    private let userDefaultImage = UIImage(systemName: "person.fill")
+    private let nicknameTitle = "갓생을 살려는 당신은 누구입니까?"
+    private let nicknameTextFieldPlaceholder = "닉네임을 입력해주세요."
+    private let startButtonTitle = "갓생살기"
+    
     // MARK: - Component
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.backgroundColor = .clear
-        iv.image = UIImage(systemName: "person.fill")
+        iv.image = self.userDefaultImage
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 75
         iv.layer.borderWidth = 1
@@ -15,19 +21,19 @@ final class RegistrationViewController: UIViewController {
         return iv
     }()
     
-    private let nicknameTitleLabel: UILabel = {
+    private lazy var nicknameTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
-        label.text = "갓생을 살려는 당신은 누구입니까?"
+        label.text = self.nicknameTitle
         label.font = .systemFont(ofSize: 18, weight: .regular)
         return label
     }()
     
-    private let nicknameTextField: UITextField = {
+    private lazy var nicknameTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.placeholder = "닉네임을 입력해주세요."
+        tf.placeholder = self.nicknameTextFieldPlaceholder
         tf.textAlignment = .center
         tf.font = .systemFont(ofSize: 20, weight: .regular)
         tf.layer.cornerRadius = 4
@@ -36,11 +42,11 @@ final class RegistrationViewController: UIViewController {
         return tf
     }()
     
-    private let startButton: UIButton = {
+    private lazy var startButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .lightGray
-        button.setTitle("갓생살기", for: .normal)
+        button.setTitle(self.startButtonTitle, for: .normal)
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
