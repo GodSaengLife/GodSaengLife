@@ -50,12 +50,22 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure(self.view)
+        addSubViews()
+        setConstraints()
+    }
+    
+    // MARK: - Configure
+    private func configure(_ view: UIView) {
         view.backgroundColor = .white
+    }
+    
+    // MARK: - AddSubViews
+    private func addSubViews() {
         view.addSubview(imageView)
         view.addSubview(nicknameTitleLabel)
         view.addSubview(nicknameTextField)
         view.addSubview(startButton)
-        setConstraints()
     }
     
     // MARK: - Constraints
