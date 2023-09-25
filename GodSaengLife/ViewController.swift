@@ -13,7 +13,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .lightGray
-        print("테스트 - 로드 done")
         // Do any additional setup after loading the view.
     }
 
