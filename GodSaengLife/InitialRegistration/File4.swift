@@ -35,18 +35,30 @@ final class RegistrationViewController: UIViewController {
         return tf
     }()
     
+    private let startButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .lightGray
+        button.setTitle("갓생살기", for: .normal)
+        button.layer.cornerRadius = 4
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(imageView)
         view.addSubview(nicknameTitleLabel)
         view.addSubview(nicknameTextField)
+        view.addSubview(startButton)
         setConstraints()
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 150),
             imageView.heightAnchor.constraint(equalToConstant: 150)
@@ -60,6 +72,12 @@ final class RegistrationViewController: UIViewController {
             nicknameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             nicknameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             nicknameTextField.heightAnchor.constraint(equalToConstant: 35)
+        ])
+        NSLayoutConstraint.activate([
+            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            startButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 }
