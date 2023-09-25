@@ -16,7 +16,7 @@
 		27F283102AC164B9006E180B /* File2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2830F2AC164B9006E180B /* File2.swift */; };
 		27F283122AC164C1006E180B /* File1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283112AC164C1006E180B /* File1.swift */; };
 		27F283142AC164C4006E180B /* File3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283132AC164C4006E180B /* File3.swift */; };
-		27F283162AC164C7006E180B /* File4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283152AC164C7006E180B /* File4.swift */; };
+		27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283152AC164C7006E180B /* RegistrationViewController.swift */; };
 		27F2831F2AC165C1006E180B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27F2831E2AC165C1006E180B /* SnapKit */; };
 		27F283222AC165C8006E180B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 27F283212AC165C8006E180B /* Then */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		27F2830F2AC164B9006E180B /* File2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File2.swift; sourceTree = "<group>"; };
 		27F283112AC164C1006E180B /* File1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File1.swift; sourceTree = "<group>"; };
 		27F283132AC164C4006E180B /* File3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File3.swift; sourceTree = "<group>"; };
-		27F283152AC164C7006E180B /* File4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File4.swift; sourceTree = "<group>"; };
+		27F283152AC164C7006E180B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		27F283092AC16428006E180B /* InitialRegistration */ = {
 			isa = PBXGroup;
 			children = (
-				27F283152AC164C7006E180B /* File4.swift */,
+				27F283152AC164C7006E180B /* RegistrationViewController.swift */,
 			);
 			path = InitialRegistration;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				27F283142AC164C4006E180B /* File3.swift in Sources */,
 				27F282F72AC162C8006E180B /* ViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
-				27F283162AC164C7006E180B /* File4.swift in Sources */,
+				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
 				27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */,
 			);

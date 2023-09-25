@@ -7,11 +7,11 @@ final class RegistrationViewController: UIViewController {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.backgroundColor = .clear
-        iv.image = UIImage(systemName: "person")
+        iv.image = UIImage(systemName: "person.fill")
+        iv.clipsToBounds = true
         iv.layer.cornerRadius = 75
         iv.layer.borderWidth = 1
         iv.layer.borderColor = UIColor.lightGray.cgColor
-        iv.layer.masksToBounds = true
         return iv
     }()
     
