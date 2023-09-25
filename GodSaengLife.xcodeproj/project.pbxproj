@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */; };
 		27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F22AC162C8006E180B /* AppDelegate.swift */; };
 		27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F42AC162C8006E180B /* SceneDelegate.swift */; };
 		27F282F72AC162C8006E180B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F62AC162C8006E180B /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewController.swift; sourceTree = "<group>"; };
 		27F282EF2AC162C8006E180B /* GodSaengLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GodSaengLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F282F22AC162C8006E180B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F282F42AC162C8006E180B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				27F283002AC162CA006E180B /* LaunchScreen.storyboard */,
 				27F283032AC162CA006E180B /* Info.plist */,
 				27F282FB2AC162C8006E180B /* GodSaengLife.xcdatamodeld */,
+				055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */,
 			);
 			path = GodSaengLife;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				27F283122AC164C1006E180B /* File1.swift in Sources */,
 				27F283142AC164C4006E180B /* File3.swift in Sources */,
 				27F282F72AC162C8006E180B /* ViewController.swift in Sources */,
+				055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
 				27F283162AC164C7006E180B /* File4.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
