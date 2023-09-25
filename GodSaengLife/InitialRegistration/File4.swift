@@ -9,25 +9,38 @@ final class RegistrationViewController: UIViewController {
         iv.image = UIImage(systemName: "person")
         iv.layer.cornerRadius = 75
         iv.layer.borderWidth = 1
-        iv.layer.borderColor = UIColor.black.cgColor
+        iv.layer.borderColor = UIColor.lightGray.cgColor
         iv.layer.masksToBounds = true
         return iv
     }()
     
-    private let titleLabel: UILabel = {
+    private let nicknameTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
         label.text = "갓생을 살려는 당신은 누구입니까?"
-        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.font = .systemFont(ofSize: 18, weight: .regular)
         return label
+    }()
+    
+    private let nicknameTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.placeholder = "닉네임을 입력해주세요."
+        tf.textAlignment = .center
+        tf.font = .systemFont(ofSize: 20, weight: .regular)
+        tf.layer.cornerRadius = 4
+        tf.layer.borderWidth = 1
+        tf.layer.borderColor = UIColor.lightGray.cgColor
+        return tf
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(imageView)
-        view.addSubview(titleLabel)
+        view.addSubview(nicknameTitleLabel)
+        view.addSubview(nicknameTextField)
         setConstraints()
     }
     
@@ -39,8 +52,14 @@ final class RegistrationViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 150)
         ])
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            nicknameTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
+            nicknameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            nicknameTextField.topAnchor.constraint(equalTo: nicknameTitleLabel.bottomAnchor, constant: 15),
+            nicknameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            nicknameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            nicknameTextField.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
 }
