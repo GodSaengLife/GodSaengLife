@@ -11,8 +11,10 @@ import UIKit
 final class TimeSettingViewController: UIViewController {
     private var hour = [Int](0...23)
     private var minute = [Int](0...59)
+    private var second = [Int](0...59)
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
+    private var selectedSecond: Int = 0
     
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
@@ -60,7 +62,7 @@ final class TimeSettingViewController: UIViewController {
 
 extension TimeSettingViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        return 3
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -68,6 +70,8 @@ extension TimeSettingViewController: UIPickerViewDataSource {
         case 0:
             return hour.count
         case 1:
+            return minute.count
+        case 2:
             return minute.count
         default:
             return 0
@@ -80,6 +84,8 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             return "\(hour[row])시간"
         case 1:
             return "\(minute[row])분"
+        case 2:
+            return "\(second[row])초"
         default:
             return ""
             
@@ -91,9 +97,15 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             selectedHour = hour[row]
         case 1:
             selectedMinute = minute[row]
+        case 2:
+            selectedMinute = second[row]
         default:
             break
         }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 60
     }
 }
 
