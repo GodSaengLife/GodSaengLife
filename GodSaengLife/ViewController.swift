@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("테스트", for: .normal)
-        button.titleLabel?.textColor = .black
+        button.backgroundColor = .blue
         button.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
         return button
     }()

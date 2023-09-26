@@ -13,28 +13,38 @@ final class TimeSettingViewController: UIViewController {
     private var minute = [Int](0...59)
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
-    private let timePicker: UIPickerView = {
+    
+    private lazy var timeTextField: UITextField = {
+        let tx = UITextField()
+        tx.translatesAutoresizingMaskIntoConstraints = false
+        tx.tintColor = .clear
+        tx.font = .systemFont(ofSize: 50, weight: .regular)
+        tx.textAlignment = .center
+        tx.text = "00:00:00"
+        tx.inputView = timePickerView
+        return tx
+    }()
+    
+    private lazy var timePickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.dataSource = self
+        picker.delegate = self
         return picker
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setConstraints()
     }
     
-    private func configure(_ pickerView: UIPickerView) {
-        pickerView.dataSource = self
-        pickerView.delegate = self
-    }
-    
     private func setConstraints() {
-        view.addSubview(timePicker)
+        view.addSubview(timeTextField)
         NSLayoutConstraint.activate([
-            timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            timePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            timeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            timeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            timeTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }
@@ -58,9 +68,9 @@ extension TimeSettingViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return "\(hour)시간"
+            return "\(hour[row])시간"
         case 1:
-            return "\(minute)분"
+            return "\(minute[row])분"
         default:
             return ""
             
