@@ -14,6 +14,7 @@ final class TimeSettingViewController: UIViewController {
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     
+    // MARK: - Component
     private lazy var timeTextField: UITextField = {
         let tx = UITextField()
         tx.translatesAutoresizingMaskIntoConstraints = false
@@ -33,18 +34,36 @@ final class TimeSettingViewController: UIViewController {
         return picker
     }()
     
+    private let saveButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("확인", for: .normal)
+        button.backgroundColor = .systemBlue
+        return button
+    }()
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setConstraints()
+        print(self.view.frame.size.height / 2)
     }
     
+    // MARK: - Constraints
     private func setConstraints() {
         view.addSubview(timeTextField)
         NSLayoutConstraint.activate([
-            timeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            timeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            timeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            timeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             timeTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        view.addSubview(saveButton)
+        NSLayoutConstraint.activate([
+            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            saveButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 }

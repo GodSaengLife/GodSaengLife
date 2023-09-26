@@ -20,11 +20,12 @@ class ViewController: UIViewController {
     
     @objc func testButtonTapped() {
         let moveVC = TimeSettingViewController()
+        moveVC.title = "시간 설정"
         let naviVC = UINavigationController(rootViewController: moveVC)
         naviVC.modalPresentationStyle = .pageSheet
         let pageSheet = naviVC.presentationController as? UISheetPresentationController
         pageSheet?.detents = [.medium()]
-        pageSheet?.prefersGrabberVisible = true
+        pageSheet?.prefersGrabberVisible = false
         pageSheet?.preferredCornerRadius = 8
         pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
         present(naviVC, animated: true)
