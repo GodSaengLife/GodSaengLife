@@ -15,17 +15,6 @@ final class TimeSettingViewController: UIViewController {
     private var selectedMinute: Int = 0
     
     // MARK: - Component
-    private lazy var timeTextField: UITextField = {
-        let tx = UITextField()
-        tx.translatesAutoresizingMaskIntoConstraints = false
-        tx.tintColor = .clear
-        tx.font = .systemFont(ofSize: 50, weight: .regular)
-        tx.textAlignment = .center
-        tx.text = "00:00:00"
-        tx.inputView = timePickerView
-        return tx
-    }()
-    
     private lazy var timePickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
@@ -52,11 +41,12 @@ final class TimeSettingViewController: UIViewController {
     
     // MARK: - Constraints
     private func setConstraints() {
-        view.addSubview(timeTextField)
+        view.addSubview(timePickerView)
         NSLayoutConstraint.activate([
-            timeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            timeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            timeTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            timePickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            timePickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            timePickerView.heightAnchor.constraint(equalToConstant: 200),
+            timePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         view.addSubview(saveButton)
         NSLayoutConstraint.activate([

@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         naviVC.modalPresentationStyle = .pageSheet
         let pageSheet = naviVC.presentationController as? UISheetPresentationController
         pageSheet?.detents = [.medium()]
+        pageSheet?.selectedDetentIdentifier = .medium
         pageSheet?.prefersGrabberVisible = false
         pageSheet?.preferredCornerRadius = 8
         pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
