@@ -9,6 +9,7 @@ import UIKit
 
 
 final class TimeSettingViewController: UIViewController {
+    private let screenHeight = UIScreen.main.bounds.size.height
     private var hour = [Int](0...23)
     private var minute = [Int](0...59)
     private var second = [Int](0...59)
@@ -30,6 +31,7 @@ final class TimeSettingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("확인", for: .normal)
         button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 8
         return button
     }()
     
@@ -45,10 +47,10 @@ final class TimeSettingViewController: UIViewController {
     private func setConstraints() {
         view.addSubview(timePickerView)
         NSLayoutConstraint.activate([
+            timePickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight / 8),
             timePickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             timePickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            timePickerView.heightAnchor.constraint(equalToConstant: 200),
-            timePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            timePickerView.heightAnchor.constraint(equalToConstant: (screenHeight / 8) + 45),
         ])
         view.addSubview(saveButton)
         NSLayoutConstraint.activate([
@@ -103,9 +105,8 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             break
         }
     }
-    
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 60
+        return screenHeight / 14
     }
 }
 
