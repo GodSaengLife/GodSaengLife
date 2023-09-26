@@ -22,13 +22,13 @@
 		27F283222AC165C8006E180B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 27F283212AC165C8006E180B /* Then */; };
 		27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283262AC1B190006E180B /* UIViewPreview.swift */; };
 		27F283292AC27764006E180B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283282AC27764006E180B /* CalendarViewController.swift */; };
+		6968A7EE2AC1A419004369BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7ED2AC1A419004369BF /* NotificationManager.swift */; };
+		6968A7F42AC2B816004369BF /* alarm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6968A7F32AC2B816004369BF /* alarm1.mp3 */; };
+		6968A7F62AC2C14D004369BF /* AlarmOffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7F52AC2C14D004369BF /* AlarmOffViewController.swift */; };
 		7B2191442AC17C0C0096400C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2191432AC17C0C0096400C /* MainViewController.swift */; };
 		7B2191462AC278850096400C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2191452AC278850096400C /* MainView.swift */; };
 		7B21914A2AC28BCC0096400C /* 조선일보명조.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B2191482AC28BCC0096400C /* 조선일보명조.ttf */; };
 		7B21914B2AC28BCC0096400C /* KBIZ한마음명조 L.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B2191492AC28BCC0096400C /* KBIZ한마음명조 L.ttf */; };
-		6968A7EE2AC1A419004369BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7ED2AC1A419004369BF /* NotificationManager.swift */; };
-		6968A7F42AC2B816004369BF /* alarm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6968A7F32AC2B816004369BF /* alarm1.mp3 */; };
-		6968A7F62AC2C14D004369BF /* AlarmOffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7F52AC2C14D004369BF /* AlarmOffViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,17 +44,16 @@
 		27F2830F2AC164B9006E180B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		27F283112AC164C1006E180B /* File1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File1.swift; sourceTree = "<group>"; };
 		27F283132AC164C4006E180B /* File3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File3.swift; sourceTree = "<group>"; };
-		27F283152AC164C7006E180B /* File4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File4.swift; sourceTree = "<group>"; };
+		27F283152AC164C7006E180B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		27F283262AC1B190006E180B /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		27F283282AC27764006E180B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		6968A7ED2AC1A419004369BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		6968A7F32AC2B816004369BF /* alarm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm1.mp3; sourceTree = "<group>"; };
+		6968A7F52AC2C14D004369BF /* AlarmOffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmOffViewController.swift; sourceTree = "<group>"; };
 		7B2191432AC17C0C0096400C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7B2191452AC278850096400C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7B2191482AC28BCC0096400C /* 조선일보명조.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "조선일보명조.ttf"; sourceTree = "<group>"; };
 		7B2191492AC28BCC0096400C /* KBIZ한마음명조 L.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KBIZ한마음명조 L.ttf"; sourceTree = "<group>"; };
-		27F283152AC164C7006E180B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
-		6968A7ED2AC1A419004369BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		6968A7F32AC2B816004369BF /* alarm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm1.mp3; sourceTree = "<group>"; };
-		6968A7F52AC2C14D004369BF /* AlarmOffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmOffViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +237,7 @@
 				27F283292AC27764006E180B /* CalendarViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				6968A7F62AC2C14D004369BF /* AlarmOffViewController.swift in Sources */,
-				27F283102AC164B9006E180B /* File2.swift in Sources */,
+				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				27F283122AC164C1006E180B /* File1.swift in Sources */,
 				7B2191462AC278850096400C /* MainView.swift in Sources */,
 				27F283142AC164C4006E180B /* File3.swift in Sources */,
@@ -247,7 +246,7 @@
 				055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
 				27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */,
-				27F283162AC164C7006E180B /* File4.swift in Sources */,
+				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
 				27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */,
@@ -397,7 +396,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +424,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
