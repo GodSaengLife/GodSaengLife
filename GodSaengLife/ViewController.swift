@@ -1,11 +1,7 @@
-//
-//  ViewController.swift
-//  GodSaengLife
-//
-//  Created by t2023-m0078 on 2023/09/25.
-//
 
+import HorizonCalendar
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
 
@@ -14,8 +10,8 @@ class ViewController: UIViewController {
         
         view.backgroundColor = .lightGray
         // Do any additional setup after loading the view.
-    }
-
-
+        }
+    
+    
 }
 

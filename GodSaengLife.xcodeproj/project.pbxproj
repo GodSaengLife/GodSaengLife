@@ -13,12 +13,14 @@
 		27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27F282FB2AC162C8006E180B /* GodSaengLife.xcdatamodeld */; };
 		27F282FF2AC162CA006E180B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F282FE2AC162CA006E180B /* Assets.xcassets */; };
 		27F283022AC162CA006E180B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F283002AC162CA006E180B /* LaunchScreen.storyboard */; };
-		27F283102AC164B9006E180B /* File2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2830F2AC164B9006E180B /* File2.swift */; };
+		27F283102AC164B9006E180B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2830F2AC164B9006E180B /* CalendarView.swift */; };
 		27F283122AC164C1006E180B /* File1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283112AC164C1006E180B /* File1.swift */; };
 		27F283142AC164C4006E180B /* File3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283132AC164C4006E180B /* File3.swift */; };
 		27F283162AC164C7006E180B /* File4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283152AC164C7006E180B /* File4.swift */; };
 		27F2831F2AC165C1006E180B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27F2831E2AC165C1006E180B /* SnapKit */; };
 		27F283222AC165C8006E180B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 27F283212AC165C8006E180B /* Then */; };
+		27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283262AC1B190006E180B /* UIViewPreview.swift */; };
+		27F283292AC27764006E180B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283282AC27764006E180B /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +32,12 @@
 		27F282FE2AC162CA006E180B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27F283012AC162CA006E180B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27F283032AC162CA006E180B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27F2830F2AC164B9006E180B /* File2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File2.swift; sourceTree = "<group>"; };
+		27F2830F2AC164B9006E180B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		27F283112AC164C1006E180B /* File1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File1.swift; sourceTree = "<group>"; };
 		27F283132AC164C4006E180B /* File3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File3.swift; sourceTree = "<group>"; };
 		27F283152AC164C7006E180B /* File4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File4.swift; sourceTree = "<group>"; };
+		27F283262AC1B190006E180B /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
+		27F283282AC27764006E180B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +106,9 @@
 		27F2830B2AC16470006E180B /* RecordCheck */ = {
 			isa = PBXGroup;
 			children = (
-				27F2830F2AC164B9006E180B /* File2.swift */,
+				27F2830F2AC164B9006E180B /* CalendarView.swift */,
+				27F283282AC27764006E180B /* CalendarViewController.swift */,
+				27F283262AC1B190006E180B /* UIViewPreview.swift */,
 			);
 			path = RecordCheck;
 			sourceTree = "<group>";
@@ -193,11 +199,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27F283102AC164B9006E180B /* File2.swift in Sources */,
+				27F283292AC27764006E180B /* CalendarViewController.swift in Sources */,
+				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				27F283122AC164C1006E180B /* File1.swift in Sources */,
 				27F283142AC164C4006E180B /* File3.swift in Sources */,
 				27F282F72AC162C8006E180B /* ViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
+				27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */,
 				27F283162AC164C7006E180B /* File4.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
 				27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */,
