@@ -16,10 +16,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
             
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = MainViewController()
+//        window?.rootViewController = MainViewController()
+        window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
-    }
 
+        if UserDefaults.standard.string(forKey: "nickname") == nil {
+            let rootVC = RegistrationViewController()
+            changeRootViewController(rootVC)
+        }
+    }
+    
+    func changeRootViewController(_ viewController: UIViewController) {
+        guard let window = self.window else { return }
+        window.rootViewController = viewController
+        UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
