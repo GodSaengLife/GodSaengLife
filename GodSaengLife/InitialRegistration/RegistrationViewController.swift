@@ -161,7 +161,12 @@ final class RegistrationViewController: UIViewController {
 }
 
 extension RegistrationViewController: UIImagePickerControllerDelegate {
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+            self.imageView.image = image
+        }
+    }
 }
 
 extension RegistrationViewController: UINavigationControllerDelegate {
