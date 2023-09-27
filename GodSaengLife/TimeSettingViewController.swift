@@ -40,7 +40,6 @@ final class TimeSettingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setConstraints()
-        print(self.view.frame.size.height / 2)
     }
     
     // MARK: - Constraints
