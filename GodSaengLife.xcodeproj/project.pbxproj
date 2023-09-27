@@ -30,6 +30,7 @@
 		7B2191462AC278850096400C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2191452AC278850096400C /* MainView.swift */; };
 		7B21914A2AC28BCC0096400C /* 조선일보명조.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B2191482AC28BCC0096400C /* 조선일보명조.ttf */; };
 		7B21914B2AC28BCC0096400C /* KBIZ한마음명조 L.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B2191492AC28BCC0096400C /* KBIZ한마음명조 L.ttf */; };
+		7BF0590A2AC4257F00CB435B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF059092AC4257F00CB435B /* MyPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		7B2191452AC278850096400C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7B2191482AC28BCC0096400C /* 조선일보명조.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "조선일보명조.ttf"; sourceTree = "<group>"; };
 		7B2191492AC28BCC0096400C /* KBIZ한마음명조 L.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KBIZ한마음명조 L.ttf"; sourceTree = "<group>"; };
+		7BF059092AC4257F00CB435B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				27F283132AC164C4006E180B /* File3.swift */,
 				7B2191452AC278850096400C /* MainView.swift */,
 				7B2191432AC17C0C0096400C /* MainViewController.swift */,
+				7BF059092AC4257F00CB435B /* MyPageViewController.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -237,11 +240,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF0590A2AC4257F00CB435B /* MyPageViewController.swift in Sources */,
 				6968A7F82AC3E0CA004369BF /* AlarmLandingView.swift in Sources */,
 				27F283292AC27764006E180B /* CalendarViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				058818B22AC3CD200097A311 /* AlarmSettingViewController.swift in Sources */,
-				6968A7F62AC2C14D004369BF /* AlarmOffViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				27F283122AC164C1006E180B /* AlarmLandingViewController.swift in Sources */,
 				7B2191462AC278850096400C /* MainView.swift in Sources */,
