@@ -51,6 +51,7 @@ final class RegistrationViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.setTitle(self.startButtonTitle, for: .normal)
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
@@ -110,17 +111,31 @@ final class RegistrationViewController: UIViewController {
         ])
     }
     
+    private func updateButtonColor() {
+        if self.nickname?.isEmpty == true {
+            startButton.backgroundColor = .lightGray
+            startButton.isEnabled = false
+        }
+        if self.nickname?.isEmpty == false {
+            startButton.backgroundColor = .systemBlue
+            startButton.isEnabled = true
+        }
+    }
+    
     // MARK: - Actions
     @objc private func textDidChange() {
         self.nickname = nicknameTextField.text
+        updateButtonColor()
     }
     
     @objc private func startButtonTapped() {
-        UserDefaults.standard.set(self.nickname, forKey: "nickname")
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
-        let moveVC = MainViewController()
-        print(UserDefaults.standard.bool(forKey: "nickname"))
-        sceneDelegate.changeRootViewController(moveVC)
+        if self.nickname?.isEmpty == false {
+            UserDefaults.standard.set(self.nickname, forKey: "nickname")
+            guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+            let moveVC = MainViewController()
+            print(UserDefaults.standard.bool(forKey: "nickname"))
+            sceneDelegate.changeRootViewController(moveVC)
+        }
     }
 }
 
