@@ -32,6 +32,7 @@ final class TimeSettingViewController: UIViewController {
         button.setTitle("확인", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -59,6 +60,12 @@ final class TimeSettingViewController: UIViewController {
             saveButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
+    
+    // MARK: - Actions
+    @objc private func saveButtonTapped() {
+        self.dismiss(animated: true)
+    }
+
 }
 
 extension TimeSettingViewController: UIPickerViewDataSource {
