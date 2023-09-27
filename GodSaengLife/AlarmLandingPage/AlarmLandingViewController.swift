@@ -27,7 +27,7 @@ class AlarmLandingViewController: UIViewController {
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
-        let keyboardHeight = keyboardFrame.cgRectValue.height
+        _ = keyboardFrame.cgRectValue.height
         view.frame.origin.y = -250
     }
     
