@@ -64,6 +64,7 @@ final class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure(self.view)
+        configure(imageView)
         addSubViews()
         setConstraints()
     }
@@ -75,6 +76,12 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Configure
     private func configure(_ view: UIView) {
         view.backgroundColor = .white
+    }
+    
+    private func configure(_ imageView: UIImageView) {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(tapGestureRecognizer:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(gesture)
     }
     
     // MARK: - AddSubViews
@@ -111,6 +118,7 @@ final class RegistrationViewController: UIViewController {
         ])
     }
     
+    // MARK: - Update
     private func updateButtonColor() {
         if self.nickname?.isEmpty == true {
             startButton.backgroundColor = .lightGray
@@ -122,7 +130,20 @@ final class RegistrationViewController: UIViewController {
         }
     }
     
+    // MARK: - Present
+    private func presentImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
     // MARK: - Actions
+    @objc private func imageViewTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        presentImagePicker()
+    }
+    
     @objc private func textDidChange() {
         self.nickname = nicknameTextField.text
         updateButtonColor()
@@ -137,6 +158,14 @@ final class RegistrationViewController: UIViewController {
             sceneDelegate.changeRootViewController(moveVC)
         }
     }
+}
+
+extension RegistrationViewController: UIImagePickerControllerDelegate {
+    
+}
+
+extension RegistrationViewController: UINavigationControllerDelegate {
+    
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
