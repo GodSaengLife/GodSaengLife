@@ -10,6 +10,8 @@
 		055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */; };
 		058818B22AC3CD200097A311 /* AlarmSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058818B12AC3CD200097A311 /* AlarmSettingViewController.swift */; };
 		059D92362AC45E6B007610D8 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92352AC45E6B007610D8 /* MainTabBarController.swift */; };
+		059D92382AC45F09007610D8 /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 059D92372AC45F09007610D8 /* NanumMyeongjo.otf */; };
+		059D923A2AC45F10007610D8 /* NanumMyeongjoBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 059D92392AC45F10007610D8 /* NanumMyeongjoBold.otf */; };
 		27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F22AC162C8006E180B /* AppDelegate.swift */; };
 		27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F42AC162C8006E180B /* SceneDelegate.swift */; };
 		27F282F72AC162C8006E180B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F62AC162C8006E180B /* ViewController.swift */; };
@@ -35,6 +37,8 @@
 		055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSettingViewController.swift; sourceTree = "<group>"; };
 		058818B12AC3CD200097A311 /* AlarmSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingViewController.swift; sourceTree = "<group>"; };
 		059D92352AC45E6B007610D8 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		059D92372AC45F09007610D8 /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
+		059D92392AC45F10007610D8 /* NanumMyeongjoBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoBold.otf; sourceTree = "<group>"; };
 		27F282EF2AC162C8006E180B /* GodSaengLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GodSaengLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F282F22AC162C8006E180B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F282F42AC162C8006E180B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +107,6 @@
 				27F283032AC162CA006E180B /* Info.plist */,
 				6968A7F32AC2B816004369BF /* alarm1.mp3 */,
 				27F282FB2AC162C8006E180B /* GodSaengLife.xcdatamodeld */,
-				055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */,
 			);
 			path = GodSaengLife;
 			sourceTree = "<group>";
@@ -113,6 +116,7 @@
 			children = (
 				27F283152AC164C7006E180B /* RegistrationViewController.swift */,
 				058818B12AC3CD200097A311 /* AlarmSettingViewController.swift */,
+				055A90092AC1B00F001BDF87 /* TimeSettingViewController.swift */,
 			);
 			path = InitialRegistration;
 			sourceTree = "<group>";
@@ -149,6 +153,8 @@
 		7B2191472AC28BAD0096400C /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				059D92372AC45F09007610D8 /* NanumMyeongjo.otf */,
+				059D92392AC45F10007610D8 /* NanumMyeongjoBold.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				27F283022AC162CA006E180B /* LaunchScreen.storyboard in Resources */,
 				6968A7F42AC2B816004369BF /* alarm1.mp3 in Resources */,
 				27F282FF2AC162CA006E180B /* Assets.xcassets in Resources */,
+				059D923A2AC45F10007610D8 /* NanumMyeongjoBold.otf in Resources */,
+				059D92382AC45F09007610D8 /* NanumMyeongjo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

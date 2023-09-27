@@ -59,7 +59,7 @@ class MainView: UIView {
         let label = UILabel()
         let text = "인생에서 한계는 없습니다.\n여러분 자신이 만드는 한계만 제외한다면..."
         // 폰트 변경
-        let font = UIFont.systemFont(ofSize: 12.5, weight: .medium)
+        let font = UIFont(name: "NanumMyeongjoOTF", size: 12.5)
         
         // 행간 조절
         let style = NSMutableParagraphStyle()
