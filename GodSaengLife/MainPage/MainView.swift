@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol MainViewDelegate: AnyObject {
+    func wakeUpSettingButtonTapped()
+    func exerciseSettingButtonTapped()
+    func studySettingButtonTapped()
+}
+
 class MainView: UIView {
     
     //MARK: - Properties
-    
+    weak var delegate: MainViewDelegate?
     lazy var safeArea = safeAreaLayoutGuide
     
     let userProfileImageView: UIImageView = {
@@ -81,7 +87,7 @@ class MainView: UIView {
     let todayQuoteBackgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
-        imageView.image = UIImage(named: "QuoteBackgroundImage2")
+        imageView.image = UIImage(named: "QuoteBackgroundImage")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 1
@@ -112,7 +118,7 @@ class MainView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        
+        button.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -220,11 +226,11 @@ class MainView: UIView {
         return view
     }()
     
-    let exerciseSettingButton: UIButton = {
+    lazy var exerciseSettingButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        
+        button.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -331,7 +337,7 @@ class MainView: UIView {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        
+        button.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -906,4 +912,18 @@ class MainView: UIView {
             studyDoneButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -32)
         ])
     }
+    
+    // MARK: - Acionts
+    @objc private func wakeUpSettingButtonTapped() {
+        delegate?.wakeUpSettingButtonTapped()
+    }
+    
+    @objc private func exerciseSettingButtonTapped() {
+        delegate?.exerciseSettingButtonTapped()
+    }
+    
+    @objc private func studySettingButtonTapped() {
+        delegate?.studySettingButtonTapped()
+    }
+
 }

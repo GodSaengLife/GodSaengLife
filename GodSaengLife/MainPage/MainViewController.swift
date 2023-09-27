@@ -21,8 +21,49 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        mainView.delegate = self
     }
     
+    private func showAlarmSettingView(_ viewConroller: UIViewController) {
+        viewConroller.title = "시간 설정"
+        let naviVC = UINavigationController(rootViewController: viewConroller)
+        naviVC.modalPresentationStyle = .pageSheet
+        let pageSheet = naviVC.presentationController as? UISheetPresentationController
+        pageSheet?.detents = [.medium()]
+        pageSheet?.selectedDetentIdentifier = .medium
+        pageSheet?.prefersGrabberVisible = false
+        pageSheet?.preferredCornerRadius = 8
+        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
+        present(naviVC, animated: true)
+    }
 
+    private func showTimeSettingView(_ viewConroller: UIViewController) {
+        viewConroller.title = "시간 설정"
+        let naviVC = UINavigationController(rootViewController: viewConroller)
+        naviVC.modalPresentationStyle = .pageSheet
+        let pageSheet = naviVC.presentationController as? UISheetPresentationController
+        pageSheet?.detents = [.medium()]
+        pageSheet?.selectedDetentIdentifier = .medium
+        pageSheet?.prefersGrabberVisible = false
+        pageSheet?.preferredCornerRadius = 8
+        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
+        present(naviVC, animated: true)
+    }
+}
+
+extension MainViewController: MainViewDelegate {
+    func wakeUpSettingButtonTapped() {
+        let moveVC = AlarmSettingViewController()
+        showAlarmSettingView(moveVC)
+    }
+    
+    func exerciseSettingButtonTapped() {
+        let moveVC = TimeSettingViewController()
+        showTimeSettingView(moveVC)
+    }
+    
+    func studySettingButtonTapped() {
+        let moveVC = TimeSettingViewController()
+        showTimeSettingView(moveVC)
+    }
 }

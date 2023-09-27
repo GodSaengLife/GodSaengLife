@@ -4,8 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>조선일보명조.ttf</string>
-		<string>KBIZ한마음명조 L.ttf</string>
+		<string>NanumMyeongjo.otf</string>
+		<string>NanumMyeongjoBold.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

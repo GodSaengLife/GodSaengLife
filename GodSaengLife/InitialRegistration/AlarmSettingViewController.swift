@@ -23,6 +23,7 @@ class AlarmSettingViewController: UIViewController {
         button.setTitle("확인", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -47,5 +48,10 @@ class AlarmSettingViewController: UIViewController {
             saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             saveButton.heightAnchor.constraint(equalToConstant: 45)
         ])
+    }
+    
+    // MARK: - Actions
+    @objc private func saveButtonTapped() {
+        self.dismiss(animated: true)
     }
 }
