@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if let navigationController = self.window?.rootViewController as? UINavigationController {
             switch identifier {
             case "TEST":
-                let targetVC = AlarmOffViewController()
+                let targetVC = AlarmLandingViewController()
                 navigationController.pushViewController(targetVC, animated: true)
             default:
                 break
