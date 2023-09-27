@@ -50,6 +50,7 @@ final class RegistrationViewController: UIViewController {
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
+        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -59,6 +60,10 @@ final class RegistrationViewController: UIViewController {
         configure(self.view)
         addSubViews()
         setConstraints()
+    }
+    
+    deinit {
+        print("유저 등록 페이지 사라집니다요.")
     }
     
     // MARK: - Configure
@@ -98,5 +103,12 @@ final class RegistrationViewController: UIViewController {
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             startButton.heightAnchor.constraint(equalToConstant: 45)
         ])
+    }
+    
+    // MARK: - Actions
+    @objc private func startButtonTapped() {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+        let moveVC = MainViewController()
+        sceneDelegate.changeRootViewController(moveVC)
     }
 }
