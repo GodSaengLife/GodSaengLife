@@ -39,7 +39,7 @@ class AlarmLandingView: UIView {
             titleLabel.textAlignment = .center
             
             subtitleLabel = UILabel()
-            subtitleLabel.text = "인생에서 한계는 없습니다. 여러분 자신이 만드는 한계만 제외한다면..."
+            subtitleLabel.text = "인생에서 한계는 없습니다.\n여러분 자신이 만드는 한계만 제외한다면..."
             subtitleLabel.font = UIFont.systemFont(ofSize: 16)
             subtitleLabel.numberOfLines = 2
             subtitleLabel.textAlignment = .center
@@ -63,13 +63,13 @@ class AlarmLandingView: UIView {
             quoteTextField.textAlignment = .center
             
             readQuoteLabel = UILabel()
-            readQuoteLabel.text = "명언을 소리내어 읽어보세요!"
+            readQuoteLabel.text = "오늘의 명언을 정확히 입력하면 일어나기 버튼이 활성화됩니다."
             readQuoteLabel.font = UIFont.systemFont(ofSize: 12)
             readQuoteLabel.textColor = .gray
             readQuoteLabel.textAlignment = .center
             
             completeButton = UIButton(type: .system)
-            completeButton.setTitle("알람 끄기", for: .normal)
+            completeButton.setTitle("일어나기", for: .normal)
             completeButton.layer.cornerRadius = 30
             completeButton.setTitleColor(UIColor.black, for: .normal)
             completeButton.backgroundColor = UIColor.lightGray
