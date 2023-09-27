@@ -14,36 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
+            
         window = UIWindow(windowScene: windowScene)
-
-        let MainVC = MainViewController()
-        let CalendarVC = CalendarViewController()
-        let MyPageVC = MyPageViewController()
-        
-        let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([MainVC,CalendarVC,MyPageVC], animated: true)
-        
-        if let items = tabBarController.tabBar.items {
-            items[1].image = UIImage(systemName: "calendar")?.withTintColor(.systemBlue)
-            items[1].selectedImage = UIImage(systemName: "calendar")?.withTintColor(.lightGray)
-            
-            items[0].image = UIImage(systemName: "house")?.withTintColor(.systemBlue)
-            items[0].selectedImage = UIImage(systemName: "house")?.withTintColor(.lightGray)
-            
-            items[2].image = UIImage(systemName: "person")?.withTintColor(.systemBlue)
-            items[2].selectedImage = UIImage(systemName: "person")?.withTintColor(.lightGray)
-        }
-        
-        window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
-//        window?.rootViewController = MainViewController()
-//        window?.makeKeyAndVisible()
-    }
-
 //        window?.rootViewController = MainViewController()
         window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
-
 
         if UserDefaults.standard.string(forKey: "nickname") == nil {
             let rootVC = RegistrationViewController()
