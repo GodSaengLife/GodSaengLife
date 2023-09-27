@@ -87,7 +87,7 @@ class MainView: UIView {
     let todayQuoteBackgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
-        imageView.image = UIImage(named: "QuoteBackgroundImage2")
+        imageView.image = UIImage(named: "QuoteBackgroundImage")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 1
