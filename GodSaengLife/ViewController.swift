@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     }()
     
     @objc func testButtonTapped() {
-        let moveVC = TimeSettingViewController()
+//        let moveVC = TimeSettingViewController()
+        let moveVC = AlarmSettingViewController()
         moveVC.title = "시간 설정"
         let naviVC = UINavigationController(rootViewController: moveVC)
         naviVC.modalPresentationStyle = .pageSheet
