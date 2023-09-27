@@ -8,6 +8,9 @@ final class RegistrationViewController: UIViewController {
     private let nicknameTextFieldPlaceholder = "닉네임을 입력해주세요."
     private let startButtonTitle = "갓생살기"
     
+    // MARK: - Properties
+    private var nickname: String?
+    
     // MARK: - Component
     private lazy var imageView: UIImageView = {
         let iv = UIImageView()
@@ -33,12 +36,14 @@ final class RegistrationViewController: UIViewController {
     private lazy var nicknameTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.delegate = self
         tf.placeholder = self.nicknameTextFieldPlaceholder
         tf.textAlignment = .center
         tf.font = .systemFont(ofSize: 20, weight: .regular)
         tf.layer.cornerRadius = 4
         tf.layer.borderWidth = 1
         tf.layer.borderColor = UIColor.lightGray.cgColor
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
@@ -106,9 +111,19 @@ final class RegistrationViewController: UIViewController {
     }
     
     // MARK: - Actions
+    @objc private func textDidChange() {
+        self.nickname = nicknameTextField.text
+    }
+    
     @objc private func startButtonTapped() {
+        UserDefaults.standard.set(self.nickname, forKey: "nickname")
         guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
         let moveVC = MainViewController()
+        print(UserDefaults.standard.bool(forKey: "nickname"))
         sceneDelegate.changeRootViewController(moveVC)
     }
+}
+
+extension RegistrationViewController: UITextFieldDelegate {
+
 }

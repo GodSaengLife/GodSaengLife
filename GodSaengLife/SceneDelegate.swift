@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = MainViewController()
         window?.makeKeyAndVisible()
 
-        if UserDefaults.standard.bool(forKey: "nickname") == false {
+        if UserDefaults.standard.string(forKey: "nickname") == nil {
             let rootVC = RegistrationViewController()
             changeRootViewController(rootVC)
         }
