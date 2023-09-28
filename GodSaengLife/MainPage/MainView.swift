@@ -15,7 +15,21 @@ protocol MainViewDelegate: AnyObject {
 
 class MainView: UIView {
     
+    //MARK: - Life Cycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    
     //MARK: - Properties
+    
     weak var delegate: MainViewDelegate?
     lazy var safeArea = safeAreaLayoutGuide
     
@@ -92,12 +106,7 @@ class MainView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor(named: "Main Color 3")?.cgColor
-        // 그림자 효과
-//        imageView.layer.shadowOpacity = 0.2
-//        imageView.layer.masksToBounds = true
-//        imageView.layer.shadowColor = UIColor.black.cgColor
-//        imageView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        
+       
         return imageView
     }()
     
@@ -114,11 +123,11 @@ class MainView: UIView {
         return view
     }()
     
-    let wakeUpSettingButton: UIButton = {
+    let wakeUpTimeSettingButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        button.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
+
         return button
     }()
     
@@ -191,28 +200,6 @@ class MainView: UIView {
         return button
     }()
     
-    //    let thumbsUpIcon: UIImageView = {
-    //        let icon = UIImageView()
-    //        icon.image = UIImage(systemName: "hand.thumbsup")
-    //        icon.tintColor = .systemBlue
-    //        icon.layer.cornerRadius = 12
-    //        //        icon.layer.borderWidth = 1
-    //        //        icon.layer.borderColor = UIColor.systemBlue.cgColor
-    //
-    //        return icon
-    //    }()
-    
-    //    let wakeUpMissionSuccessCheckLabel: UILabel = {
-    //        let label = UILabel()
-    //        label.text = "미션 성공!"
-    //        label.textAlignment = .center
-    //        label.textColor = .systemBlue
-    //        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-    //        label.backgroundColor = .systemBlue.withAlphaComponent(0.2)
-    //
-    //        return label
-    //    }()
-    
     
     //MARK: - Property Exercise
     
@@ -226,11 +213,11 @@ class MainView: UIView {
         return view
     }()
     
-    lazy var exerciseSettingButton: UIButton = {
+    lazy var exerciseTimeSettingButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        button.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
+        
         return button
     }()
     
@@ -286,10 +273,7 @@ class MainView: UIView {
         icon.image = UIImage(systemName: "figure.run")
         icon.layer.cornerRadius = 20
         icon.tintColor = .systemBlue
-        //        icon.backgroundColor = .systemBlue.withAlphaComponent(0.15)
-        //        icon.tintColor = .white
-        //        icon.backgroundColor = .systemBlue
-        
+       
         return icon
     }()
     
@@ -333,11 +317,11 @@ class MainView: UIView {
         return view
     }()
     
-    let studySettingButton: UIButton = {
+    let studyTimeSettingButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "gearshape.fill"), for: .normal)
         button.tintColor = .systemGray
-        button.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
+    
         return button
     }()
     
@@ -385,9 +369,6 @@ class MainView: UIView {
         icon.image = UIImage(systemName: "book.closed")
         icon.layer.cornerRadius = 20
         icon.tintColor = .systemBlue
-        //        icon.backgroundColor = .systemBlue.withAlphaComponent(0.15)
-        //        icon.tintColor = .white
-        //        icon.backgroundColor = .systemBlue
         
         return icon
     }()
@@ -413,18 +394,28 @@ class MainView: UIView {
     }()
     
     
-    //MARK: - Life Cycle
+    //MARK: - Settings
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configureUI()
+    private func setTimeSettingView() {
+        wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
+        exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
+        studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    
+    // MARK: - Actions
+    @objc private func wakeUpSettingButtonTapped() {
+        delegate?.wakeUpSettingButtonTapped()
     }
     
+    @objc private func exerciseSettingButtonTapped() {
+        delegate?.exerciseSettingButtonTapped()
+    }
+    
+    @objc private func studySettingButtonTapped() {
+        delegate?.studySettingButtonTapped()
+    }
+
     
     //MARK: - UI
     
@@ -548,14 +539,14 @@ class MainView: UIView {
     }
     
     func configureWakeUpSettingButton(){
-        addSubview(wakeUpSettingButton)
+        addSubview(wakeUpTimeSettingButton)
         
-        wakeUpSettingButton.translatesAutoresizingMaskIntoConstraints = false
+        wakeUpTimeSettingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            wakeUpSettingButton.widthAnchor.constraint(equalToConstant: 20),
-            wakeUpSettingButton.heightAnchor.constraint(equalToConstant: 20),
-            wakeUpSettingButton.topAnchor.constraint(equalTo: todayQuoteBackgroundImageView.bottomAnchor, constant: 25),
-            wakeUpSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
+            wakeUpTimeSettingButton.widthAnchor.constraint(equalToConstant: 20),
+            wakeUpTimeSettingButton.heightAnchor.constraint(equalToConstant: 20),
+            wakeUpTimeSettingButton.topAnchor.constraint(equalTo: todayQuoteBackgroundImageView.bottomAnchor, constant: 25),
+            wakeUpTimeSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
             ])
     }
     
@@ -705,14 +696,14 @@ class MainView: UIView {
     }
     
     func configureExerciseSettingButton(){
-        addSubview(exerciseSettingButton)
+        addSubview(exerciseTimeSettingButton)
         
-        exerciseSettingButton.translatesAutoresizingMaskIntoConstraints = false
+        exerciseTimeSettingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            exerciseSettingButton.widthAnchor.constraint(equalToConstant: 20),
-            exerciseSettingButton.heightAnchor.constraint(equalToConstant: 20),
-            exerciseSettingButton.topAnchor.constraint(equalTo: wakeUpTimeBackgroundView.bottomAnchor, constant: 25),
-            exerciseSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
+            exerciseTimeSettingButton.widthAnchor.constraint(equalToConstant: 20),
+            exerciseTimeSettingButton.heightAnchor.constraint(equalToConstant: 20),
+            exerciseTimeSettingButton.topAnchor.constraint(equalTo: wakeUpTimeBackgroundView.bottomAnchor, constant: 25),
+            exerciseTimeSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
         ])
     }
     
@@ -830,14 +821,14 @@ class MainView: UIView {
     }
     
     func configureStudySettingButton(){
-        addSubview(studySettingButton)
+        addSubview(studyTimeSettingButton)
         
-        studySettingButton.translatesAutoresizingMaskIntoConstraints = false
+        studyTimeSettingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studySettingButton.widthAnchor.constraint(equalToConstant: 20),
-            studySettingButton.heightAnchor.constraint(equalToConstant: 20),
-            studySettingButton.topAnchor.constraint(equalTo: exerciseTimeBackgroundView.bottomAnchor, constant: 25),
-            studySettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
+            studyTimeSettingButton.widthAnchor.constraint(equalToConstant: 20),
+            studyTimeSettingButton.heightAnchor.constraint(equalToConstant: 20),
+            studyTimeSettingButton.topAnchor.constraint(equalTo: exerciseTimeBackgroundView.bottomAnchor, constant: 25),
+            studyTimeSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -35)
         ])
     }
     
@@ -913,17 +904,4 @@ class MainView: UIView {
         ])
     }
     
-    // MARK: - Acionts
-    @objc private func wakeUpSettingButtonTapped() {
-        delegate?.wakeUpSettingButtonTapped()
-    }
-    
-    @objc private func exerciseSettingButtonTapped() {
-        delegate?.exerciseSettingButtonTapped()
-    }
-    
-    @objc private func studySettingButtonTapped() {
-        delegate?.studySettingButtonTapped()
-    }
-
 }
