@@ -24,6 +24,25 @@ class MainViewController: UIViewController {
         mainView.delegate = self
     }
     
+    // 버튼을 누르고 난 후
+    override func viewWillAppear(_ animated: Bool) {
+        changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+        changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
+        changeButtonColor(button: mainView.exerciseDoneButton, backgroundColor: .white, titleColor: .systemBlue)
+    }
+    
+    //MARK: - Actions
+    // 버튼을 눌렀을 때의 액션
+   
+    
+    
+    //MARK: - Settings
+    
+    private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(titleColor, for: .normal)
+    }
+    
     private func showAlarmSettingView(_ viewConroller: UIViewController) {
         viewConroller.title = "시간 설정"
        
@@ -55,7 +74,14 @@ class MainViewController: UIViewController {
         present(naviVC, animated: true)
     }
     
+    private func timerSettingView(_ button: UIButton) {
+        
+    }
+    
 }
+
+
+//MARK: - Delegate
 
 extension MainViewController: MainViewDelegate {
     func wakeUpSettingButtonTapped() {
