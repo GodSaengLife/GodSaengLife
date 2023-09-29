@@ -9,9 +9,6 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    let mainView = MainView()
-    
-    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -31,9 +28,17 @@ class MainViewController: UIViewController {
         changeButtonColor(button: mainView.exerciseDoneButton, backgroundColor: .white, titleColor: .systemBlue)
     }
     
+    //MARK: - Properties
+    
+    let mainView = MainView()
+    
+    var selectedTime: String = ""
+    var selectedMeridiem: String = ""
+    
+    
     //MARK: - Actions
     // 버튼을 눌렀을 때의 액션
-   
+    
     
     
     //MARK: - Settings
@@ -43,14 +48,15 @@ class MainViewController: UIViewController {
         button.setTitleColor(titleColor, for: .normal)
     }
     
-    private func showAlarmSettingView(_ viewConroller: UIViewController) {
-        viewConroller.title = "시간 설정"
-       
-        let naviVC = UINavigationController(rootViewController: viewConroller)
+    private func showAlarmSettingView(_ viewController: UIViewController) {
+        viewController.title = "기상 시간 설정"
+        
+        let naviVC = UINavigationController(rootViewController: viewController)
         naviVC.modalPresentationStyle = .pageSheet
-       
+        
+        
         let pageSheet = naviVC.presentationController as? UISheetPresentationController
-        pageSheet?.detents = [.medium()]
+        pageSheet?.detents = [.medium()]                    // Sheet의 멈추는 높이 :: 절반 높이에서 멈춤
         pageSheet?.selectedDetentIdentifier = .medium
         pageSheet?.prefersGrabberVisible = false
         pageSheet?.preferredCornerRadius = 8
@@ -58,10 +64,10 @@ class MainViewController: UIViewController {
         
         present(naviVC, animated: true)
     }
-
+    
     private func showTimeSettingView(_ viewConroller: UIViewController) {
-        viewConroller.title = "시간 설정"
-       
+        viewConroller.title = "목표 시간 설정"
+        
         let naviVC = UINavigationController(rootViewController: viewConroller)
         naviVC.modalPresentationStyle = .pageSheet
         
@@ -86,6 +92,13 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewDelegate {
     func wakeUpSettingButtonTapped() {
         let moveVC = AlarmSettingViewController()
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem) in
+            self?.selectedTime = selectedTime
+            self?.selectedMeridiem = selectedMeridiem
+            
+            self?.mainView.wakeUpTimeLabel.text = selectedTime
+            self?.mainView.wakeUpTimeMeridiemLabel.text = selectedMeridiem
+        }
         showAlarmSettingView(moveVC)
     }
     

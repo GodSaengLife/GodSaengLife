@@ -32,6 +32,7 @@ class MainView: UIView {
     //MARK: - Properties
     
     weak var delegate: MainViewDelegate?
+    
     lazy var safeArea = safeAreaLayoutGuide
     
     let userProfileImageView: UIImageView = {
@@ -185,9 +186,9 @@ class MainView: UIView {
         return label
     }()
     
-    let todayWakeUpTimeLabel: UILabel = {
+    let setAWakeUpTimeNotiLabel: UILabel = {
         let label = UILabel()
-        label.text = "The Time Woke Up Today"
+        label.text = "Set The Wake-Up Time"
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         
@@ -286,7 +287,7 @@ class MainView: UIView {
         return label
     }()
     
-    let exerciseSetTimeLabel: UILabel = {
+    let exerciseSetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "설정 시간"
         label.textColor = .lightGray
@@ -349,7 +350,7 @@ class MainView: UIView {
         return label
     }()
     
-    let studySetTimeLabel: UILabel = {
+    let studySetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "설정 시간"
         label.textColor = .lightGray
@@ -544,7 +545,7 @@ class MainView: UIView {
         configureWakeUpTimeSectionTitleLabel()
         configureWakeUpTimeSectionSemiTitleLabel()
         configureAlarmSwitchButton()
-        configureTodayWakeUpTimeLabel()
+        configureSetAWakeUpTimeNotiLabel()
         configureWakeUpTimeLabel()
         configureWakeUpTimeMeridiemLabel()
         configureWakeUpTimeIcon()
@@ -622,15 +623,15 @@ class MainView: UIView {
         ])
     }
     
-    func configureTodayWakeUpTimeLabel(){
-        addSubview(todayWakeUpTimeLabel)
+    func configureSetAWakeUpTimeNotiLabel(){
+        addSubview(setAWakeUpTimeNotiLabel)
         
-        todayWakeUpTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        setAWakeUpTimeNotiLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            todayWakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 250),
-            todayWakeUpTimeLabel.heightAnchor.constraint(equalToConstant: 15),
-            todayWakeUpTimeLabel.topAnchor.constraint(equalTo: wakeUpTimeViewDivider.bottomAnchor, constant: 12),
-            todayWakeUpTimeLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 20)
+            setAWakeUpTimeNotiLabel.widthAnchor.constraint(equalToConstant: 250),
+            setAWakeUpTimeNotiLabel.heightAnchor.constraint(equalToConstant: 15),
+            setAWakeUpTimeNotiLabel.topAnchor.constraint(equalTo: wakeUpTimeViewDivider.bottomAnchor, constant: 12),
+            setAWakeUpTimeNotiLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 20)
         ])
     }
     
@@ -651,7 +652,7 @@ class MainView: UIView {
         NSLayoutConstraint.activate([
             wakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 113),
             wakeUpTimeLabel.heightAnchor.constraint(equalToConstant: 35),
-            wakeUpTimeLabel.topAnchor.constraint(equalTo: todayWakeUpTimeLabel.bottomAnchor, constant: 10),
+            wakeUpTimeLabel.topAnchor.constraint(equalTo: setAWakeUpTimeNotiLabel.bottomAnchor, constant: 10),
             wakeUpTimeLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 18)
         ])
     }
@@ -677,7 +678,7 @@ class MainView: UIView {
         configureExerciseTimeIcon()
         configureExerciseSectionTitleLabel()
         configureExerciseTimeLabel()
-        configureExerciseSetTimeLabel()
+        configureExerciseSetTheTimeLabel()
         configureExerciseSettingButton()
         configureExerciseStartButton()
         configureExerciseStopButton()
@@ -732,15 +733,15 @@ class MainView: UIView {
         ])
     }
 
-    func configureExerciseSetTimeLabel(){
-        addSubview(exerciseSetTimeLabel)
+    func configureExerciseSetTheTimeLabel(){
+        addSubview(exerciseSetTheTimeLabel)
         
-        exerciseSetTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        exerciseSetTheTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            exerciseSetTimeLabel.widthAnchor.constraint(equalToConstant: 100),
-            exerciseSetTimeLabel.heightAnchor.constraint(equalToConstant: 20),
-            exerciseSetTimeLabel.topAnchor.constraint(equalTo: exerciseTimeBackgroundView.topAnchor, constant: 14),
-            exerciseSetTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
+            exerciseSetTheTimeLabel.widthAnchor.constraint(equalToConstant: 100),
+            exerciseSetTheTimeLabel.heightAnchor.constraint(equalToConstant: 20),
+            exerciseSetTheTimeLabel.topAnchor.constraint(equalTo: exerciseTimeBackgroundView.topAnchor, constant: 14),
+            exerciseSetTheTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
     }
 
@@ -870,14 +871,14 @@ class MainView: UIView {
     }
     
     func configureStudySetTimeLabel(){
-        addSubview(studySetTimeLabel)
+        addSubview(studySetTheTimeLabel)
         
-        studySetTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        studySetTheTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studySetTimeLabel.widthAnchor.constraint(equalToConstant: 100),
-            studySetTimeLabel.heightAnchor.constraint(equalToConstant: 20),
-            studySetTimeLabel.topAnchor.constraint(equalTo: studyTimeBackgroundView.topAnchor, constant: 14),
-            studySetTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
+            studySetTheTimeLabel.widthAnchor.constraint(equalToConstant: 100),
+            studySetTheTimeLabel.heightAnchor.constraint(equalToConstant: 20),
+            studySetTheTimeLabel.topAnchor.constraint(equalTo: studyTimeBackgroundView.topAnchor, constant: 14),
+            studySetTheTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
     }
     
@@ -888,7 +889,7 @@ class MainView: UIView {
         NSLayoutConstraint.activate([
             studyTimeLabel.widthAnchor.constraint(equalToConstant: 200),
             studyTimeLabel.heightAnchor.constraint(equalToConstant: 32),
-            studyTimeLabel.bottomAnchor.constraint(equalTo: studySetTimeLabel.bottomAnchor, constant: 45),
+            studyTimeLabel.bottomAnchor.constraint(equalTo: studySetTheTimeLabel.bottomAnchor, constant: 45),
             studyTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
 
         ])
