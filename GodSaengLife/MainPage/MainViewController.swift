@@ -118,11 +118,15 @@ extension MainViewController: MainViewDelegate {
     }
     
     func studySettingButtonTapped() {
+        let moveVC = TimeSettingViewController()
         
-    }
-    
-    private func updateExerciseTimeLabel(hour: Int, minute: Int, second: Int) {
-        let formattedTime = String(format: "%02d:%02d:%02d", hour, minute, second)
-        mainView.exerciseSetTheTimeLabel.text = formattedTime
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
+            // 이 클로저가 호출될 때 선택된 시간(selectedTime)을 받아올 수 있습니다.
+            self?.selectedTime = selectedTime
+            
+            let formattedTime = "\(selectedTime)"
+            self?.mainView.studySetTheTimeLabel.text = formattedTime
+        }
+        showTimeSettingView(moveVC)
     }
 }
