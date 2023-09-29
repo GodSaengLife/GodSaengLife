@@ -295,7 +295,7 @@ class MainView: UIView {
         label.layer.cornerRadius = 10
         label.layer.borderWidth = 0.3
         label.layer.borderColor = UIColor.systemGray.cgColor
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
        
         return label
     }()
@@ -355,7 +355,7 @@ class MainView: UIView {
         label.text = "설정 시간"
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.layer.cornerRadius = 10
         label.layer.borderWidth = 0.3
         label.layer.borderColor = UIColor.systemGray.cgColor

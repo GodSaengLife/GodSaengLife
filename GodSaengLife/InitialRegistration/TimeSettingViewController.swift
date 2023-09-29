@@ -9,13 +9,18 @@ import UIKit
 
 
 final class TimeSettingViewController: UIViewController {
+    
+    var onTimeSelected: ((String, String) -> Void)?
+    
     private let screenHeight = UIScreen.main.bounds.size.height
     private var hour = [Int](0...23)
     private var minute = [Int](0...59)
     private var second = [Int](0...59)
+    
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
+    
     
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
@@ -63,6 +68,11 @@ final class TimeSettingViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func saveButtonTapped() {
+      
+        let selectedTime = String(format: "%02d시간 %02d분 %02초", selectedHour, selectedMinute, selectedSecond)
+//        let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
+        onTimeSelected?(selectedTime, "")
+        
         self.dismiss(animated: true)
     }
 
@@ -106,16 +116,18 @@ extension TimeSettingViewController: UIPickerViewDataSource {
         case 1:
             selectedMinute = minute[row]
         case 2:
-            selectedMinute = second[row]
+            selectedSecond = second[row]
         default:
             break
         }
+        
     }
+    
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return screenHeight / 14
     }
 }
 
 extension TimeSettingViewController: UIPickerViewDelegate {
-    
+   
 }

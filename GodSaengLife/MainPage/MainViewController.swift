@@ -90,8 +90,10 @@ class MainViewController: UIViewController {
 //MARK: - Delegate
 
 extension MainViewController: MainViewDelegate {
+    
     func wakeUpSettingButtonTapped() {
         let moveVC = AlarmSettingViewController()
+        
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem) in
             self?.selectedTime = selectedTime
             self?.selectedMeridiem = selectedMeridiem
@@ -104,11 +106,23 @@ extension MainViewController: MainViewDelegate {
     
     func exerciseSettingButtonTapped() {
         let moveVC = TimeSettingViewController()
+        
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
+            // 이 클로저가 호출될 때 선택된 시간(selectedTime)을 받아올 수 있습니다.
+            self?.selectedTime = selectedTime
+            
+            let formattedTime = "\(selectedTime)"
+            self?.mainView.exerciseSetTheTimeLabel.text = formattedTime
+        }
         showTimeSettingView(moveVC)
     }
     
     func studySettingButtonTapped() {
-        let moveVC = TimeSettingViewController()
-        showTimeSettingView(moveVC)
+        
+    }
+    
+    private func updateExerciseTimeLabel(hour: Int, minute: Int, second: Int) {
+        let formattedTime = String(format: "%02d:%02d:%02d", hour, minute, second)
+        mainView.exerciseSetTheTimeLabel.text = formattedTime
     }
 }
