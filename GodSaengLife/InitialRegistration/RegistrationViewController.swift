@@ -14,7 +14,6 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Component
     private lazy var imageView: UIImageView = {
         let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.backgroundColor = .clear
         iv.image = self.userDefaultImage
         iv.clipsToBounds = true
@@ -26,7 +25,6 @@ final class RegistrationViewController: UIViewController {
     
     private lazy var nicknameTitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
         label.text = self.nicknameTitle
         label.font = .systemFont(ofSize: 18, weight: .regular)
@@ -35,7 +33,6 @@ final class RegistrationViewController: UIViewController {
     
     private lazy var nicknameTextField: UITextField = {
         let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
         tf.delegate = self
         tf.placeholder = self.nicknameTextFieldPlaceholder
         tf.textAlignment = .center
@@ -49,7 +46,6 @@ final class RegistrationViewController: UIViewController {
     
     private lazy var startButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .lightGray
         button.isEnabled = false
         button.setTitle(self.startButtonTitle, for: .normal)
@@ -65,7 +61,7 @@ final class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         configure(self.view)
         configure(imageView)
-        addSubViews()
+        addViews()
         setConstraints()
     }
     
@@ -84,12 +80,13 @@ final class RegistrationViewController: UIViewController {
         imageView.addGestureRecognizer(gesture)
     }
     
-    // MARK: - AddSubViews
-    private func addSubViews() {
-        view.addSubview(imageView)
-        view.addSubview(nicknameTitleLabel)
-        view.addSubview(nicknameTextField)
-        view.addSubview(startButton)
+    // MARK: - Add Views
+    private func addViews() {
+        let views: [UIView] = [imageView, nicknameTitleLabel, nicknameTextField, startButton]
+        views.forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     // MARK: - Constraints

@@ -20,7 +20,6 @@ final class TimeSettingViewController: UIViewController {
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
         let picker = UIPickerView()
-        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.dataSource = self
         picker.delegate = self
         return picker
@@ -28,7 +27,6 @@ final class TimeSettingViewController: UIViewController {
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("확인", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
@@ -40,19 +38,26 @@ final class TimeSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        addViews()
         setConstraints()
+    }
+    
+    private func addViews() {
+        let views: [UIView] = [timePickerView, saveButton]
+        views.forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     // MARK: - Constraints
     private func setConstraints() {
-        view.addSubview(timePickerView)
         NSLayoutConstraint.activate([
             timePickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight / 8),
             timePickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             timePickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             timePickerView.heightAnchor.constraint(equalToConstant: (screenHeight / 8) + 45),
         ])
-        view.addSubview(saveButton)
         NSLayoutConstraint.activate([
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
