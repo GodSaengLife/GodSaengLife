@@ -8,8 +8,10 @@
 import UIKit
 
 class AlarmSettingViewController: UIViewController {
+    // MARK: - Constants
     private let screenHeight = UIScreen.main.bounds.size.height
     
+    // MARK: - Components
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.preferredDatePickerStyle = .wheels
@@ -25,6 +27,7 @@ class AlarmSettingViewController: UIViewController {
         return button
     }()
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -32,6 +35,7 @@ class AlarmSettingViewController: UIViewController {
         setConstraints()
     }
     
+    // MARK: - Add Views
     private func addViews() {
         let views: [UIView] = [datePicker, saveButton]
         views.forEach {
@@ -40,6 +44,7 @@ class AlarmSettingViewController: UIViewController {
         }
     }
     
+    // MARK: - Constraints
     private func setConstraints() {
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight / 8),

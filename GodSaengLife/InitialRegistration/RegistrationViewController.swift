@@ -151,7 +151,6 @@ final class RegistrationViewController: UIViewController {
             UserDefaults.standard.set(self.nickname, forKey: "nickname")
             guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
             let moveVC = MainViewController()
-            print(UserDefaults.standard.bool(forKey: "nickname"))
             sceneDelegate.changeRootViewController(moveVC)
         }
     }

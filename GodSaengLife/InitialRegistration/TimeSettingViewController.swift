@@ -9,15 +9,18 @@ import UIKit
 
 
 final class TimeSettingViewController: UIViewController {
-    private let screenHeight = UIScreen.main.bounds.size.height
-    private var hour = [Int](0...23)
-    private var minute = [Int](0...59)
-    private var second = [Int](0...59)
+    // MARK: - Properties
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
     
-    // MARK: - Component
+    // MARK: - Constants
+    private let screenHeight = UIScreen.main.bounds.size.height
+    private var hour = [Int](0...23)
+    private var minute = [Int](0...59)
+    private var second = [Int](0...59)
+    
+    // MARK: - Components
     private lazy var timePickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.dataSource = self
@@ -42,6 +45,7 @@ final class TimeSettingViewController: UIViewController {
         setConstraints()
     }
     
+    // MARK: - Add Views
     private func addViews() {
         let views: [UIView] = [timePickerView, saveButton]
         views.forEach {
