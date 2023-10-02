@@ -18,6 +18,7 @@ extension AlarmInfo {
 
     @NSManaged public var wakeUpTime: Date?
     @NSManaged public var isActive: Bool
+    @NSManaged public var createDate: Date?
 
 }
 

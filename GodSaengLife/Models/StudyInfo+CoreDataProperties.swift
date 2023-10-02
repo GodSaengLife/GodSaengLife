@@ -19,6 +19,7 @@ extension StudyInfo {
     @NSManaged public var totalTime: Date?
     @NSManaged public var currentTime: Date?
     @NSManaged public var isDone: Bool
+    @NSManaged public var createDate: Date?
 
 }
 
