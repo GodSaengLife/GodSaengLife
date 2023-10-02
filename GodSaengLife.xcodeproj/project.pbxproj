@@ -12,13 +12,6 @@
 		059D92362AC45E6B007610D8 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92352AC45E6B007610D8 /* MainTabBarController.swift */; };
 		059D92382AC45F09007610D8 /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 059D92372AC45F09007610D8 /* NanumMyeongjo.otf */; };
 		059D923A2AC45F10007610D8 /* NanumMyeongjoBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 059D92392AC45F10007610D8 /* NanumMyeongjoBold.otf */; };
-		059D924A2ACA5C12007610D8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92492ACA5C12007610D8 /* DataManager.swift */; };
-		059D92512ACA6BAB007610D8 /* ExerciseInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D924B2ACA6BAB007610D8 /* ExerciseInfo+CoreDataClass.swift */; };
-		059D92522ACA6BAB007610D8 /* ExerciseInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D924C2ACA6BAB007610D8 /* ExerciseInfo+CoreDataProperties.swift */; };
-		059D92532ACA6BAB007610D8 /* StudyInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D924D2ACA6BAB007610D8 /* StudyInfo+CoreDataClass.swift */; };
-		059D92542ACA6BAB007610D8 /* StudyInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D924E2ACA6BAB007610D8 /* StudyInfo+CoreDataProperties.swift */; };
-		059D92552ACA6BAB007610D8 /* AlarmInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D924F2ACA6BAB007610D8 /* AlarmInfo+CoreDataClass.swift */; };
-		059D92562ACA6BAB007610D8 /* AlarmInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92502ACA6BAB007610D8 /* AlarmInfo+CoreDataProperties.swift */; };
 		27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F22AC162C8006E180B /* AppDelegate.swift */; };
 		27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F42AC162C8006E180B /* SceneDelegate.swift */; };
 		27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27F282FB2AC162C8006E180B /* GodSaengLife.xcdatamodeld */; };
@@ -45,13 +38,6 @@
 		059D92352AC45E6B007610D8 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		059D92372AC45F09007610D8 /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
 		059D92392AC45F10007610D8 /* NanumMyeongjoBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoBold.otf; sourceTree = "<group>"; };
-		059D92492ACA5C12007610D8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		059D924B2ACA6BAB007610D8 /* ExerciseInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		059D924C2ACA6BAB007610D8 /* ExerciseInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		059D924D2ACA6BAB007610D8 /* StudyInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		059D924E2ACA6BAB007610D8 /* StudyInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		059D924F2ACA6BAB007610D8 /* AlarmInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		059D92502ACA6BAB007610D8 /* AlarmInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		27F282EF2AC162C8006E180B /* GodSaengLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GodSaengLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F282F22AC162C8006E180B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F282F42AC162C8006E180B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,12 +74,6 @@
 		059D923B2ACA5A4E007610D8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				059D924B2ACA6BAB007610D8 /* ExerciseInfo+CoreDataClass.swift */,
-				059D924C2ACA6BAB007610D8 /* ExerciseInfo+CoreDataProperties.swift */,
-				059D924D2ACA6BAB007610D8 /* StudyInfo+CoreDataClass.swift */,
-				059D924E2ACA6BAB007610D8 /* StudyInfo+CoreDataProperties.swift */,
-				059D924F2ACA6BAB007610D8 /* AlarmInfo+CoreDataClass.swift */,
-				059D92502ACA6BAB007610D8 /* AlarmInfo+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -101,7 +81,6 @@
 		059D92482ACA5BFD007610D8 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				059D92492ACA5C12007610D8 /* DataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -281,22 +260,15 @@
 				058818B22AC3CD200097A311 /* AlarmSettingViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				27F283122AC164C1006E180B /* AlarmLandingViewController.swift in Sources */,
-				059D92562ACA6BAB007610D8 /* AlarmInfo+CoreDataProperties.swift in Sources */,
-				059D92532ACA6BAB007610D8 /* StudyInfo+CoreDataClass.swift in Sources */,
 				7B2191462AC278850096400C /* MainView.swift in Sources */,
 				6968A7EE2AC1A419004369BF /* NotificationManager.swift in Sources */,
 				055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
 				27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */,
-				059D92552ACA6BAB007610D8 /* AlarmInfo+CoreDataClass.swift in Sources */,
 				059D92362AC45E6B007610D8 /* MainTabBarController.swift in Sources */,
 				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
-				059D92512ACA6BAB007610D8 /* ExerciseInfo+CoreDataClass.swift in Sources */,
-				059D92542ACA6BAB007610D8 /* StudyInfo+CoreDataProperties.swift in Sources */,
 				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
-				059D92522ACA6BAB007610D8 /* ExerciseInfo+CoreDataProperties.swift in Sources */,
-				059D924A2ACA5C12007610D8 /* DataManager.swift in Sources */,
 				27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */,
 				7B2191442AC17C0C0096400C /* MainViewController.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
 import UIKit
 
 
+
 final class TimeSettingViewController: UIViewController {
     private let screenHeight = UIScreen.main.bounds.size.height
     private var hour = [Int](0...23)
@@ -16,6 +17,10 @@ final class TimeSettingViewController: UIViewController {
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
+    private var computedHour: Int { selectedHour * 3600 }
+    private var computedMinute: Int { selectedMinute * 60 }
+    private var computedSecond: Int { selectedSecond }
+    private var computedTime: Int { computedHour + computedMinute + computedSecond }
     
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
@@ -80,7 +85,7 @@ extension TimeSettingViewController: UIPickerViewDataSource {
         case 1:
             return minute.count
         case 2:
-            return minute.count
+            return second.count
         default:
             return 0
         }
@@ -106,7 +111,7 @@ extension TimeSettingViewController: UIPickerViewDataSource {
         case 1:
             selectedMinute = minute[row]
         case 2:
-            selectedMinute = second[row]
+            selectedSecond = second[row]
         default:
             break
         }
