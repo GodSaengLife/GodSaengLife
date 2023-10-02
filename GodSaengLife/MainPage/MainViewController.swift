@@ -18,16 +18,10 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.delegate = self
-        alarmSwitchIsOn()
+//        mainView.delegate = self
         
-    }
-    
-    // 버튼을 누르고 난 후
-    override func viewWillAppear(_ animated: Bool) {
-        changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
-        changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
-        changeButtonColor(button: mainView.exerciseDoneButton, backgroundColor: .white, titleColor: .systemBlue)
+        alarmSwitchIsOn()
+        setTimeSettingView()
     }
     
     //MARK: - Properties
@@ -46,6 +40,7 @@ class MainViewController: UIViewController {
     // 버튼을 눌렀을 때의 액션
     
     @objc func onClickSwitch(sender: UISwitch) {
+        // 알람 스위치 on/off에 따라 색상 변경
         if sender.isOn {
             mainView.wakeUpTimeLabel.textColor = .black
             mainView.wakeUpTimeMeridiemLabel.textColor = .black
@@ -55,16 +50,54 @@ class MainViewController: UIViewController {
         }
     }
     
+    @objc private func wakeUpSettingButtonTapped() {
+        // 기상 시간 세팅버튼
+        let moveVC = AlarmSettingViewController()
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem) in
+            self?.selectedTime = selectedTime
+            self?.selectedMeridiem = selectedMeridiem
+            
+            self?.mainView.wakeUpTimeLabel.text = selectedTime
+            self?.mainView.wakeUpTimeMeridiemLabel.text = selectedMeridiem
+        }
+        showAlarmSettingView(moveVC)
+    }
+    
+    @objc private func exerciseSettingButtonTapped() {
+        // 운동 시간 세팅버튼
+        let moveVC = TimeSettingViewController()
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
+            self?.selectedTime = selectedTime
+            
+            let formattedTime = "\(selectedTime)"
+            self?.mainView.exerciseSetTheTimeLabel.text = formattedTime
+        }
+        showTimeSettingView(moveVC)
+    }
+    
+    @objc private func studySettingButtonTapped() {
+        // 공부 시간 세팅버튼
+        let moveVC = TimeSettingViewController()
+        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
+            self?.selectedTime = selectedTime
+            
+            let formattedTime = "\(selectedTime)"
+            self?.mainView.studySetTheTimeLabel.text = formattedTime
+        }
+        showTimeSettingView(moveVC)
+    }
+    
+
     //MARK: - Settings
     
     private func alarmSwitchIsOn() {
         mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
     }
     
-    
-    private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
-        button.backgroundColor = backgroundColor
-        button.setTitleColor(titleColor, for: .normal)
+    private func setTimeSettingView() {
+        mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
+        mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
+        mainView.studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
     }
     
     private func showAlarmSettingView(_ viewController: UIViewController) {
@@ -99,54 +132,13 @@ class MainViewController: UIViewController {
         present(naviVC, animated: true)
     }
     
-    
+    private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(titleColor, for: .normal)
+    }
     
     private func setStopWatchAttribute(_ button: UIButton) {
         
     }
-    
-}
 
-
-//MARK: - Delegate
-
-extension MainViewController: MainViewDelegate {
-    
-    func wakeUpSettingButtonTapped() {
-        let moveVC = AlarmSettingViewController()
-        
-        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem) in
-            self?.selectedTime = selectedTime
-            self?.selectedMeridiem = selectedMeridiem
-            
-            self?.mainView.wakeUpTimeLabel.text = selectedTime
-            self?.mainView.wakeUpTimeMeridiemLabel.text = selectedMeridiem
-        }
-        showAlarmSettingView(moveVC)
-    }
-    
-    func exerciseSettingButtonTapped() {
-        let moveVC = TimeSettingViewController()
-        
-        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
-            self?.selectedTime = selectedTime
-            
-            let formattedTime = "\(selectedTime)"
-            self?.mainView.exerciseSetTheTimeLabel.text = formattedTime
-        }
-        showTimeSettingView(moveVC)
-    }
-    
-    func studySettingButtonTapped() {
-        let moveVC = TimeSettingViewController()
-        
-        moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
-            self?.selectedTime = selectedTime
-            
-            let formattedTime = "\(selectedTime)"
-            self?.mainView.studySetTheTimeLabel.text = formattedTime
-        }
-        showTimeSettingView(moveVC)
-    }
-    
 }

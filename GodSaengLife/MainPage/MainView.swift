@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol MainViewDelegate: AnyObject {
-    func wakeUpSettingButtonTapped()
-    func exerciseSettingButtonTapped()
-    func studySettingButtonTapped()
-}
-
 class MainView: UIView {
     
     //MARK: - Life Cycle
@@ -21,7 +15,6 @@ class MainView: UIView {
         super.init(frame: frame)
         
         configureUI()
-        setTimeSettingView()
     }
     
     required init?(coder: NSCoder) {
@@ -30,8 +23,6 @@ class MainView: UIView {
     
     
     //MARK: - Properties
-    
-    weak var delegate: MainViewDelegate?
     
     lazy var safeArea = safeAreaLayoutGuide
     
@@ -419,30 +410,6 @@ class MainView: UIView {
         
         return button
     }()
-    
-    
-    //MARK: - Settings
-    
-    private func setTimeSettingView() {
-        wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
-        exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
-        studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
-    }
-    
-    
-    // MARK: - Actions
-    @objc private func wakeUpSettingButtonTapped() {
-        delegate?.wakeUpSettingButtonTapped()
-    }
-    
-    @objc private func exerciseSettingButtonTapped() {
-        delegate?.exerciseSettingButtonTapped()
-    }
-    
-    @objc private func studySettingButtonTapped() {
-        delegate?.studySettingButtonTapped()
-    }
-
     
     //MARK: - UI
     
