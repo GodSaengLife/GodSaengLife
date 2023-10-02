@@ -99,7 +99,6 @@
 		27F282E62AC162C8006E180B = {
 			isa = PBXGroup;
 			children = (
-				059D923B2ACA5A4E007610D8 /* Models */,
 				27F282F12AC162C8006E180B /* GodSaengLife */,
 				27F282F02AC162C8006E180B /* Products */,
 			);
@@ -120,6 +119,7 @@
 				27F282F42AC162C8006E180B /* SceneDelegate.swift */,
 				6968A7ED2AC1A419004369BF /* NotificationManager.swift */,
 				059D92352AC45E6B007610D8 /* MainTabBarController.swift */,
+				059D923B2ACA5A4E007610D8 /* Models */,
 				27F2830C2AC16486006E180B /* AlarmLandingPage */,
 				27F2830B2AC16470006E180B /* RecordCheck */,
 				27F2830A2AC16445006E180B /* MainPage */,
