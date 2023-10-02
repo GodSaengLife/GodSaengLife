@@ -18,6 +18,7 @@
 		059D92452ACA5B8E007610D8 /* StudyInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D923F2ACA5B8E007610D8 /* StudyInfo+CoreDataProperties.swift */; };
 		059D92462ACA5B8E007610D8 /* AlarmInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92402ACA5B8E007610D8 /* AlarmInfo+CoreDataClass.swift */; };
 		059D92472ACA5B8E007610D8 /* AlarmInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92412ACA5B8E007610D8 /* AlarmInfo+CoreDataProperties.swift */; };
+		059D924A2ACA5C12007610D8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059D92492ACA5C12007610D8 /* DataManager.swift */; };
 		27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F22AC162C8006E180B /* AppDelegate.swift */; };
 		27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F282F42AC162C8006E180B /* SceneDelegate.swift */; };
 		27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27F282FB2AC162C8006E180B /* GodSaengLife.xcdatamodeld */; };
@@ -50,6 +51,7 @@
 		059D923F2ACA5B8E007610D8 /* StudyInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		059D92402ACA5B8E007610D8 /* AlarmInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		059D92412ACA5B8E007610D8 /* AlarmInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		059D92492ACA5C12007610D8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		27F282EF2AC162C8006E180B /* GodSaengLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GodSaengLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F282F22AC162C8006E180B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27F282F42AC162C8006E180B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		059D92482ACA5BFD007610D8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				059D92492ACA5C12007610D8 /* DataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		27F282E62AC162C8006E180B = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +129,7 @@
 				27F282F42AC162C8006E180B /* SceneDelegate.swift */,
 				6968A7ED2AC1A419004369BF /* NotificationManager.swift */,
 				059D92352AC45E6B007610D8 /* MainTabBarController.swift */,
+				059D92482ACA5BFD007610D8 /* Manager */,
 				059D923B2ACA5A4E007610D8 /* Models */,
 				27F2830C2AC16486006E180B /* AlarmLandingPage */,
 				27F2830B2AC16470006E180B /* RecordCheck */,
@@ -284,6 +295,7 @@
 				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F283162AC164C7006E180B /* RegistrationViewController.swift in Sources */,
 				27F282F32AC162C8006E180B /* AppDelegate.swift in Sources */,
+				059D924A2ACA5C12007610D8 /* DataManager.swift in Sources */,
 				27F282F52AC162C8006E180B /* SceneDelegate.swift in Sources */,
 				7B2191442AC17C0C0096400C /* MainViewController.swift in Sources */,
 				059D92432ACA5B8E007610D8 /* ExerciseInfo+CoreDataProperties.swift in Sources */,
