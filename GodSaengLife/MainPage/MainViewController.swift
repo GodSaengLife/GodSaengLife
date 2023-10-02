@@ -19,6 +19,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mainView.delegate = self
+        alarmSwitchIsOn()
+        
     }
     
     // 버튼을 누르고 난 후
@@ -35,13 +37,30 @@ class MainViewController: UIViewController {
     var selectedTime: String = ""
     var selectedMeridiem: String = ""
     
+    private var timer: Timer?
+    private var startTime: Date?
+    private var elapsedTime: TimeInterval = 0
+    
     
     //MARK: - Actions
     // 버튼을 눌렀을 때의 액션
     
-    
+    @objc func onClickSwitch(sender: UISwitch) {
+        if sender.isOn {
+            mainView.wakeUpTimeLabel.textColor = .black
+            mainView.wakeUpTimeMeridiemLabel.textColor = .black
+        } else {
+            mainView.wakeUpTimeLabel.textColor = .lightGray
+            mainView.wakeUpTimeMeridiemLabel.textColor = .lightGray
+        }
+    }
     
     //MARK: - Settings
+    
+    private func alarmSwitchIsOn() {
+        mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
+    }
+    
     
     private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
         button.backgroundColor = backgroundColor
@@ -80,7 +99,9 @@ class MainViewController: UIViewController {
         present(naviVC, animated: true)
     }
     
-    private func timerSettingView(_ button: UIButton) {
+    
+    
+    private func setStopWatchAttribute(_ button: UIButton) {
         
     }
     
@@ -108,7 +129,6 @@ extension MainViewController: MainViewDelegate {
         let moveVC = TimeSettingViewController()
         
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
-            // 이 클로저가 호출될 때 선택된 시간(selectedTime)을 받아올 수 있습니다.
             self?.selectedTime = selectedTime
             
             let formattedTime = "\(selectedTime)"
@@ -121,7 +141,6 @@ extension MainViewController: MainViewDelegate {
         let moveVC = TimeSettingViewController()
         
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
-            // 이 클로저가 호출될 때 선택된 시간(selectedTime)을 받아올 수 있습니다.
             self?.selectedTime = selectedTime
             
             let formattedTime = "\(selectedTime)"
@@ -129,4 +148,5 @@ extension MainViewController: MainViewDelegate {
         }
         showTimeSettingView(moveVC)
     }
+    
 }

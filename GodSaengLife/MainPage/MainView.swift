@@ -179,7 +179,7 @@ class MainView: UIView {
     
     let wakeUpTimeMeridiemLabel: UILabel = {
         let label = UILabel()
-        label.text = "AM"
+        label.text = "오전"
         label.textColor = .darkGray
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
         
@@ -197,6 +197,7 @@ class MainView: UIView {
     
     let alarmSwitchButton: UISwitch = {
         let button = UISwitch()
+        button.isOn = true
         
         return button
     }()
