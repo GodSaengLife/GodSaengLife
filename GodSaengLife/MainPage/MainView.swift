@@ -222,7 +222,7 @@ class MainView: UIView {
         return view
     }()
     
-    let exerciseStartButton: UIButton = {
+    lazy var  exerciseStartButton: UIButton = {
         let button = UIButton()
         button.setTitle("시작", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
@@ -296,7 +296,7 @@ class MainView: UIView {
         let label = UILabel()
         label.text = "00:00:00"
         label.textColor = .lightGray
-        label.textAlignment = .right
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 44, weight: .thin)
         
         return label
@@ -730,7 +730,7 @@ class MainView: UIView {
         
         exerciseTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            exerciseTimeLabel.widthAnchor.constraint(equalToConstant: 200),
+            exerciseTimeLabel.widthAnchor.constraint(equalToConstant: 300),
             exerciseTimeLabel.heightAnchor.constraint(equalToConstant: 32),
             exerciseTimeLabel.topAnchor.constraint(equalTo: exerciseTimeSectionTitleLabel.bottomAnchor, constant: 13),
             exerciseTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)

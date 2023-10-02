@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct StopWatch {
-var timer: Timer
-var counter: Double
+struct Stopwatch {
+    var timer: Timer?
+    var isStarted: Bool = false
+    var counter: Int = 0
+    
+    
 }
 
