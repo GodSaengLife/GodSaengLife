@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
         alarmSwitchIsOn()
         setTimeSettingView()
         setStopwatchButtons()
+        stopwatchDoneButtonisEnabaled()
     }
     
     
@@ -80,6 +81,12 @@ class MainViewController: UIViewController {
     
     
     //MARK: - Settings :: Stopwatch
+    
+    // 초기에 완료 버튼 비활성화
+    private func stopwatchDoneButtonisEnabaled(){
+        mainView.exerciseDoneButton.isEnabled = false
+        mainView.studyDoneButton.isEnabled = false
+    }
     
     // 운동용 타이머 생성
     private func createExerciseTimer(){
@@ -211,10 +218,11 @@ class MainViewController: UIViewController {
         print ("운동 시작 버튼 탭")
         
         if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
-                createExerciseTimer()
-                mainView.exerciseTimeLabel.textColor = .black
-                exerciseStopwatch.isStarted = true
-            }
+            createExerciseTimer()
+            mainView.exerciseDoneButton.isEnabled = true
+            mainView.exerciseTimeLabel.textColor = .black
+            exerciseStopwatch.isStarted = true
+        }
     }
     
     @objc func exerciseStopButtonTapped(_ sender: UIButton) {
@@ -262,10 +270,11 @@ class MainViewController: UIViewController {
         print ("공부 시작 버튼 탭")
         
         if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
-                createStudyTimer()
-                mainView.studyTimeLabel.textColor = .black
+            createStudyTimer()
+            mainView.studyDoneButton.isEnabled = true
+            mainView.studyTimeLabel.textColor = .black
             studyStopwatch.isStarted = true
-            }
+        }
     }
     
     @objc func studyStopButtonTapped(_ sender: UIButton) {
@@ -280,7 +289,7 @@ class MainViewController: UIViewController {
     @objc func studyDoneButtonTapped(_ sender: UIButton) {
         print ("공부 완료 버튼 탭")
         
-        let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n공부를 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "완료", style: .default, handler: { (_) in
             
