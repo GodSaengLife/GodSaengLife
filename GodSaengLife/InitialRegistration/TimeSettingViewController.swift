@@ -12,7 +12,6 @@ enum SelectedCategory {
     case exercise
 }
 
-
 final class TimeSettingViewController: UIViewController {
     private let screenHeight = UIScreen.main.bounds.size.height
     private var selectedCategory: SelectedCategory?
@@ -26,6 +25,18 @@ final class TimeSettingViewController: UIViewController {
     private var computedMinute: Int { selectedMinute * 60 }
     private var computedSecond: Int { selectedSecond }
     private var computedTime: Int { computedHour + computedMinute + computedSecond }
+    var studyInfo: StudyInfo? {
+        didSet {
+            let time = DataManager.shared.convertTime(toSeconds: studyInfo?.objectiveTime)
+            setSelectRow(time: time)
+        }
+    }
+    var exerciseInfo: ExerciseInfo? {
+        didSet {
+            let time = DataManager.shared.convertTime(toSeconds: exerciseInfo?.objectiveTime)
+            setSelectRow(time: time)
+        }
+    }
     
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
@@ -71,6 +82,14 @@ final class TimeSettingViewController: UIViewController {
         ])
     }
     
+    // MARK: - Setting
+    private func setSelectRow(time: (Int, Int, Int)) {
+        timePickerView.selectRow(time.0, inComponent: 0, animated: true)
+        timePickerView.selectRow(time.1, inComponent: 1, animated: true)
+        timePickerView.selectRow(time.2, inComponent: 2, animated: true)
+    }
+
+    
     // MARK: - Actions
     func setSelectedCategory(_ selectedCategory: SelectedCategory) {
         self.selectedCategory = selectedCategory
@@ -108,7 +127,9 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             return 0
         }
     }
-    
+}
+
+extension TimeSettingViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
@@ -119,9 +140,9 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             return "\(second[row])초"
         default:
             return ""
-            
         }
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
@@ -134,11 +155,8 @@ extension TimeSettingViewController: UIPickerViewDataSource {
             break
         }
     }
+    
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return screenHeight / 14
     }
-}
-
-extension TimeSettingViewController: UIPickerViewDelegate {
-    
 }

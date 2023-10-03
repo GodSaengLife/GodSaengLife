@@ -41,4 +41,12 @@ final class DataManager {
         self.exerciseInfo.objectiveTime = exerciseInfo.objectiveTime
     }
 
+    func convertTime(toSeconds: Int?) -> (Int, Int, Int) {
+        guard let seconds = toSeconds else { return (0, 0, 0) }
+        let hour = seconds / 3600
+        let minute = (seconds % 3600) / 60
+        let second = (seconds % 3600) % 60
+        print("\(hour)시간 \(minute)분 \(second)초 입니다.")
+        return (hour, minute, second)
+    }
 }
