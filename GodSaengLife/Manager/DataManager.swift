@@ -46,7 +46,11 @@ final class DataManager {
         let hour = seconds / 3600
         let minute = (seconds % 3600) / 60
         let second = (seconds % 3600) % 60
-        print("\(hour)시간 \(minute)분 \(second)초 입니다.")
         return (hour, minute, second)
+    }
+    
+    func convertSeconds(toHour: Int, toMinute: Int, toSeconds: Int) -> Int {
+        let seconds = (toHour * 3600) + (toMinute * 60) + toSeconds
+        return seconds
     }
 }
