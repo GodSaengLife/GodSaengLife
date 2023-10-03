@@ -220,12 +220,21 @@ class MainViewController: UIViewController {
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
         
-        if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
-            createExerciseTimer()
-            mainView.exerciseDoneButton.isEnabled = true
-            mainView.exerciseStopButton.isEnabled = true
-            mainView.exerciseTimeLabel.textColor = .black
-            exerciseStopwatch.isStarted = true
+        // 운동시간이 설정되어 있는지 확인
+        if selectedTime.isEmpty {
+            let alert = UIAlertController(title: "운동 시간 미설정", message: "운동 시간을 먼저 설정해주세요.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { (_) in
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // 운동시간이 설정되어 있는 경우 타이머 작동
+            if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
+                createExerciseTimer()
+                mainView.exerciseDoneButton.isEnabled = true
+                mainView.exerciseStopButton.isEnabled = true
+                mainView.exerciseTimeLabel.textColor = .black
+                exerciseStopwatch.isStarted = true
+            }
         }
     }
     
