@@ -9,9 +9,9 @@ import UIKit
 
 final class TimeSettingViewController: UIViewController {
     private let screenHeight = UIScreen.main.bounds.size.height
-    private var hour = [Int](0...23)
-    private var minute = [Int](0...59)
-    private var second = [Int](0...59)
+    private var hourRange = [Int](0...23)
+    private var minuteRange = [Int](0...59)
+    private var secondsRange = [Int](0...59)
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
@@ -106,11 +106,11 @@ extension TimeSettingViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return hour.count
+            return hourRange.count
         case 1:
-            return minute.count
+            return minuteRange.count
         case 2:
-            return second.count
+            return secondsRange.count
         default:
             return 0
         }
@@ -121,11 +121,11 @@ extension TimeSettingViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return "\(hour[row])시간"
+            return "\(hourRange[row])시간"
         case 1:
-            return "\(minute[row])분"
+            return "\(minuteRange[row])분"
         case 2:
-            return "\(second[row])초"
+            return "\(secondsRange[row])초"
         default:
             return ""
         }
@@ -134,11 +134,11 @@ extension TimeSettingViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            selectedHour = hour[row]
+            selectedHour = hourRange[row]
         case 1:
-            selectedMinute = minute[row]
+            selectedMinute = minuteRange[row]
         case 2:
-            selectedSecond = second[row]
+            selectedSecond = secondsRange[row]
         default:
             break
         }
