@@ -281,7 +281,7 @@ class MainView: UIView {
     
     let exerciseSetTheTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "설정 시간"
+        label.text = "운동 목표 시간"
         label.textColor = .lightGray
         label.textAlignment = .center
         label.layer.cornerRadius = 10
@@ -344,7 +344,7 @@ class MainView: UIView {
     
     let studySetTheTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "설정 시간"
+        label.text = "공부 목표 시간"
         label.textColor = .lightGray
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)

@@ -216,8 +216,8 @@ class MainViewController: UIViewController {
        
         // 설정된 시간과 타이머 시간이 동일한 경우 텍스트 컬러 변경
         if timeString == selectedTime {
-            mainView.exerciseTimeLabel.textColor = .systemBlue
-            mainView.exerciseTimeLabel.text = "목표 달성!"
+//            mainView.exerciseTimeLabel.textColor = .systemBlue
+            mainView.exerciseSetTheTimeLabel.text = "목표 달성!"
             mainView.exerciseSetTheTimeLabel.textColor = .gray
             mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
         }
@@ -239,10 +239,11 @@ class MainViewController: UIViewController {
             // 운동시간이 설정되어 있는 경우 타이머 작동
             if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
                 createExerciseTimer()
-                mainView.exerciseDoneButton.isEnabled = true
-                mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeLabel.textColor = .black
                 exerciseStopwatch.isStarted = true
+                mainView.exerciseDoneButton.isEnabled = true
+                mainView.exerciseStopButton.isEnabled = true
+                mainView.exerciseTimeSettingButton.isEnabled = false
             }
         }
     }
@@ -262,13 +263,18 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
-            
             self.exerciseStopwatch.counter = 0
             self.exerciseStopwatch.isStarted = false
             self.exerciseStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
+            
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
+            
+            self.mainView.exerciseSetTheTimeLabel.text = "운동 목표 시간"
+            self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            self.mainView.exerciseTimeSettingButton.isEnabled = true
         }))
+        
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         
         self.present(alert, animated: true, completion: nil)
@@ -287,7 +293,7 @@ class MainViewController: UIViewController {
         
         // 설정된 시간과 타이머 시간이 동일한 경우 텍스트 컬러 변경
         if timeString == selectedTime {
-            mainView.studyTimeLabel.textColor = .systemBlue
+//            mainView.studyTimeLabel.textColor = .systemBlue
             mainView.studySetTheTimeLabel.text = "목표 달성!"
             mainView.studySetTheTimeLabel.textColor = .gray
             mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
