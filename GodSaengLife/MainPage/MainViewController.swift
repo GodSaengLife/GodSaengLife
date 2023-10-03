@@ -18,12 +18,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        mainView.delegate = self
         
         alarmSwitchIsOn()
         setTimeSettingView()
         setStopwatchButtons()
     }
+    
     
     //MARK: - Properties
     
@@ -34,13 +34,52 @@ class MainViewController: UIViewController {
     var selectedTime: String = ""
     var selectedMeridiem: String = ""
     
-    var elapsedMiliSecond = 0
-    var elapsedSecond = 0
-    var elapsedMinute = 0
+    
+    //MARK: - Settings
+    
+    private func alarmSwitchIsOn() {
+        mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
+    }
+    
+    private func setTimeSettingView() {
+        mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
+        mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
+        mainView.studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
+    }
+    
+    private func showAlarmSettingView(_ viewController: UIViewController) {
+        viewController.title = "기상 시간 설정"
+        
+        let naviVC = UINavigationController(rootViewController: viewController)
+        naviVC.modalPresentationStyle = .pageSheet
+        
+        let pageSheet = naviVC.presentationController as? UISheetPresentationController
+        pageSheet?.detents = [.medium()]                    // Sheet의 멈추는 높이 :: 절반 높이에서 멈춤
+        pageSheet?.selectedDetentIdentifier = .medium
+        pageSheet?.prefersGrabberVisible = false
+        pageSheet?.preferredCornerRadius = 8
+        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
+        
+        present(naviVC, animated: true)
+    }
+    
+    private func showTimeSettingView(_ viewConroller: UIViewController) {
+        viewConroller.title = "목표 시간 설정"
+        
+        let naviVC = UINavigationController(rootViewController: viewConroller)
+        naviVC.modalPresentationStyle = .pageSheet
+        
+        let pageSheet = naviVC.presentationController as? UISheetPresentationController
+        pageSheet?.detents = [.medium()]
+        pageSheet?.selectedDetentIdentifier = .medium
+        pageSheet?.prefersGrabberVisible = false
+        pageSheet?.preferredCornerRadius = 8
+        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
+        present(naviVC, animated: true)
+    }
     
     
     //MARK: - Actions
-    // 버튼을 눌렀을 때의 액션
     
     @objc func onClickSwitch(sender: UISwitch) {
         // 알람 스위치 on/off에 따라 색상 변경
@@ -92,49 +131,33 @@ class MainViewController: UIViewController {
     
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
-        var isStarted = exerciseStopwatch.isStarted
         
-        // 타이머가 생성되어 있는지 확인
-        if exerciseStopwatch.timer == nil {
-            createExerciseTimer()
-        }
-        isStarted = !isStarted
-        if(isStarted){
-            mainView.exerciseStartButton.backgroundColor = .systemBlue
-            mainView.exerciseStartButton.setTitleColor(UIColor.white, for: .normal)
-            mainView.exerciseTimeLabel.textColor = .black
-        } else {
-            mainView.exerciseStartButton.backgroundColor = .white
-            mainView.exerciseStartButton.setTitleColor(UIColor.systemBlue, for: .normal)
-            mainView.exerciseTimeLabel.textColor = .lightGray
-        }
+        if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
+                createExerciseTimer()
+                mainView.exerciseTimeLabel.textColor = .black
+                exerciseStopwatch.isStarted = true
+            }
     }
     
     @objc func exerciseStopButtonTapped(_ sender: UIButton) {
         print ("운동 정지 버튼 탭")
-        exerciseStopwatch.timer?.invalidate()
-        exerciseStopwatch.timer = nil
-        
-        // 시작 버튼 색상 변경
-        mainView.exerciseStartButton.backgroundColor = .white
-        mainView.exerciseStartButton.setTitleColor(UIColor.systemBlue, for: .normal)
-        
-        // 정지 버튼 색상 변경
-        mainView.exerciseStopButton.backgroundColor = .systemRed
-        mainView.exerciseStopButton.setTitleColor(UIColor.white, for: .normal)
-        
-        // 타임 레이블 색상 변경
-        mainView.exerciseTimeLabel.textColor = .lightGray
+        if exerciseStopwatch.isStarted {
+            exerciseStopwatch.isStarted = false
+            exerciseStopwatch.timer?.invalidate()
+            mainView.exerciseTimeLabel.textColor = .gray
+        }
     }
     
     @objc func exerciseDoneButtonTapped(_ sender: UIButton) {
         print ("운동 완료 버튼 탭")
-       
+        
         let alert = UIAlertController(title: "운동하기 종료", message: "종료를 누르면 타이머가 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
+            
             self.exerciseStopwatch.counter = 0
+            self.exerciseStopwatch.isStarted = false
             self.exerciseStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
@@ -147,6 +170,7 @@ class MainViewController: UIViewController {
     
     @objc func studyStartButtonTapped(_ sender: UIButton) {
         print ("공부 시작 버튼 탭")
+        
         var isStarted = studyStopwatch.isStarted
         
         // 타이머가 생성되어 있는지 확인
@@ -155,12 +179,8 @@ class MainViewController: UIViewController {
         }
         isStarted = !isStarted
         if(isStarted){
-            mainView.studyStartButton.backgroundColor = .systemBlue
-            mainView.studyStartButton.setTitleColor(UIColor.white, for: .normal)
             mainView.studyTimeLabel.textColor = .black
         } else {
-            mainView.studyStartButton.backgroundColor = .white
-            mainView.studyStartButton.setTitleColor(UIColor.systemBlue, for: .normal)
             mainView.studyTimeLabel.textColor = .lightGray
         }
     }
@@ -188,72 +208,26 @@ class MainViewController: UIViewController {
     }
     
     
-    //MARK: - Settings
-    
-    private func alarmSwitchIsOn() {
-        mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
-    }
-    
-    private func setTimeSettingView() {
-        mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
-        mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
-        mainView.studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
-    }
-    
-    
-    //MARK: - Settings:: Time
-    
-    private func showAlarmSettingView(_ viewController: UIViewController) {
-        viewController.title = "기상 시간 설정"
-        
-        let naviVC = UINavigationController(rootViewController: viewController)
-        naviVC.modalPresentationStyle = .pageSheet
-        
-        let pageSheet = naviVC.presentationController as? UISheetPresentationController
-        pageSheet?.detents = [.medium()]                    // Sheet의 멈추는 높이 :: 절반 높이에서 멈춤
-        pageSheet?.selectedDetentIdentifier = .medium
-        pageSheet?.prefersGrabberVisible = false
-        pageSheet?.preferredCornerRadius = 8
-        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
-        
-        present(naviVC, animated: true)
-    }
-    
-    private func showTimeSettingView(_ viewConroller: UIViewController) {
-        viewConroller.title = "목표 시간 설정"
-        
-        let naviVC = UINavigationController(rootViewController: viewConroller)
-        naviVC.modalPresentationStyle = .pageSheet
-        
-        let pageSheet = naviVC.presentationController as? UISheetPresentationController
-        pageSheet?.detents = [.medium()]
-        pageSheet?.selectedDetentIdentifier = .medium
-        pageSheet?.prefersGrabberVisible = false
-        pageSheet?.preferredCornerRadius = 8
-        pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
-        present(naviVC, animated: true)
-    }
     
     
     //MARK: - Setting:: Stopwatch
     
     private func setStopwatchButtons(){
         startExerciseStopwatch()
-//        stopExerciseStopwatch()
+        stopExerciseStopwatch()
         doneExerciseStopwatch()
         
         startStudyStopwatch()
+        
     }
     
     private func startExerciseStopwatch() {
         mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStartButtonTapped(_:)), for: .touchUpInside)
     }
-
-//    private func stopExerciseStopwatch() {
-//        mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStopButtonTapped(_:)), for: .touchUpInside)
-//    }
     
-    
+    private func stopExerciseStopwatch() {
+        mainView.exerciseStopButton.addTarget(self, action: #selector(exerciseStopButtonTapped(_:)), for: .touchUpInside)
+    }
     
     private func doneExerciseStopwatch(){
         mainView.exerciseDoneButton.addTarget(self, action: #selector(exerciseDoneButtonTapped(_:)), for: .touchUpInside)
@@ -265,11 +239,15 @@ class MainViewController: UIViewController {
     
     
     
-    
-    
     private func startStudyStopwatch() {
         mainView.studyStartButton.addTarget(self, action: #selector(studyStartButtonTapped(_:)), for: .touchUpInside)
     }
+    
+    
+    
+    
+    
+    
     
     
     private func secondsToHoursMinitesSeconds(seconds: Int) -> (Int, Int, Int) {
@@ -296,5 +274,11 @@ class MainViewController: UIViewController {
         // 공부용 타이머 생성
         studyStopwatch.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateStudyTimeCounting), userInfo: nil, repeats: true)
     }
+    
+    
+    //MARK: - Settings
+    
+    
+    
     
 }
