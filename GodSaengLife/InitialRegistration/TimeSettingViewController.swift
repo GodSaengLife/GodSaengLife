@@ -68,7 +68,7 @@ final class TimeSettingViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func saveButtonTapped() {
-        let selectedTime = String(format: "%02d시간 %02d분 %02d초", selectedHour, selectedMinute, selectedSecond)
+        let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
         onTimeSelected?(selectedTime, "")
         
         self.dismiss(animated: true)

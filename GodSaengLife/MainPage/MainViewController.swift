@@ -266,13 +266,23 @@ class MainViewController: UIViewController {
     }
     
     
-    //MARK: - Actions :: Exercise Stopwatch
+    //MARK: - Actions :: Study Stopwatch
     
     @objc func updateStudyTimeCounting() -> Void {
         studyStopwatch.counter = studyStopwatch.counter + 1
         
         let time = secondsToHoursMinitesSeconds(seconds: studyStopwatch.counter)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
+        
+        print("timeString: \(timeString), selectedTime: \(selectedTime)")
+        
+        // 설정된 시간과 타이머 시간이 동일한 경우 텍스트 컬러 변경
+        if timeString == selectedTime {
+            mainView.studyTimeLabel.textColor = .systemBlue
+            mainView.studySetTheTimeLabel.text = "목표 달성!"
+            mainView.studySetTheTimeLabel.textColor = .gray
+            mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+        }
         
         DispatchQueue.main.async {
             self.mainView.studyTimeLabel.text = timeString
