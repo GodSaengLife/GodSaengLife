@@ -359,7 +359,7 @@ class MainView: UIView {
         let label = UILabel()
         label.text = "00:00:00"
         label.textColor = .lightGray
-        label.textAlignment = .right
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 44, weight: .thin)
         
         return label

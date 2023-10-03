@@ -157,9 +157,11 @@ class MainViewController: UIViewController {
         if(isStarted){
             mainView.studyStartButton.backgroundColor = .systemBlue
             mainView.studyStartButton.setTitleColor(UIColor.white, for: .normal)
+            mainView.studyTimeLabel.textColor = .black
         } else {
             mainView.studyStartButton.backgroundColor = .white
             mainView.studyStartButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            mainView.studyTimeLabel.textColor = .lightGray
         }
     }
     
