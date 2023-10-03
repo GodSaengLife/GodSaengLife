@@ -239,11 +239,11 @@ class MainViewController: UIViewController {
             // 운동시간이 설정되어 있는 경우 타이머 작동
             if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
                 createExerciseTimer()
-                mainView.exerciseTimeLabel.textColor = .black
-                exerciseStopwatch.isStarted = true
                 mainView.exerciseDoneButton.isEnabled = true
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
+                mainView.exerciseTimeLabel.textColor = .black
+                exerciseStopwatch.isStarted = true
             }
         }
     }
@@ -319,8 +319,10 @@ class MainViewController: UIViewController {
                 createStudyTimer()
                 mainView.studyDoneButton.isEnabled = true
                 mainView.studyStopButton.isEnabled = true
+                mainView.studyTimeSettingButton.isEnabled = false
                 mainView.studyTimeLabel.textColor = .black
                 studyStopwatch.isStarted = true
+                
             }
         }
     }
@@ -336,17 +338,21 @@ class MainViewController: UIViewController {
     
     @objc func studyDoneButtonTapped(_ sender: UIButton) {
         print ("공부 완료 버튼 탭")
-        
         let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n공부를 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "완료", style: .default, handler: { (_) in
-            
             self.studyStopwatch.counter = 0
             self.studyStopwatch.isStarted = false
             self.studyStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
+            
             self.mainView.studyTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.studyTimeLabel.textColor = .lightGray
+            
+            self.mainView.studySetTheTimeLabel.text = "공부 목표 시간"
+            self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            self.mainView.studyTimeSettingButton.isEnabled = true
         }))
+        
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         
         self.present(alert, animated: true, completion: nil)
