@@ -282,12 +282,21 @@ class MainViewController: UIViewController {
     @objc func studyStartButtonTapped(_ sender: UIButton) {
         print ("공부 시작 버튼 탭")
         
-        if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
-            createStudyTimer()
-            mainView.studyDoneButton.isEnabled = true
-            mainView.studyStopButton.isEnabled = true
-            mainView.studyTimeLabel.textColor = .black
-            studyStopwatch.isStarted = true
+        // 공부시간이 설정되어 있는지 확인
+        if selectedTime.isEmpty {
+            let alert = UIAlertController(title: "공부 시간 미설정", message: "공부 시간을 먼저 설정해주세요.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { (_) in
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // 공부시간이 설정되어 있는 경우 타이머 작동
+            if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
+                createStudyTimer()
+                mainView.studyDoneButton.isEnabled = true
+                mainView.studyStopButton.isEnabled = true
+                mainView.studyTimeLabel.textColor = .black
+                studyStopwatch.isStarted = true
+            }
         }
     }
     
