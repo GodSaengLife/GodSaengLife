@@ -79,6 +79,70 @@ class MainViewController: UIViewController {
     }
     
     
+    //MARK: - Settings :: Stopwatch
+    
+    // 운동용 타이머 생성
+    private func createExerciseTimer(){
+        exerciseStopwatch.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateExerciseTimeCounting), userInfo: nil, repeats: true)
+    }
+    
+    // 공부용 타이머 생성
+    private func createStudyTimer(){
+        studyStopwatch.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateStudyTimeCounting), userInfo: nil, repeats: true)
+    }
+    
+    // 초에서 시간 : 분 : 초로 바꾸어주는 함수
+    private func secondsToHoursMinitesSeconds(seconds: Int) -> (Int, Int, Int) {
+        return ((seconds / 3600), ((seconds % 3600) / 60), ((seconds % 3600) % 60))
+    }
+    
+    // 초에서 시간, 분, 초로 바꾼 숫자를 문자열 형태로 변환해주는 함수
+    private func makeTimeString(hours: Int, minutes: Int, seconds: Int) -> String {
+        var timeString = ""
+        timeString += String(format: "%02d", hours)
+        timeString += String(format: ":%02d", minutes)
+        timeString += String(format: ":%02d", seconds)
+        
+        return timeString // hours : minutes : seconds 형태로 출력
+    }
+    
+    // 스톱워치 버튼 세팅
+    private func setStopwatchButtons(){
+        startExerciseStopwatch()
+        stopExerciseStopwatch()
+        doneExerciseStopwatch()
+        
+        startStudyStopwatch()
+        stopStudyStopwatch()
+        doneStudyStopwatch()
+    }
+    
+    private func startExerciseStopwatch() {
+        mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStartButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func stopExerciseStopwatch() {
+        mainView.exerciseStopButton.addTarget(self, action: #selector(exerciseStopButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func doneExerciseStopwatch(){
+        mainView.exerciseDoneButton.addTarget(self, action: #selector(exerciseDoneButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func startStudyStopwatch() {
+        mainView.studyStartButton.addTarget(self, action: #selector(studyStartButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func stopStudyStopwatch() {
+        mainView.studyStopButton.addTarget(self, action: #selector(studyStopButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func doneStudyStopwatch(){
+        mainView.studyDoneButton.addTarget(self, action: #selector(studyDoneButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    
+    
     //MARK: - Actions
     
     @objc func onClickSwitch(sender: UISwitch) {
@@ -129,6 +193,20 @@ class MainViewController: UIViewController {
         showTimeSettingView(moveVC)
     }
     
+    
+    //MARK: - Actions :: Exercise Stopwatch
+    
+    @objc func updateExerciseTimeCounting() -> Void {
+        exerciseStopwatch.counter = exerciseStopwatch.counter + 1
+        
+        let time = secondsToHoursMinitesSeconds(seconds: exerciseStopwatch.counter)
+        let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
+        
+        DispatchQueue.main.async {
+            self.mainView.exerciseTimeLabel.text = timeString
+        }
+    }
+    
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
         
@@ -151,9 +229,8 @@ class MainViewController: UIViewController {
     @objc func exerciseDoneButtonTapped(_ sender: UIButton) {
         print ("운동 완료 버튼 탭")
         
-        let alert = UIAlertController(title: "운동하기 종료", message: "종료를 누르면 타이머가 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
             
             self.exerciseStopwatch.counter = 0
@@ -162,39 +239,13 @@ class MainViewController: UIViewController {
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
         }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         
         self.present(alert, animated: true, completion: nil)
     }
     
     
-    
-    @objc func studyStartButtonTapped(_ sender: UIButton) {
-        print ("공부 시작 버튼 탭")
-        
-        var isStarted = studyStopwatch.isStarted
-        
-        // 타이머가 생성되어 있는지 확인
-        if studyStopwatch.timer == nil {
-            createStudyTimer()
-        }
-        isStarted = !isStarted
-        if(isStarted){
-            mainView.studyTimeLabel.textColor = .black
-        } else {
-            mainView.studyTimeLabel.textColor = .lightGray
-        }
-    }
-    
-    @objc func updateExerciseTimeCounting() -> Void {
-        exerciseStopwatch.counter = exerciseStopwatch.counter + 1
-        
-        let time = secondsToHoursMinitesSeconds(seconds: exerciseStopwatch.counter)
-        let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-        
-        DispatchQueue.main.async {
-            self.mainView.exerciseTimeLabel.text = timeString
-        }
-    }
+    //MARK: - Actions :: Exercise Stopwatch
     
     @objc func updateStudyTimeCounting() -> Void {
         studyStopwatch.counter = studyStopwatch.counter + 1
@@ -207,78 +258,41 @@ class MainViewController: UIViewController {
         }
     }
     
-    
-    
-    
-    //MARK: - Setting:: Stopwatch
-    
-    private func setStopwatchButtons(){
-        startExerciseStopwatch()
-        stopExerciseStopwatch()
-        doneExerciseStopwatch()
+    @objc func studyStartButtonTapped(_ sender: UIButton) {
+        print ("공부 시작 버튼 탭")
         
-        startStudyStopwatch()
+        if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
+                createStudyTimer()
+                mainView.studyTimeLabel.textColor = .black
+            studyStopwatch.isStarted = true
+            }
+    }
+    
+    @objc func studyStopButtonTapped(_ sender: UIButton) {
+        print ("공부 정지 버튼 탭")
+        if studyStopwatch.isStarted {
+            studyStopwatch.isStarted = false
+            studyStopwatch.timer?.invalidate()
+            mainView.studyTimeLabel.textColor = .gray
+        }
+    }
+    
+    @objc func studyDoneButtonTapped(_ sender: UIButton) {
+        print ("공부 완료 버튼 탭")
         
-    }
-    
-    private func startExerciseStopwatch() {
-        mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStartButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    private func stopExerciseStopwatch() {
-        mainView.exerciseStopButton.addTarget(self, action: #selector(exerciseStopButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    private func doneExerciseStopwatch(){
-        mainView.exerciseDoneButton.addTarget(self, action: #selector(exerciseDoneButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    
-    
-    
-    
-    
-    
-    private func startStudyStopwatch() {
-        mainView.studyStartButton.addTarget(self, action: #selector(studyStartButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    private func secondsToHoursMinitesSeconds(seconds: Int) -> (Int, Int, Int) {
-        // 초에서 시간 : 분 : 초로 바꾸어주는 함수
-        return ((seconds / 3600), ((seconds % 3600) / 60), ((seconds % 3600) % 60))
-    }
-    
-    private func makeTimeString(hours: Int, minutes: Int, seconds: Int) -> String {
-        // 초에서 시간, 분, 초로 바꾼 숫자를 문자열 형태로 변환해주는 함수
-        var timeString = ""
-        timeString += String(format: "%02d", hours)
-        timeString += String(format: ":%02d", minutes)
-        timeString += String(format: ":%02d", seconds)
+        let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
-        return timeString // hours : minutes : seconds 형태로 출력
+        alert.addAction(UIAlertAction(title: "완료", style: .default, handler: { (_) in
+            
+            self.studyStopwatch.counter = 0
+            self.studyStopwatch.isStarted = false
+            self.studyStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
+            self.mainView.studyTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
+            self.mainView.studyTimeLabel.textColor = .lightGray
+        }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
-    
-    private func createExerciseTimer(){
-        // 운동용 타이머 생성
-        exerciseStopwatch.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateExerciseTimeCounting), userInfo: nil, repeats: true)
-    }
-    
-    private func createStudyTimer(){
-        // 공부용 타이머 생성
-        studyStopwatch.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateStudyTimeCounting), userInfo: nil, repeats: true)
-    }
-    
-    
-    //MARK: - Settings
-    
-    
-    
     
 }
