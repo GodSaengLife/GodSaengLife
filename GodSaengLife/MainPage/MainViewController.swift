@@ -255,7 +255,7 @@ class MainViewController: UIViewController {
         if exerciseStopwatch.isStarted {
             exerciseStopwatch.isStarted = false
             exerciseStopwatch.timer?.invalidate()
-            mainView.exerciseTimeLabel.textColor = .gray
+            mainView.exerciseTimeLabel.textColor = .black
         }
     }
     
@@ -271,9 +271,10 @@ class MainViewController: UIViewController {
             
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
-            
+    
             self.mainView.exerciseSetTheTimeLabel.text = "운동 목표 시간"
-            self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            self.mainView.exerciseSetTheTimeLabel.textColor = .lightGray
+            self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .thin)
             
             self.mainView.exerciseTimeSettingButton.isEnabled = true
             self.mainView.exerciseDoneButton.isEnabled = false
@@ -357,7 +358,8 @@ class MainViewController: UIViewController {
             self.mainView.studyTimeLabel.textColor = .lightGray
             
             self.mainView.studySetTheTimeLabel.text = "공부 목표 시간"
-            self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            self.mainView.studySetTheTimeLabel.textColor = .lightGray
+            self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .thin)
            
             self.mainView.studyTimeSettingButton.isEnabled = true
             self.mainView.studyDoneButton.isEnabled = false
