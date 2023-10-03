@@ -211,15 +211,18 @@ class MainViewController: UIViewController {
         
         let time = secondsToHoursMinitesSeconds(seconds: exerciseStopwatch.counter)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-       
+        
         print("timeString: \(timeString), selectedTime: \(selectedTime)")
-       
+        
         // 설정된 시간과 타이머 시간이 동일한 경우 텍스트 컬러 변경
         if timeString == selectedTime {
-//            mainView.exerciseTimeLabel.textColor = .systemBlue
             mainView.exerciseSetTheTimeLabel.text = "목표 달성!"
             mainView.exerciseSetTheTimeLabel.textColor = .gray
             mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+            
+            mainView.exerciseDoneButton.isEnabled = true
+            mainView.exerciseDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
+            mainView.exerciseDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
         }
         DispatchQueue.main.async {
             self.mainView.exerciseTimeLabel.text = timeString
@@ -239,11 +242,10 @@ class MainViewController: UIViewController {
             // 운동시간이 설정되어 있는 경우 타이머 작동
             if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
                 createExerciseTimer()
-                mainView.exerciseDoneButton.isEnabled = true
+                exerciseStopwatch.isStarted = true
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
                 mainView.exerciseTimeLabel.textColor = .black
-                exerciseStopwatch.isStarted = true
             }
         }
     }
@@ -272,7 +274,12 @@ class MainViewController: UIViewController {
             
             self.mainView.exerciseSetTheTimeLabel.text = "운동 목표 시간"
             self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+            
             self.mainView.exerciseTimeSettingButton.isEnabled = true
+            self.mainView.exerciseDoneButton.isEnabled = false
+            
+            self.mainView.exerciseDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
+            self.mainView.exerciseDoneButton.setTitleColor(UIColor.gray, for: .normal)
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
@@ -288,17 +295,20 @@ class MainViewController: UIViewController {
         
         let time = secondsToHoursMinitesSeconds(seconds: studyStopwatch.counter)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-       
+        
         print("timeString: \(timeString), selectedTime: \(selectedTime)")
         
         // 설정된 시간과 타이머 시간이 동일한 경우 텍스트 컬러 변경
         if timeString == selectedTime {
-//            mainView.studyTimeLabel.textColor = .systemBlue
+            //            mainView.studyTimeLabel.textColor = .systemBlue
             mainView.studySetTheTimeLabel.text = "목표 달성!"
             mainView.studySetTheTimeLabel.textColor = .gray
             mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
+           
+            mainView.studyDoneButton.isEnabled = true
+            mainView.studyDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
+            mainView.studyDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
         }
-        
         DispatchQueue.main.async {
             self.mainView.studyTimeLabel.text = timeString
         }
@@ -317,12 +327,10 @@ class MainViewController: UIViewController {
             // 공부시간이 설정되어 있는 경우 타이머 작동
             if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
                 createStudyTimer()
-                mainView.studyDoneButton.isEnabled = true
+                studyStopwatch.isStarted = true
                 mainView.studyStopButton.isEnabled = true
                 mainView.studyTimeSettingButton.isEnabled = false
                 mainView.studyTimeLabel.textColor = .black
-                studyStopwatch.isStarted = true
-                
             }
         }
     }
@@ -350,12 +358,16 @@ class MainViewController: UIViewController {
             
             self.mainView.studySetTheTimeLabel.text = "공부 목표 시간"
             self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+           
             self.mainView.studyTimeSettingButton.isEnabled = true
+            self.mainView.studyDoneButton.isEnabled = false
+            
+            self.mainView.studyDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
+            self.mainView.studyDoneButton.setTitleColor(UIColor.gray, for: .normal)
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         
         self.present(alert, animated: true, completion: nil)
     }
-    
 }

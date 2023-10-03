@@ -252,11 +252,11 @@ class MainView: UIView {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
+        button.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
         
         return button
     }()
@@ -402,11 +402,11 @@ class MainView: UIView {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
+        button.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
         
         return button
     }()
