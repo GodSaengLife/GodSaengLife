@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
         alarmSwitchIsOn()
         setTimeSettingView()
         setStopwatchButtons()
-        stopwatchDoneButtonisEnabaled()
+        stopwatchButtonisEnabaled()
     }
     
     
@@ -55,7 +55,7 @@ class MainViewController: UIViewController {
         naviVC.modalPresentationStyle = .pageSheet
         
         let pageSheet = naviVC.presentationController as? UISheetPresentationController
-        pageSheet?.detents = [.medium()]                    // Sheet의 멈추는 높이 :: 절반 높이에서 멈춤
+        pageSheet?.detents = [.medium()] // Sheet의 멈추는 높이 :: 절반 높이에서 멈춤
         pageSheet?.selectedDetentIdentifier = .medium
         pageSheet?.prefersGrabberVisible = false
         pageSheet?.preferredCornerRadius = 8
@@ -76,6 +76,7 @@ class MainViewController: UIViewController {
         pageSheet?.prefersGrabberVisible = false
         pageSheet?.preferredCornerRadius = 8
         pageSheet?.animateChanges { pageSheet?.selectedDetentIdentifier = .medium }
+        
         present(naviVC, animated: true)
     }
     
@@ -83,8 +84,10 @@ class MainViewController: UIViewController {
     //MARK: - Settings :: Stopwatch
     
     // 초기에 완료 버튼 비활성화
-    private func stopwatchDoneButtonisEnabaled(){
+    private func stopwatchButtonisEnabaled(){
+        mainView.exerciseStopButton.isEnabled = false
         mainView.exerciseDoneButton.isEnabled = false
+        mainView.studyStopButton.isEnabled = false
         mainView.studyDoneButton.isEnabled = false
     }
     
@@ -220,6 +223,7 @@ class MainViewController: UIViewController {
         if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
             createExerciseTimer()
             mainView.exerciseDoneButton.isEnabled = true
+            mainView.exerciseStopButton.isEnabled = true
             mainView.exerciseTimeLabel.textColor = .black
             exerciseStopwatch.isStarted = true
         }
@@ -272,6 +276,7 @@ class MainViewController: UIViewController {
         if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
             createStudyTimer()
             mainView.studyDoneButton.isEnabled = true
+            mainView.studyStopButton.isEnabled = true
             mainView.studyTimeLabel.textColor = .black
             studyStopwatch.isStarted = true
         }
