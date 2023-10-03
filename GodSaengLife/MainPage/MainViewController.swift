@@ -59,11 +59,13 @@ extension MainViewController: MainViewDelegate {
     
     func exerciseSettingButtonTapped() {
         let moveVC = TimeSettingViewController()
+        moveVC.setSelectedCategory(.exercise)
         showTimeSettingView(moveVC)
     }
     
     func studySettingButtonTapped() {
         let moveVC = TimeSettingViewController()
+        moveVC.setSelectedCategory(.study)
         showTimeSettingView(moveVC)
     }
 }

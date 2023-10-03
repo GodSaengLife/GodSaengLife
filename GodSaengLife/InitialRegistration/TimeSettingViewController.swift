@@ -7,10 +7,15 @@
 
 import UIKit
 
+enum SelectedCategory {
+    case study
+    case exercise
+}
 
 
 final class TimeSettingViewController: UIViewController {
     private let screenHeight = UIScreen.main.bounds.size.height
+    private var selectedCategory: SelectedCategory?
     private var hour = [Int](0...23)
     private var minute = [Int](0...59)
     private var second = [Int](0...59)
@@ -67,10 +72,23 @@ final class TimeSettingViewController: UIViewController {
     }
     
     // MARK: - Actions
+    func setSelectedCategory(_ selectedCategory: SelectedCategory) {
+        self.selectedCategory = selectedCategory
+    }
+    
     @objc private func saveButtonTapped() {
+        if self.selectedCategory == .study {
+            let info = DataManager.shared.getStudyInfo()
+            info.objectiveTime = self.computedTime
+            DataManager.shared.updateObjectiveTime(info)
+        }
+        if self.selectedCategory == .exercise {
+            let info = DataManager.shared.getExerciseInfo()
+            info.objectiveTime = self.computedTime
+            DataManager.shared.updateObjectiveTime(info)
+        }
         self.dismiss(animated: true)
     }
-
 }
 
 extension TimeSettingViewController: UIPickerViewDataSource {
