@@ -13,8 +13,11 @@ class AlarmLandingViewController: UIViewController {
         
         alarmLandingView.quoteTextField.addTarget(self, action: #selector(checkMatchingText), for: .editingChanged)
         
+        alarmLandingView.completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     deinit {
@@ -38,6 +41,11 @@ class AlarmLandingViewController: UIViewController {
     @objc func checkMatchingText() {
         let isMatching = alarmLandingView.quoteLabel.text == alarmLandingView.quoteTextField.text
         alarmLandingView.updateButtonAppearance(isEnabled: isMatching)
+    }
+    
+    @objc func didTapCompleteButton() {
+        let mainVC = MainViewController()
+        navigationController?.setViewControllers([mainVC], animated: true)
     }
 }
 
