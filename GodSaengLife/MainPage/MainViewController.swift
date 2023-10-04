@@ -160,9 +160,11 @@ class MainViewController: UIViewController {
         if sender.isOn {
             mainView.wakeUpTimeLabel.textColor = .black
             mainView.wakeUpTimeMeridiemLabel.textColor = .black
+            scheduleAlarm()
         } else {
             mainView.wakeUpTimeLabel.textColor = .lightGray
             mainView.wakeUpTimeMeridiemLabel.textColor = .lightGray
+            cancelAlarm()
         }
     }
     
@@ -225,6 +227,7 @@ class MainViewController: UIViewController {
             mainView.exerciseDoneButton.isEnabled = true
             mainView.exerciseDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.exerciseDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            setCompleteNotification(title: "목표 달성!", body: "오늘의 운동 완료!", identifier: "exercise")
         }
         DispatchQueue.main.async {
             self.mainView.exerciseTimeLabel.text = timeString
@@ -311,6 +314,7 @@ class MainViewController: UIViewController {
             mainView.studyDoneButton.isEnabled = true
             mainView.studyDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.studyDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            setCompleteNotification(title: "목표 달성!", body: "오늘의 공부 완료!", identifier: "study")
         }
         DispatchQueue.main.async {
             self.mainView.studyTimeLabel.text = timeString
@@ -373,5 +377,27 @@ class MainViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func scheduleAlarm() {
+        guard let timeString = mainView.wakeUpTimeLabel.text,
+              let meridiem = mainView.wakeUpTimeMeridiemLabel.text else {
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        
+        if let date = dateFormatter.date(from: "\(timeString) \(meridiem)") {
+            NotificationManager.shared.scheduleNotification(at: date, title: "기상 알람", body: "기상 알람",identifier: "alarm")
+        }
+    }
+    
+    func cancelAlarm() {
+        NotificationManager.shared.cancelNotification(identifier: "alarm")
+    }
+    
+    func setCompleteNotification(title: String, body: String, identifier: String) {
+        NotificationManager.shared.scheduleImmediateNotification(title: title, body: body, identifier: identifier)
     }
 }
