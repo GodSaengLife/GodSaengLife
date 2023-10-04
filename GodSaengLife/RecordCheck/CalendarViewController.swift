@@ -18,7 +18,7 @@ class CalendarViewController: UIViewController {
         //        TimeLineSaver.shared.setType(on: .stop)
         
         
-//        TimeLineSaver.shared.addCustomTest(m: 4, d: 1)
+//        TimeLineSaver.shared.addCustomTest(m: 10, d: 10)
     }
     
     //MARK: - UI관련 start
