@@ -9,6 +9,7 @@ import UIKit
 
 class AlarmSettingViewController: UIViewController {
     // MARK: - Constants
+    var onTimeSelected: ((String, String) -> Void)?
     private let screenHeight = UIScreen.main.bounds.size.height
     
     // MARK: - Components
@@ -18,6 +19,7 @@ class AlarmSettingViewController: UIViewController {
         picker.datePickerMode = .time
         return picker
     }()
+    
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("확인", for: .normal)
@@ -62,6 +64,19 @@ class AlarmSettingViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func saveButtonTapped() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a"
+
+        // 메리디움 :: 오전, 오후 구분
+        let meridiem = dateFormatter.string(from: datePicker.date)
+
+        // 시간 형식 설정
+        dateFormatter.dateFormat = "hh:mm"
+        let time = dateFormatter.string(from: datePicker.date)
+        
+        // 데이터 전달 - 클로저 사용
+        onTimeSelected?(time, meridiem)
+        
         self.dismiss(animated: true)
     }
 }
