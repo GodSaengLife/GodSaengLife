@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
         
         alarmSwitchIsOn()
         setTimeSettingView()
+        setUserInfomation()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
     }
@@ -46,6 +47,16 @@ class MainViewController: UIViewController {
         mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
         mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
         mainView.studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setUserInfomation() {
+        mainView.userNameLabel.text = UserDefaults.standard.string(forKey: "nickname")
+        if let imageData = UserDefaults.standard.data(forKey: "userImage") {
+            let image = UIImage(data: imageData)
+            mainView.userProfileImageView.image = image
+        } else {
+            mainView.userProfileImageView.image = UIImage(named: "profileImage")
+        }
     }
     
     private func showAlarmSettingView(_ viewController: UIViewController) {
