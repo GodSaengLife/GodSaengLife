@@ -8,6 +8,9 @@
 import UIKit
 
 final class TimeSettingViewController: UIViewController {
+    
+    var onTimeSelected: ((String, String) -> Void)?
+    
     private let screenHeight = UIScreen.main.bounds.size.height
     private var hourRange = [Int](0...23)
     private var minuteRange = [Int](0...59)
@@ -21,6 +24,7 @@ final class TimeSettingViewController: UIViewController {
             setSelectRow(time: time)
         }
     }
+    
     
     // MARK: - Component
     private lazy var timePickerView: UIPickerView = {
@@ -94,6 +98,8 @@ final class TimeSettingViewController: UIViewController {
                                                                    toSeconds: self.selectedSecond)
             DataManager.shared.updateObjectiveTime(info)
         }
+        // let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
+        // onTimeSelected?(selectedTime, "")
         self.dismiss(animated: true)
     }
 }
@@ -142,9 +148,14 @@ extension TimeSettingViewController: UIPickerViewDelegate {
         default:
             break
         }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return screenHeight / 14
     }
+}
+
+extension TimeSettingViewController: UIPickerViewDelegate {
+   
 }
