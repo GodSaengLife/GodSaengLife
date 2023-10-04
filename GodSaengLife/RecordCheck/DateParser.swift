@@ -18,7 +18,7 @@ class DateParser {
         
     }
     static func getDateString(_ date:Date) -> String{
-        let localizedDate = localizedRepresentation(date, format: "yy-MM-dd hh시mm분")
+        let localizedDate = localizedRepresentation(date, format: "yy-MM-dd")
         
         return localizedDate
     }

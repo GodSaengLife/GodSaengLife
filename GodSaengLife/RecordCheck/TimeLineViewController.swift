@@ -7,7 +7,7 @@ class TimeLineViewController: UIViewController {
     
     var text:Int?
     var tableView = UITableView()
-    var data:[TimeLineActionTrace]?
+    var filteredData:[TimeLine]?
     
     override func loadView() {
         view = tableView
@@ -40,7 +40,7 @@ extension TimeLineViewController: UITableViewDelegate {
 
 extension TimeLineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
+        return filteredData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,9 +49,9 @@ extension TimeLineViewController: UITableViewDataSource {
         let label = UILabel()
         
         
-        var action = data![indexPath.row]
-        var date = DateParser.getDateString(action.savedTime)
-        label.text = "\(date) \(action.savedType)"
+        var action = filteredData![indexPath.row]
+        var date = action.date
+        label.text = "\(date)" + (action.type ?? "")
         
         cell.addSubview(label)
         
