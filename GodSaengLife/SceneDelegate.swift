@@ -15,7 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = MainTabBarController()
+        // 커밋전에 수정꼭 할것 / 작업하려고 레코드뷰로 루트 뷰 바꿔놓은것
+        window?.rootViewController = CalendarViewController()
+//        window?.rootViewController = MainViewController()
         window?.makeKeyAndVisible()
         
         if UserDefaults.standard.string(forKey: "nickname") == nil {

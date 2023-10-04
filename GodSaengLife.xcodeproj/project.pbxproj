@@ -24,6 +24,9 @@
 		27F283222AC165C8006E180B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 27F283212AC165C8006E180B /* Then */; };
 		27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283262AC1B190006E180B /* UIViewPreview.swift */; };
 		27F283292AC27764006E180B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283282AC27764006E180B /* CalendarViewController.swift */; };
+		27F2832D2AC84B43006E180B /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2832C2AC84B43006E180B /* TimeLineViewController.swift */; };
+		27F2832F2ACA35D2006E180B /* DateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F2832E2ACA35D2006E180B /* DateDataManager.swift */; };
+		27F283312ACA8F00006E180B /* DateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F283302ACA8F00006E180B /* DateParser.swift */; };
 		6968A7EE2AC1A419004369BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7ED2AC1A419004369BF /* NotificationManager.swift */; };
 		6968A7F42AC2B816004369BF /* alarm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6968A7F32AC2B816004369BF /* alarm1.mp3 */; };
 		6968A7F82AC3E0CA004369BF /* AlarmLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A7F72AC3E0CA004369BF /* AlarmLandingView.swift */; };
@@ -50,6 +53,9 @@
 		27F283152AC164C7006E180B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		27F283262AC1B190006E180B /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		27F283282AC27764006E180B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		27F2832C2AC84B43006E180B /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
+		27F2832E2ACA35D2006E180B /* DateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDataManager.swift; sourceTree = "<group>"; };
+		27F283302ACA8F00006E180B /* DateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateParser.swift; sourceTree = "<group>"; };
 		6968A7ED2AC1A419004369BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		6968A7F32AC2B816004369BF /* alarm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarm1.mp3; sourceTree = "<group>"; };
 		6968A7F72AC3E0CA004369BF /* AlarmLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLandingView.swift; sourceTree = "<group>"; };
@@ -133,6 +139,9 @@
 			children = (
 				27F2830F2AC164B9006E180B /* CalendarView.swift */,
 				27F283282AC27764006E180B /* CalendarViewController.swift */,
+				27F2832C2AC84B43006E180B /* TimeLineViewController.swift */,
+				27F2832E2ACA35D2006E180B /* DateDataManager.swift */,
+				27F283302ACA8F00006E180B /* DateParser.swift */,
 				27F283262AC1B190006E180B /* UIViewPreview.swift */,
 			);
 			path = RecordCheck;
@@ -238,14 +247,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BF0590A2AC4257F00CB435B /* MyPageViewController.swift in Sources */,
+				27F2832F2ACA35D2006E180B /* DateDataManager.swift in Sources */,
 				6968A7F82AC3E0CA004369BF /* AlarmLandingView.swift in Sources */,
 				27F283292AC27764006E180B /* CalendarViewController.swift in Sources */,
+				27F2832D2AC84B43006E180B /* TimeLineViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				058818B22AC3CD200097A311 /* AlarmSettingViewController.swift in Sources */,
 				27F283102AC164B9006E180B /* CalendarView.swift in Sources */,
 				27F283122AC164C1006E180B /* AlarmLandingViewController.swift in Sources */,
 				7B2191462AC278850096400C /* MainView.swift in Sources */,
 				6968A7EE2AC1A419004369BF /* NotificationManager.swift in Sources */,
+				27F283312ACA8F00006E180B /* DateParser.swift in Sources */,
 				055A900A2AC1B00F001BDF87 /* TimeSettingViewController.swift in Sources */,
 				27F282FD2AC162C8006E180B /* GodSaengLife.xcdatamodeld in Sources */,
 				27F283272AC1B190006E180B /* UIViewPreview.swift in Sources */,
