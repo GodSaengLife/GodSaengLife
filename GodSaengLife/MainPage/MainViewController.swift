@@ -182,6 +182,7 @@ class MainViewController: UIViewController {
     @objc private func exerciseSettingButtonTapped() {
         // 운동 시간 세팅버튼
         let moveVC = TimeSettingViewController()
+        // moveVC.setInfomation(DataManager.shared.getExerciseInfo())
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -194,6 +195,7 @@ class MainViewController: UIViewController {
     @objc private func studySettingButtonTapped() {
         // 공부 시간 세팅버튼
         let moveVC = TimeSettingViewController()
+        // moveVC.setInfomation(DataManager.shared.getStudyInfo())
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
