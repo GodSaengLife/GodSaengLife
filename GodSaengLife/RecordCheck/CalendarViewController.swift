@@ -78,6 +78,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
         guard let day = dateComponents.day else {
             return nil
         }
+        
         //예시코드 캘린더에 점찍기
         if day == 4{
             calendarView.wantsDateDecorations = true
@@ -90,13 +91,21 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         
-        
         let timeLineView = TimeLineViewController()
         
         //임시로 일(day) 만 체크중
-        var filtered = TimeLineSaver.shared.timeLines.filter{ Calendar.current.component(.day, from: $0.dateData) == dateComponents?.day }
+        let filtered = TimeLineSaver.shared.timeLines.filter{
+            var temp = $0.calData.dateComponents([.year, .month, .day],from: $0.dateData)
+            
+            if temp.year == dateComponents?.year && temp.month == dateComponents?.month && temp.day == dateComponents?.day {
+                return true
+            }else{
+                return false
+                
+            }
+        }
         
-        timeLineView.data = filtered.first?.timeLineActions
+        timeLineView.data = filtered.last?.timeLineActions
         
         self.present(timeLineView,animated: true)
         

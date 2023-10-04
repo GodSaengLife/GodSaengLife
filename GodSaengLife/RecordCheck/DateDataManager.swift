@@ -55,6 +55,7 @@ struct TimeLineActionTrace {
 
 struct TimeLineOneDay {
     var dateData = Date() // 생성날짜
+    var calData = Calendar(identifier: .gregorian)
     
     var targetTime = Date() // 설정되었던 그날의 목표 시간들
     var targetWakeUpTime = Date() // 설정된 기상 알람

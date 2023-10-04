@@ -15,17 +15,3 @@ class CalendarView: UICalendarView {
     }
 }
 
-
-//#if canImport(SwiftUI) && DEBUG
-//import SwiftUI
-//struct Preview: PreviewProvider{
-//    static var previews: some View {
-//        UIViewPreview {
-//            
-//            let view = CalendarView()
-//            
-//            return view
-//        }.previewLayout(.sizeThatFits)
-//    }
-//}
-//#endif
