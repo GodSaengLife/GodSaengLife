@@ -12,9 +12,14 @@ class CalendarViewController: UIViewController {
         bottomView()
         
         
+        TimeLineSaver.shared.setType(on: .start)
+        TimeLineSaver.shared.setType(on: .pause)
+        TimeLineSaver.shared.setType(on: .unpause)
+        TimeLineSaver.shared.setType(on: .stop)
+
     }
     
-    
+    //MARK: - UI관련 start
     private func bottomView(){
         var bottomView = UIView()
         view.addSubview(bottomView)
@@ -52,10 +57,6 @@ class CalendarViewController: UIViewController {
         calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
 
-        
-        
-        
-        
         calendarView.delegate = self
         
         view.addSubview(calendarView)
@@ -68,6 +69,7 @@ class CalendarViewController: UIViewController {
         
         
     }
+    //MARK: - UI관련 end
     
 }
 
@@ -76,22 +78,27 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
         guard let day = dateComponents.day else {
             return nil
         }
-        
-        if day == 14{
+        //예시코드 캘린더에 점찍기
+        if day == 4{
+            calendarView.wantsDateDecorations = true
             return UICalendarView.Decoration.default(color: .systemBlue, size: .large)
         }
-        if day == 13{
-            return UICalendarView.Decoration.default(color: .systemBlue, size: .medium)
-        }
-        if day == 12{
-            return UICalendarView.Decoration.default(color: .systemBlue, size: .small)
-        }
+
         
         return nil
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        print("date")
+        
+        
+        let timeLineView = TimeLineViewController()
+        
+        //임시로 일(day) 만 체크중
+        var filtered = TimeLineSaver.shared.timeLines.filter{ Calendar.current.component(.day, from: $0.dateData) == dateComponents?.day }
+        
+        timeLineView.data = filtered.first?.timeLineActions
+        
+        self.present(timeLineView,animated: true)
         
     }
 
@@ -103,37 +110,3 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
 
 
 
-
-
-
-
-
-
-
-#if DEBUG
-import SwiftUI
-struct ViewControllerRepresentable: UIViewControllerRepresentable{
-    
-    //    update
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        
-    }
-    @available(iOS 13.0, *)
-    func makeUIViewController(context: Context) -> UIViewController {
-        CalendarViewController()
-    }
-    //    makeui
-    
-}
-
-
-struct ViewController_Previews: PreviewProvider{
-    static var previews: some View{
-        ViewControllerRepresentable()
-            .previewDisplayName("아이폰 14")
-        
-    }
-}
-
-
-#endif
