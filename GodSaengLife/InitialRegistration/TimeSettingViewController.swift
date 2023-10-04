@@ -102,8 +102,8 @@ final class TimeSettingViewController: UIViewController {
                                                                    toSeconds: self.selectedSecond)
             DataManager.shared.updateObjectiveTime(info)
         }
-        // let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
-        // onTimeSelected?(selectedTime, "")
+         let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
+         onTimeSelected?(selectedTime, "")
         self.dismiss(animated: true)
     }
 }
