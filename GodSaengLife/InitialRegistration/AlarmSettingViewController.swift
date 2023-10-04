@@ -8,15 +8,13 @@
 import UIKit
 
 class AlarmSettingViewController: UIViewController {
-   
+    // MARK: - Constants
     var onTimeSelected: ((String, String) -> Void)?
-    
-    
     private let screenHeight = UIScreen.main.bounds.size.height
     
+    // MARK: - Components
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
-        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .wheels
         picker.datePickerMode = .time
         return picker
@@ -24,7 +22,6 @@ class AlarmSettingViewController: UIViewController {
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("확인", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
@@ -32,21 +29,31 @@ class AlarmSettingViewController: UIViewController {
         return button
     }()
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        addViews()
         setConstraints()
     }
     
+    // MARK: - Add Views
+    private func addViews() {
+        let views: [UIView] = [datePicker, saveButton]
+        views.forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    
+    // MARK: - Constraints
     private func setConstraints() {
-        view.addSubview(datePicker)
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight / 8),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             datePicker.heightAnchor.constraint(equalToConstant: (screenHeight / 8) + 45),
         ])
-        view.addSubview(saveButton)
         NSLayoutConstraint.activate([
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
