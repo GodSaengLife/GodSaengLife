@@ -32,12 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     }
     
     func handleNotificationResponse(_ response: UNNotificationResponse) {
-        print(type(of: self.window?.rootViewController))
-        
-        if let tabBarController = self.window?.rootViewController as? UITabBarController {
-            print(type(of: tabBarController.selectedViewController))
-        }
-        
         let identifier = response.notification.request.identifier
         
         if let tabBarController = self.window?.rootViewController as? UITabBarController,
