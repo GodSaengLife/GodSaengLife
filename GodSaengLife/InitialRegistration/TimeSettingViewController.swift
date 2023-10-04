@@ -15,9 +15,9 @@ final class TimeSettingViewController: UIViewController {
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
-    private var infomation: Info? {
+    private var settingInfomation: Infomation? {
         didSet {
-            let time = DataManager.shared.convertTime(toSeconds: infomation?.objectiveTime)
+            let time = DataManager.shared.convertTime(toSeconds: settingInfomation?.objectiveTime)
             setSelectRow(time: time)
         }
     }
@@ -73,21 +73,21 @@ final class TimeSettingViewController: UIViewController {
         timePickerView.selectRow(time.2, inComponent: 2, animated: true)
     }
     
-    func setInfomation(_ info: Info) {
-        self.infomation = info
+    func setInfomation(_ infomation: Infomation) {
+        self.settingInfomation = infomation
     }
 
     
     // MARK: - Actions
     @objc private func saveButtonTapped() {
-        if let _ = self.infomation as? StudyInfo {
+        if let _ = self.settingInfomation as? StudyInfo {
             let info = DataManager.shared.getStudyInfo()
             info.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
                                                                    toMinute: self.selectedMinute,
                                                                    toSeconds: self.selectedSecond)
             DataManager.shared.updateObjectiveTime(info)
         }
-        if let _ = self.infomation as? ExerciseInfo {
+        if let _ = self.settingInfomation as? ExerciseInfo {
             let info = DataManager.shared.getExerciseInfo()
             info.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
                                                                    toMinute: self.selectedMinute,

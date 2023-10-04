@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExerciseInfo: Info {
+class ExerciseInfo: Infomation {
     var totalTime: Int?
     var isDone: Bool = false
     var objectiveTime: Int?

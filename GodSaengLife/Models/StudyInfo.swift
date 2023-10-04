@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol Info {
-    var totalTime: Int? { get }
-    var isDone: Bool { get }
-    var objectiveTime: Int? { get }
-}
-
-class StudyInfo: Info {
+class StudyInfo: Infomation {
     var totalTime: Int?
     var isDone: Bool = false
     var objectiveTime: Int?
