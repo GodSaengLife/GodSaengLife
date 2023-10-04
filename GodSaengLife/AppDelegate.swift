@@ -23,34 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        let identifier = response.notification.request.identifier
-        
-        if let navigationController = self.window?.rootViewController as? UINavigationController {
-            switch identifier {
-            case "alarm":
-                let targetVC = AlarmLandingViewController()
-                navigationController.pushViewController(targetVC, animated: true)
-            case "exercise":
-                let targetVC = MainViewController()
-                navigationController.pushViewController(targetVC, animated: true)
-            case "study":
-                let targetVC = MainViewController()
-                navigationController.pushViewController(targetVC, animated: true)
-            default:
-                break
-            }
-        } else {
-            print("Navigation controller not found")
-        }
-        completionHandler()
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner])
-    }
-    
     // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
