@@ -155,7 +155,3 @@ extension TimeSettingViewController: UIPickerViewDelegate {
         return screenHeight / 14
     }
 }
-
-extension TimeSettingViewController: UIPickerViewDelegate {
-   
-}
