@@ -389,7 +389,7 @@ class MainViewController: UIViewController {
         dateFormatter.dateFormat = "h:mm a"
         
         if let date = dateFormatter.date(from: "\(timeString) \(meridiem)") {
-            NotificationManager.shared.scheduleNotification(at: date, title: "기상 알람", body: "기상 알람",identifier: "TEST")
+            NotificationManager.shared.scheduleNotification(at: date, title: "기상 알람", body: "기상 알람",identifier: "alarm")
         }
     }
     
