@@ -11,12 +11,14 @@ class CalendarViewController: UIViewController {
         appleCreateCalendar()
         bottomView()
         
+        //        TimeLineSaver.shared.resetTest()
+        //        TimeLineSaver.shared.setType(on: .start)
+        //        TimeLineSaver.shared.setType(on: .pause)
+        //        TimeLineSaver.shared.setType(on: .unpause)
+        //        TimeLineSaver.shared.setType(on: .stop)
         
-        TimeLineSaver.shared.setType(on: .start)
-        TimeLineSaver.shared.setType(on: .pause)
-        TimeLineSaver.shared.setType(on: .unpause)
-        TimeLineSaver.shared.setType(on: .stop)
-
+        
+//        TimeLineSaver.shared.addCustomTest(m: 4, d: 1)
     }
     
     //MARK: - UI관련 start
@@ -30,7 +32,7 @@ class CalendarViewController: UIViewController {
         bottomView.snp.makeConstraints{
             $0.top.equalTo(calendarView.snp.bottom).inset(-30)
             $0.right.left.equalTo(0).inset(20)
-            $0.bottom.equalToSuperview().inset(50)
+            $0.bottom.equalToSuperview().inset(100)
         }
     }
     
@@ -56,7 +58,7 @@ class CalendarViewController: UIViewController {
         calendarView.layer.cornerRadius = 15
         calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
-
+        
         calendarView.delegate = self
         
         view.addSubview(calendarView)
@@ -75,42 +77,47 @@ class CalendarViewController: UIViewController {
 
 extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        guard let day = dateComponents.day else {
-            return nil
+        let calendar = Calendar(identifier: .gregorian)
+        TimeLineSaver.shared.fetchTimeLines()
+        for i in TimeLineSaver.shared.timeline! {
+            
+            
+            var temp = calendar.dateComponents([.year,.month,.day], from: i.date!)
+            
+            if temp.year == dateComponents.year && temp.month == dateComponents.month && temp.day == dateComponents.day {
+                
+                calendarView.wantsDateDecorations = true
+                return UICalendarView.Decoration.default(color: .systemBlue, size: .large)
+            }else{
+                
+            }
         }
-        
-        //예시코드 캘린더에 점찍기
-        if day == 4{
-            calendarView.wantsDateDecorations = true
-            return UICalendarView.Decoration.default(color: .systemBlue, size: .large)
-        }
-
-        
         return nil
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         
         let timeLineView = TimeLineViewController()
+        TimeLineSaver.shared.fetchTimeLines()
         
-        //임시로 일(day) 만 체크중
-        let filtered = TimeLineSaver.shared.timeLines.filter{
-            var temp = $0.calData.dateComponents([.year, .month, .day],from: $0.dateData)
-            
+        let calendar = Calendar(identifier: .gregorian)
+        
+        let filtered = TimeLineSaver.shared.timeline?.filter{
+            var temp = calendar.dateComponents([.year, .month, .day],from: $0.date!)
             if temp.year == dateComponents?.year && temp.month == dateComponents?.month && temp.day == dateComponents?.day {
                 return true
             }else{
                 return false
-                
             }
         }
+        timeLineView.filteredData = filtered
         
-        timeLineView.data = filtered.last?.timeLineActions
+        
         
         self.present(timeLineView,animated: true)
         
     }
-
+    
 }
 
 
