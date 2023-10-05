@@ -20,23 +20,29 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         alarmSwitchIsOn()
+        setStudySetTheTimeLabel()
         setTimeSettingView()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
     }
-    
     
     //MARK: - Properties
     
     let mainView = MainView()
     var exerciseStopwatch = Stopwatch()
     var studyStopwatch = Stopwatch()
-    
     var selectedTime: String = ""
     var selectedMeridiem: String = ""
     
     
     //MARK: - Settings
+    
+    private func setStudySetTheTimeLabel() {
+        let info = DataManager.shared.getStudyInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.studySetTheTimeLabel.text = selectedTime
+    }
     
     private func alarmSwitchIsOn() {
         mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
@@ -184,7 +190,7 @@ class MainViewController: UIViewController {
     @objc private func exerciseSettingButtonTapped() {
         // 운동 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getExerciseInfo())
+        moveVC.setCategory(.exercise)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -197,7 +203,7 @@ class MainViewController: UIViewController {
     @objc private func studySettingButtonTapped() {
         // 공부 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getStudyInfo())
+        moveVC.setCategory(.study)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -206,7 +212,6 @@ class MainViewController: UIViewController {
         }
         showTimeSettingView(moveVC)
     }
-    
     
     //MARK: - Actions :: Exercise Stopwatch
     

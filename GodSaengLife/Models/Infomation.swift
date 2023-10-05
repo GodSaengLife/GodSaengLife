@@ -9,6 +9,6 @@ import Foundation
 
 protocol Infomation {
     var totalTime: Int? { get }
-    var isDone: Bool { get }
+    var isDone: Bool? { get }
     var objectiveTime: Int? { get }
 }

@@ -9,6 +9,6 @@ import UIKit
 
 class ExerciseInfo: Infomation {
     var totalTime: Int?
-    var isDone: Bool = false
+    var isDone: Bool? = false
     var objectiveTime: Int?
 }

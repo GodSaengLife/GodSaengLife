@@ -7,8 +7,8 @@
 
 import UIKit
 
-class StudyInfo: Infomation {
+class StudyInfo: Codable {
     var totalTime: Int?
-    var isDone: Bool = false
+    var isDone: Bool? = false
     var objectiveTime: Int?
 }
