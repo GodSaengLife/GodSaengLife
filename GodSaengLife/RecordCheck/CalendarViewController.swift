@@ -6,11 +6,12 @@ import SnapKit
 class CalendarViewController: UIViewController {
     
     let timeLineView = TimeLineViewController()
-    
+        
     override func viewDidLoad(){
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
+
 
         TimeLineSaver.shared.fetchTimeLines()
         
@@ -19,9 +20,12 @@ class CalendarViewController: UIViewController {
 //                TimeLineSaver.shared.setType(on: .pause)
 //                TimeLineSaver.shared.setType(on: .unpause)
 //                TimeLineSaver.shared.setType(on: .stop)
+
+//        TimeLineSaver.shared.resetTest()
+//                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+//                TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
         
-        
-//        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
+        //        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
     }
     
     //MARK: - UI관련 start
@@ -53,7 +57,7 @@ class CalendarViewController: UIViewController {
         calendarView.fontDesign = .rounded
         calendarView.backgroundColor = .white
         calendarView.layer.cornerRadius = 15
-//        calendarView.layer.borderWidth = 3
+        //        calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
         
         calendarView.delegate = self
@@ -74,7 +78,7 @@ class CalendarViewController: UIViewController {
     
     func presentBottomSheet() {
         
-//        timeLineView.isModalInPresentation = true
+        //        timeLineView.isModalInPresentation = true
         
         if let sheet = timeLineView.sheetPresentationController {
             sheet.preferredCornerRadius = 30
@@ -85,7 +89,7 @@ class CalendarViewController: UIViewController {
                 })]
             sheet.largestUndimmedDetentIdentifier = .large
         }
-            present(timeLineView, animated: true)
+        present(timeLineView, animated: true)
         
         
     }
@@ -112,13 +116,10 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-
-        if timeLineView.isOnScreen != true{
-            presentBottomSheet()
-            timeLineView.isOnScreen = true
-        }
         
-
+        
+        
+        
         
         
         
@@ -134,12 +135,20 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
                 return false
             }
         }
-        timeLineView.filteredData = filtered
-        timeLineView.reload()
+        if filtered!.isEmpty {
+            
+        }else{
+            presentBottomSheet()
+            timeLineView.filteredData = filtered
+            timeLineView.reload()
+        }
         
         
         
-
+        
+        
+        
+        
         
         
         
@@ -147,7 +156,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     
     
-
+    
 }
 
 

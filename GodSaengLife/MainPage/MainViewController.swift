@@ -29,9 +29,19 @@ class MainViewController: UIViewController {
         stopwatchButtonisEnabaled()
     }
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setUserInfomation()
+    }
+    
+    deinit {
+        print("MainViewController 사라져유~")
+
     }
     
     //MARK: - Properties
@@ -284,7 +294,6 @@ class MainViewController: UIViewController {
     
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
-        //        TimeLineSaver.shared.setType(on: .start)
         
         // 운동시간이 설정되어 있는지 확인
         if selectedTime.isEmpty {
@@ -296,6 +305,9 @@ class MainViewController: UIViewController {
             // 운동시간이 설정되어 있는 경우 타이머 작동
             if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
                 createExerciseTimer()
+                // 타임라인에 시작 시간 넘기기, 저장
+                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+                
                 exerciseStopwatch.isStarted = true
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
@@ -331,6 +343,9 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
+            // 타임라인에 시간(초)데이터 넘기기
+            TimeLineSaver.shared.doneType(kind: .exercise, second: Int16(self.exerciseStopwatch.counter))
+            
             self.exerciseStopwatch.counter = 0
             self.exerciseStopwatch.isStarted = false
             
@@ -399,6 +414,11 @@ class MainViewController: UIViewController {
             // 공부시간이 설정되어 있는 경우 타이머 작동
             if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
                 createStudyTimer()
+                
+                // 타임라인에 시작 시간 넘기기, 저장
+                TimeLineSaver.shared.setType(on: .start,kind: .study)
+
+                
                 studyStopwatch.isStarted = true
                 mainView.studyStopButton.isEnabled = true
                 mainView.studyTimeSettingButton.isEnabled = false
@@ -434,6 +454,10 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n공부를 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
+            
+            // 타임라인에 시간(초)데이터 넘기기
+            TimeLineSaver.shared.doneType(kind: .study, second: Int16(self.studyStopwatch.counter))
+
             self.studyStopwatch.counter = 0
             self.studyStopwatch.isStarted = false
             

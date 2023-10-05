@@ -8,7 +8,7 @@ class TimeLineViewController: UIViewController {
     var text:Int?
     var tableView = UITableView()
     var filteredData:[TimeLine]?
-    var isOnScreen:Bool = false
+    
     
     
 
@@ -23,14 +23,9 @@ class TimeLineViewController: UIViewController {
         view.backgroundColor = UIColor(named: "Main Color 2")
         
         configure()
-        self.isOnScreen = true
+        
         
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        self.isOnScreen = false
-    }
-    
     func reload(){
         self.tableView.reloadData()
     }
@@ -65,26 +60,37 @@ extension TimeLineViewController: UITableViewDataSource {
         let action = filteredData![indexPath.row]
         let date = action.date!
         let timeString = DateParser.getTimeLineString(date)
+        
+        var kindString = ""
+        
+        switch action.kind {
+        case 0:
+            kindString = "운동"
+        case 1:
+            kindString = "공부"
+        default:
+            kindString = "알람"
+        }
         var typeString = ""
         if action.type == "start" {
-            typeString = "공부시작"
-        } else if action.type == "pause" {
-            typeString = "일시정지"
+            typeString = "시작"
+        } else if action.type == "done" {
+            typeString = "완료"
         }
-        else if action.type == "unpause" {
-            typeString = "재시작"
-        }
-        else if action.type == "stop" {
-            typeString = "공부완료"
+        else if action.type == "alarm" {
+            typeString = "성공"
         }
         
         
         
         
-        label.text = timeString + " " + typeString
+        
+        label.text = kindString + " " + timeString + " " + typeString
         
         
-
+        if action.second != -1 {
+            label.text! += " \(action.second)"
+        }
         
         cell.addSubview(label)
         
