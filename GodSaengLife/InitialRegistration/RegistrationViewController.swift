@@ -176,7 +176,7 @@ final class RegistrationViewController: UIViewController {
     }
     
     @objc private func textDidChange() {
-        if let nickname = nicknameTextField.text{
+        if let nickname = nicknameTextField.text {
             let modifiedNickname = "\(nickname)님!"
             self.nickname = modifiedNickname
         }

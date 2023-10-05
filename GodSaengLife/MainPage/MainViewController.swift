@@ -71,6 +71,11 @@ class MainViewController: UIViewController {
         mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
     }
     
+    private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(titleColor, for: .normal)
+    }
+    
     private func setTimeSettingView() {
         mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
         mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
@@ -165,10 +170,6 @@ class MainViewController: UIViewController {
         stopStudyStopwatch()
         doneStudyStopwatch()
     }
-    //        TimeLineSaver.shared.setType(on: .start)
-    //        TimeLineSaver.shared.setType(on: .pause)
-    //        TimeLineSaver.shared.setType(on: .unpause)
-    //        TimeLineSaver.shared.setType(on: .stop)
     
     private func startExerciseStopwatch() {
         mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStartButtonTapped(_:)), for: .touchUpInside)
@@ -293,6 +294,8 @@ class MainViewController: UIViewController {
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
                 mainView.exerciseTimeLabel.textColor = .black
+                changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: UIColor(named: "Main Color 2")!, titleColor: .white)
+                changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
             }
         }
     }
@@ -302,23 +305,28 @@ class MainViewController: UIViewController {
         if exerciseStopwatch.isStarted {
             exerciseStopwatch.isStarted = false
             exerciseStopwatch.timer?.invalidate()
-            mainView.exerciseTimeLabel.textColor = UIColor(named: "Main Color 4")
+            mainView.exerciseTimeLabel.textColor = .black
+            changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+            changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .systemRed, titleColor: .white)
+
         }
     }
     
     @objc func exerciseDoneButtonTapped(_ sender: UIButton) {
         print ("운동 완료 버튼 탭")
-        
+        exerciseStopwatch.timer?.invalidate()
+        changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+        changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
+
+
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
             self.exerciseStopwatch.counter = 0
             self.exerciseStopwatch.isStarted = false
-            self.exerciseStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
             
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
-    
+            
             self.mainView.exerciseSetTheTimeLabel.text = "운동 목표 시간"
             self.mainView.exerciseSetTheTimeLabel.textColor = .lightGray
             self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
@@ -330,7 +338,9 @@ class MainViewController: UIViewController {
             self.mainView.exerciseDoneButton.setTitleColor(UIColor.gray, for: .normal)
         }))
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            self.startExerciseStopwatch()
+        }))
         
         self.present(alert, animated: true, completion: nil)
     }
