@@ -8,7 +8,7 @@ final class RegistrationViewController: UIViewController {
     
     private let nicknameTitle = "갓생러가 될 당신의 이름은?"
     private let nicknameTextFieldPlaceholder = "이름을 입력해주세요."
-    private let startButtonTitle = "갓생 시..작하기"
+    private let startButtonTitle = "갓생 시작..하기"
     
     // MARK: - Properties
     private var nickname: String?
@@ -47,7 +47,7 @@ final class RegistrationViewController: UIViewController {
         label.backgroundColor = .clear
         label.text = self.nicknameTitle
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        //        label.textColor = UIColor(named: "Main Color 5")
+        
         return label
     }()
     

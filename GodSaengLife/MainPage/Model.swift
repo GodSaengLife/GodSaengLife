@@ -11,7 +11,5 @@ struct Stopwatch {
     var timer: Timer?
     var isStarted: Bool = false
     var counter: Int = 0
-    
-    
 }
 
