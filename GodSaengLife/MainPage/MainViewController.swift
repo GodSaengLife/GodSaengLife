@@ -29,6 +29,15 @@ class MainViewController: UIViewController {
         stopwatchButtonisEnabaled()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setUserInfomation()
+    }
+    
+    deinit {
+        print("MainViewController 사라져유~")
+    }
+    
     //MARK: - Properties
     
     let mainView = MainView()

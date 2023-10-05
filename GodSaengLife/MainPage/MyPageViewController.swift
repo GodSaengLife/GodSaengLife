@@ -24,7 +24,7 @@ class MyPageViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.font = .systemFont(ofSize: 28, weight: .medium)
         return label
     }()
     
@@ -65,7 +65,7 @@ class MyPageViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 120)
         ])
         NSLayoutConstraint.activate([
-            nicknameTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
+            nicknameTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             nicknameTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             nicknameTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
@@ -89,8 +89,61 @@ class MyPageViewController: UIViewController {
         nicknameTitleLabel.text = nickname
     }
     
+    // MARK: - Present
+    private func presentImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
+    private func presentNicknameEditAlert() {
+        let alert = UIAlertController(title: "닉네임 변경하기", message: "변경할 닉네임을 입력해주세요.", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        let save = UIAlertAction(title: "저장", style: .default) { _ in
+            let nickname = alert.textFields?.first?.text
+            UserDefaults.standard.set(nickname, forKey: "nickname")
+            self.nicknameTitleLabel.text = nickname
+        }
+        alert.addAction(cancel)
+        alert.addAction(save)
+        alert.addTextField { textField in
+            textField.placeholder = UserDefaults.standard.string(forKey: "nickname")
+        }
+        present(alert, animated: true)
+    }
+    
+    private func presentActionSheet() {
+        let alert = UIAlertController(title: "프로필 수정", message: nil, preferredStyle: .actionSheet)
+        let editProfileImage = UIAlertAction(title: "이미지 변경하기", style: .default) { _ in
+            self.presentImagePicker()
+        }
+        let editNickname = UIAlertAction(title: "닉네임 변경하기", style: .default) { _ in
+            self.presentNicknameEditAlert()
+        }
+        alert.addAction(editProfileImage)
+        alert.addAction(editNickname)
+        present(alert, animated: true)
+    }
+
     // MARK: - Actions
     @objc private func editButtonTapped() {
-        
+        presentActionSheet()
     }
+}
+
+extension MyPageViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+            let imageData = image?.jpegData(compressionQuality: 0.0)
+            UserDefaults.standard.set(imageData, forKey: "userImage")
+            self.imageView.image = image
+        }
+    }
+}
+
+extension MyPageViewController: UINavigationControllerDelegate {
+    
 }
