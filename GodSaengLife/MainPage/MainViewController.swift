@@ -309,19 +309,19 @@ class MainViewController: UIViewController {
             exerciseStopwatch.isStarted = false
             exerciseStopwatch.timer?.invalidate()
             mainView.exerciseTimeLabel.textColor = .black
-            changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+            
             changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .systemRed, titleColor: .white)
-
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.changeButtonColor(button: self.mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
+            }
         }
     }
     
     @objc func exerciseDoneButtonTapped(_ sender: UIButton) {
         print ("운동 완료 버튼 탭")
         exerciseStopwatch.timer?.invalidate()
-        changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
-        changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
-
-
+        changeButtonColor(button: mainView.exerciseDoneButton, backgroundColor: .systemBlue, titleColor: .white)
+        
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
             self.exerciseStopwatch.counter = 0
@@ -339,6 +339,8 @@ class MainViewController: UIViewController {
             
             self.mainView.exerciseDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
             self.mainView.exerciseDoneButton.setTitleColor(UIColor.gray, for: .normal)
+            self.mainView.exerciseDoneButton.backgroundColor = .white
+            
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
