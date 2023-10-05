@@ -282,7 +282,7 @@ class MainView: UIView {
     let exerciseSetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "운동 목표 시간"
-        label.textColor = .lightGray
+        label.textColor = .darkGray
         label.textAlignment = .center
         label.layer.cornerRadius = 10
         label.layer.borderWidth = 0.3
@@ -345,7 +345,7 @@ class MainView: UIView {
     let studySetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "공부 목표 시간"
-        label.textColor = .lightGray
+        label.textColor = .darkGray
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.layer.cornerRadius = 10
@@ -859,7 +859,6 @@ class MainView: UIView {
             studyTimeLabel.heightAnchor.constraint(equalToConstant: 32),
             studyTimeLabel.bottomAnchor.constraint(equalTo: studySetTheTimeLabel.bottomAnchor, constant: 45),
             studyTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
-
         ])
     }
     
@@ -910,5 +909,4 @@ class MainView: UIView {
             studyDoneButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -32)
         ])
     }
-    
 }
