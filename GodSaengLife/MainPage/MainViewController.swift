@@ -20,32 +20,76 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         alarmSwitchIsOn()
+        setWakeUpTimeLabel()
+        setStudySetTheTimeLabel()
+        setExerciseSetTheTimeLabel()
         setTimeSettingView()
+        setUserInfomation()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
     }
-    
     
     //MARK: - Properties
     
     let mainView = MainView()
     var exerciseStopwatch = Stopwatch()
     var studyStopwatch = Stopwatch()
-    
     var selectedTime: String = ""
     var selectedMeridiem: String = ""
     
     
     //MARK: - Settings
     
+    private func setWakeUpTimeLabel() {
+        guard let wakeUpTime = DataManager.shared.getAlarmInfo()?.wakeUpTime else { return }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a"
+        // 메리디움 :: 오전, 오후 구분
+        let meridiem = dateFormatter.string(from: wakeUpTime)
+        // 시간 형식 설정
+        dateFormatter.dateFormat = "hh:mm"
+        let time = dateFormatter.string(from: wakeUpTime)
+        mainView.wakeUpTimeLabel.text = time
+        mainView.wakeUpTimeMeridiemLabel.text = meridiem
+    }
+    
+    private func setExerciseSetTheTimeLabel() {
+        let info = DataManager.shared.getExerciseInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.exerciseSetTheTimeLabel.text = selectedTime
+    }
+    
+    private func setStudySetTheTimeLabel() {
+        let info = DataManager.shared.getStudyInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.studySetTheTimeLabel.text = selectedTime
+    }
+    
     private func alarmSwitchIsOn() {
         mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
+    }
+    
+    private func changeButtonColor(button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(titleColor, for: .normal)
     }
     
     private func setTimeSettingView() {
         mainView.wakeUpTimeSettingButton.addTarget(self, action: #selector(wakeUpSettingButtonTapped), for: .touchUpInside)
         mainView.exerciseTimeSettingButton.addTarget(self, action: #selector(exerciseSettingButtonTapped), for: .touchUpInside)
         mainView.studyTimeSettingButton.addTarget(self, action: #selector(studySettingButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setUserInfomation() {
+        mainView.userNameLabel.text = UserDefaults.standard.string(forKey: "nickname")
+        if let imageData = UserDefaults.standard.data(forKey: "userImage") {
+            let image = UIImage(data: imageData)
+            mainView.userProfileImageView.image = image
+        } else {
+            mainView.userProfileImageView.image = UIImage(named: "profileImage")
+        }
     }
     
     private func showAlarmSettingView(_ viewController: UIViewController) {
@@ -160,9 +204,11 @@ class MainViewController: UIViewController {
         if sender.isOn {
             mainView.wakeUpTimeLabel.textColor = .black
             mainView.wakeUpTimeMeridiemLabel.textColor = .black
+            scheduleAlarm()
         } else {
             mainView.wakeUpTimeLabel.textColor = .lightGray
             mainView.wakeUpTimeMeridiemLabel.textColor = .lightGray
+            cancelAlarm()
         }
     }
     
@@ -182,7 +228,7 @@ class MainViewController: UIViewController {
     @objc private func exerciseSettingButtonTapped() {
         // 운동 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getExerciseInfo())
+        moveVC.setCategory(.exercise)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -195,7 +241,7 @@ class MainViewController: UIViewController {
     @objc private func studySettingButtonTapped() {
         // 공부 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getStudyInfo())
+        moveVC.setCategory(.study)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -204,7 +250,6 @@ class MainViewController: UIViewController {
         }
         showTimeSettingView(moveVC)
     }
-    
     
     //MARK: - Actions :: Exercise Stopwatch
     
@@ -225,6 +270,7 @@ class MainViewController: UIViewController {
             mainView.exerciseDoneButton.isEnabled = true
             mainView.exerciseDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.exerciseDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            setCompleteNotification(title: "목표 달성!", body: "오늘의 운동 완료!", identifier: "exercise")
         }
         DispatchQueue.main.async {
             self.mainView.exerciseTimeLabel.text = timeString
@@ -248,6 +294,11 @@ class MainViewController: UIViewController {
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
                 mainView.exerciseTimeLabel.textColor = .black
+                
+                changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: UIColor(named: "Main Color 2")!, titleColor: .white)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.changeButtonColor(button: self.mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+                }
             }
         }
     }
@@ -257,23 +308,29 @@ class MainViewController: UIViewController {
         if exerciseStopwatch.isStarted {
             exerciseStopwatch.isStarted = false
             exerciseStopwatch.timer?.invalidate()
-            mainView.exerciseTimeLabel.textColor = UIColor(named: "Main Color 4")
+            mainView.exerciseTimeLabel.textColor = .systemRed
+            
+            changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .systemRed, titleColor: .white)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.changeButtonColor(button: self.mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
+            }
         }
     }
     
     @objc func exerciseDoneButtonTapped(_ sender: UIButton) {
         print ("운동 완료 버튼 탭")
+        exerciseStopwatch.timer?.invalidate()
+        changeButtonColor(button: mainView.exerciseDoneButton, backgroundColor: .systemBlue, titleColor: .white)
         
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
             self.exerciseStopwatch.counter = 0
             self.exerciseStopwatch.isStarted = false
-            self.exerciseStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
             
             self.mainView.exerciseTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.exerciseTimeLabel.textColor = .lightGray
-    
+            
             self.mainView.exerciseSetTheTimeLabel.text = "운동 목표 시간"
             self.mainView.exerciseSetTheTimeLabel.textColor = .lightGray
             self.mainView.exerciseSetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
@@ -281,11 +338,16 @@ class MainViewController: UIViewController {
             self.mainView.exerciseTimeSettingButton.isEnabled = true
             self.mainView.exerciseDoneButton.isEnabled = false
             
-            self.mainView.exerciseDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
             self.mainView.exerciseDoneButton.setTitleColor(UIColor.gray, for: .normal)
+            self.mainView.exerciseDoneButton.backgroundColor = .white
+            self.mainView.exerciseDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
         }))
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            self.createExerciseTimer()
+            self.exerciseStopwatch.isStarted = true
+            self.changeButtonColor(button: self.mainView.exerciseDoneButton, backgroundColor: .white, titleColor: .systemBlue)
+        }))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -311,6 +373,7 @@ class MainViewController: UIViewController {
             mainView.studyDoneButton.isEnabled = true
             mainView.studyDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.studyDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
+            setCompleteNotification(title: "목표 달성!", body: "오늘의 공부 완료!", identifier: "study")
         }
         DispatchQueue.main.async {
             self.mainView.studyTimeLabel.text = timeString
@@ -334,6 +397,11 @@ class MainViewController: UIViewController {
                 mainView.studyStopButton.isEnabled = true
                 mainView.studyTimeSettingButton.isEnabled = false
                 mainView.studyTimeLabel.textColor = .black
+                
+                changeButtonColor(button: mainView.studyStartButton, backgroundColor: UIColor(named: "Main Color 2")!, titleColor: .white)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.changeButtonColor(button: self.mainView.studyStartButton, backgroundColor: .white, titleColor: .systemCyan)
+                }
             }
         }
     }
@@ -343,18 +411,25 @@ class MainViewController: UIViewController {
         if studyStopwatch.isStarted {
             studyStopwatch.isStarted = false
             studyStopwatch.timer?.invalidate()
-            mainView.studyTimeLabel.textColor = UIColor(named: "Main Color 4")
+            mainView.studyTimeLabel.textColor = .systemRed
+            
+            changeButtonColor(button: mainView.studyStopButton, backgroundColor: .systemRed, titleColor: .white)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.changeButtonColor(button: self.mainView.studyStopButton, backgroundColor: .white, titleColor: .systemRed)
+            }
         }
     }
     
     @objc func studyDoneButtonTapped(_ sender: UIButton) {
         print ("공부 완료 버튼 탭")
+        studyStopwatch.timer?.invalidate()
+        changeButtonColor(button: mainView.studyDoneButton, backgroundColor: .systemBlue, titleColor: .white)
+        
         let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n공부를 종료하시겠습니까?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "완료", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
             self.studyStopwatch.counter = 0
             self.studyStopwatch.isStarted = false
-            self.studyStopwatch.timer?.invalidate() // 타이머를 중지하는 invalidate 호출
             
             self.mainView.studyTimeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.mainView.studyTimeLabel.textColor = .lightGray
@@ -366,12 +441,39 @@ class MainViewController: UIViewController {
             self.mainView.studyTimeSettingButton.isEnabled = true
             self.mainView.studyDoneButton.isEnabled = false
             
-            self.mainView.studyDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
             self.mainView.studyDoneButton.setTitleColor(UIColor.gray, for: .normal)
+            self.mainView.studyDoneButton.backgroundColor = .white
+            self.mainView.studyDoneButton.layer.borderColor = UIColor.gray.withAlphaComponent(0.4).cgColor
         }))
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (_) in
+            self.createStudyTimer()
+            self.studyStopwatch.isStarted = true
+            self.changeButtonColor(button: self.mainView.studyDoneButton, backgroundColor: .white, titleColor: .systemBlue)
+        }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func scheduleAlarm() {
+        guard let timeString = mainView.wakeUpTimeLabel.text,
+              let meridiem = mainView.wakeUpTimeMeridiemLabel.text else {
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        
+        if let date = dateFormatter.date(from: "\(timeString) \(meridiem)") {
+            NotificationManager.shared.scheduleNotification(at: date, title: "기상 알람", body: "기상 알람",identifier: "alarm")
+        }
+    }
+    
+    func cancelAlarm() {
+        NotificationManager.shared.cancelNotification(identifier: "alarm")
+    }
+    
+    func setCompleteNotification(title: String, body: String, identifier: String) {
+        NotificationManager.shared.scheduleImmediateNotification(title: title, body: body, identifier: identifier)
     }
 }

@@ -13,37 +13,16 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
-    
+   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        sleep(1)
         
-        UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions,
             completionHandler: { _, _ in }
         )
         return true
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        let identifier = response.notification.request.identifier
-        if let navigationController = self.window?.rootViewController as? UINavigationController {
-            switch identifier {
-            case "TEST":
-                let targetVC = AlarmLandingViewController()
-                navigationController.pushViewController(targetVC, animated: true)
-            default:
-                break
-            }
-        } else {
-            print("Navigation controller not found")
-        }
-        completionHandler()
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner])
     }
     
     // MARK: UISceneSession Lifecycle

@@ -9,34 +9,38 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
-        bottomView()
-        
+//        bottomView()
         //        TimeLineSaver.shared.resetTest()
         //        TimeLineSaver.shared.setType(on: .start)
         //        TimeLineSaver.shared.setType(on: .pause)
         //        TimeLineSaver.shared.setType(on: .unpause)
         //        TimeLineSaver.shared.setType(on: .stop)
-        
-        
-//        TimeLineSaver.shared.addCustomTest(m: 4, d: 1)
+//        TimeLineSaver.shared.addCustomTest(m: 10, d: 10)
     }
     
     //MARK: - UI관련 start
-    private func bottomView(){
-        var bottomView = UIView()
-        view.addSubview(bottomView)
-        bottomView.backgroundColor = .white
-        bottomView.layer.cornerRadius = 15
-        bottomView.layer.borderWidth = 3
-        bottomView.layer.borderColor = UIColor.black.cgColor
-        bottomView.snp.makeConstraints{
-            $0.top.equalTo(calendarView.snp.bottom).inset(-30)
-            $0.right.left.equalTo(0).inset(20)
-            $0.bottom.equalToSuperview().inset(100)
-        }
-    }
+//    private func bottomView(){
+//        var bottomView = UIView()
+//        view.addSubview(bottomView)
+//        bottomView.backgroundColor = .white
+//        bottomView.layer.cornerRadius = 15
+//        bottomView.layer.borderWidth = 3
+//        bottomView.layer.borderColor = UIColor.black.cgColor
+//        bottomView.snp.makeConstraints{
+//            $0.top.equalTo(calendarView.snp.bottom).inset(-30)
+//            $0.right.left.equalTo(0).inset(20)
+//            $0.bottom.equalToSuperview().inset(100)
+//        }
+//    }
     
     lazy var calendarView: UICalendarView = {
+        let calendarView = UICalendarView()
+        calendarView.wantsDateDecorations = true
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        return calendarView
+    }()
+    
+    lazy var calendarTitleImage: UICalendarView = {
         let calendarView = UICalendarView()
         calendarView.wantsDateDecorations = true
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +60,7 @@ class CalendarViewController: UIViewController {
         calendarView.fontDesign = .rounded
         calendarView.backgroundColor = .white
         calendarView.layer.cornerRadius = 15
-        calendarView.layer.borderWidth = 3
+//        calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
         
         calendarView.delegate = self
@@ -66,7 +70,7 @@ class CalendarViewController: UIViewController {
         calendarView.snp.makeConstraints{
             $0.top.equalToSuperview().inset(60)
             $0.bottom.equalToSuperview().inset(300)
-            $0.left.right.equalTo(0).inset(20)
+            $0.left.right.equalTo(0).inset(15)
         }
         
         

@@ -8,7 +8,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -16,16 +16,20 @@ class MainTabBarController: UITabBarController {
     
     private func setupTabBar() {
         let MainVC = MainViewController()
+        let MainNav = UINavigationController(rootViewController: MainVC)
+        MainVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        
         let CalendarVC = CalendarViewController()
+        let CalendarNav = UINavigationController(rootViewController: CalendarVC)
+        CalendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), selectedImage: UIImage(systemName: "calendar.fill"))
+        
         let MyPageVC = MyPageViewController()
+        let MyPageNav = UINavigationController(rootViewController: MyPageVC)
+        MyPageVC.tabBarItem = UITabBarItem(title: "My Page", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
+        
         self.viewControllers = [MainVC, CalendarVC, MyPageVC]
         tabBar.backgroundColor = .white
         tabBar.tintColor = .systemBlue
-        tabBar.items?[0].image = UIImage(systemName: "house")?.withTintColor(.systemBlue)
-        tabBar.items?[0].selectedImage = UIImage(systemName: "house")?.withTintColor(.lightGray)
-        tabBar.items?[1].image = UIImage(systemName: "calendar")?.withTintColor(.systemBlue)
-        tabBar.items?[1].selectedImage = UIImage(systemName: "calendar")?.withTintColor(.lightGray)
-        tabBar.items?[2].image = UIImage(systemName: "person")?.withTintColor(.systemBlue)
-        tabBar.items?[2].selectedImage = UIImage(systemName: "person")?.withTintColor(.lightGray)
     }
+    
 }
