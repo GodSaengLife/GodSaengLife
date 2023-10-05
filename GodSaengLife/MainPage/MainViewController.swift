@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: - Life Cycle
-    
     override func loadView() {
         view = mainView
         view.backgroundColor = .white
@@ -18,7 +17,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         alarmSwitchIsOn()
         setWakeUpTimeLabel()
         setStudySetTheTimeLabel()
@@ -29,11 +27,12 @@ class MainViewController: UIViewController {
         stopwatchButtonisEnabaled()
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setUserInfomation()
@@ -41,7 +40,7 @@ class MainViewController: UIViewController {
     
     deinit {
         print("MainViewController 사라져유~")
-
+        
     }
     
     //MARK: - Properties
@@ -417,7 +416,7 @@ class MainViewController: UIViewController {
                 
                 // 타임라인에 시작 시간 넘기기, 저장
                 TimeLineSaver.shared.setType(on: .start,kind: .study)
-
+                
                 
                 studyStopwatch.isStarted = true
                 mainView.studyStopButton.isEnabled = true
@@ -457,7 +456,7 @@ class MainViewController: UIViewController {
             
             // 타임라인에 시간(초)데이터 넘기기
             TimeLineSaver.shared.doneType(kind: .study, second: Int16(self.studyStopwatch.counter))
-
+            
             self.studyStopwatch.counter = 0
             self.studyStopwatch.isStarted = false
             
@@ -507,3 +506,4 @@ class MainViewController: UIViewController {
         NotificationManager.shared.scheduleImmediateNotification(title: title, body: body, identifier: identifier)
     }
 }
+
