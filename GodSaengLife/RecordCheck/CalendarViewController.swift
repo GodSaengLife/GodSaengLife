@@ -5,17 +5,22 @@ import SnapKit
 
 class CalendarViewController: UIViewController {
     
+    let timeLineView = TimeLineViewController()
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
         bottomView()
         
+        TimeLineSaver.shared.fetchTimeLines()
+        
+        
         //        TimeLineSaver.shared.resetTest()
-        //        TimeLineSaver.shared.setType(on: .start)
-        //        TimeLineSaver.shared.setType(on: .pause)
-        //        TimeLineSaver.shared.setType(on: .unpause)
-        //        TimeLineSaver.shared.setType(on: .stop)
+//                TimeLineSaver.shared.setType(on: .start)
+//                TimeLineSaver.shared.setType(on: .pause)
+//                TimeLineSaver.shared.setType(on: .unpause)
+//                TimeLineSaver.shared.setType(on: .stop)
         
         
 //        TimeLineSaver.shared.addCustomTest(m: 4, d: 1)
@@ -73,6 +78,29 @@ class CalendarViewController: UIViewController {
     }
     //MARK: - UI관련 end
     
+    
+    
+    func presentBottomSheet() {
+        
+//        timeLineView.isModalInPresentation = true
+        
+        if let sheet = timeLineView.sheetPresentationController {
+            sheet.preferredCornerRadius = 30
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [
+                .custom(resolver: {
+                    0.34 * $0.maximumDetentValue
+                }),
+                .custom(resolver: {
+                    0.70 * $0.maximumDetentValue
+                }),
+                .large()]
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+            present(timeLineView, animated: true)
+        
+        
+    }
 }
 
 extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
@@ -96,8 +124,15 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+
+        if timeLineView.isOnScreen != true{
+            presentBottomSheet()
+            timeLineView.isOnScreen = true
+        }
         
-        let timeLineView = TimeLineViewController()
+        
+        
+        
         TimeLineSaver.shared.fetchTimeLines()
         
         let calendar = Calendar(identifier: .gregorian)
@@ -111,12 +146,18 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
             }
         }
         timeLineView.filteredData = filtered
+        timeLineView.reload()
         
         
         
-        self.present(timeLineView,animated: true)
+        
+
+        
+        
         
     }
+    
+    
     
 }
 

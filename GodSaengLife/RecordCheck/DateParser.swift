@@ -22,6 +22,12 @@ class DateParser {
         
         return localizedDate
     }
+    
+    static func getTimeLineString(_ date:Date) -> String{
+        let localizedDate = localizedRepresentation(date, format: "hh시mm분")
+        
+        return localizedDate
+    }
 
     static func localizedRepresentation(_ date: Date, format: String) -> String {
         let dateFormatter = DateFormatter()
