@@ -618,7 +618,7 @@ class MainView: UIView {
         
         wakeUpTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            wakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 113),
+            wakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 115),
             wakeUpTimeLabel.heightAnchor.constraint(equalToConstant: 35),
             wakeUpTimeLabel.topAnchor.constraint(equalTo: setAWakeUpTimeNotiLabel.bottomAnchor, constant: 10),
             wakeUpTimeLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 18)
