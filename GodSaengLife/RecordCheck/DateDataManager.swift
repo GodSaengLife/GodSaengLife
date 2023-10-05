@@ -24,12 +24,20 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
         }
     }
     
+    func saveTimeLines(){
+        do {
+            try self.context.save()
+        }
+        catch {
+            
+        }
+    }
     
-    func setType(on type: TimeLineType,kind: exerciseOrStudy) {
-        
-        var newTimeLine = TimeLine(context: self.context)
+    func setKind(_ kind:exerciseOrStudy) -> TimeLine{
+        let newTimeLine = TimeLine(context: self.context)
         newTimeLine.date = Date()
-        
+        newTimeLine.second = -1
+
         switch kind {
         case .exercise:
             newTimeLine.kind = 0
@@ -38,25 +46,32 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
         case .alarm:
             newTimeLine.kind = 2
         }
+        return newTimeLine
+    }
+    
+    func doneType(kind: exerciseOrStudy, second: Int16) {
+        let newTimeLine = self.setKind(kind)
+        
+        newTimeLine.type = "done"
+        newTimeLine.second = second
+        
+        self.saveTimeLines()
+    }
+    
+    func setType(on type: TimeLineType,kind: exerciseOrStudy) {
+        let newTimeLine = self.setKind(kind)
         
         switch type {
             
         case .start:
             newTimeLine.type = "start"
-        case .done:
-            newTimeLine.type = "done"
         case .alarm:
             newTimeLine.type = "alarm"
         case .non:
             newTimeLine.type = "none"
         }
         
-        do {
-            try self.context.save()
-        }
-        catch {
-            
-        }
+        self.saveTimeLines()
     }
     
     func resetTest(){
@@ -88,7 +103,7 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
 }
 
 enum TimeLineType{
-    case non, start, done, alarm
+    case non, start, alarm
 }
 enum exerciseOrStudy{
     case exercise, study, alarm

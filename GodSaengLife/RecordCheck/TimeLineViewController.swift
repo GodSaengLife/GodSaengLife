@@ -84,10 +84,13 @@ extension TimeLineViewController: UITableViewDataSource {
         
         
         
+        
         label.text = kindString + " " + timeString + " " + typeString
         
         
-
+        if action.second != -1 {
+            label.text! += " \(action.second)"
+        }
         
         cell.addSubview(label)
         
