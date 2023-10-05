@@ -8,12 +8,12 @@
 import UIKit
 
 final class TimeSettingViewController: UIViewController {
-    var onTimeSelected: ((String, String) -> Void)?
-    
     enum Category {
         case study
         case exercise
     }
+    
+    var onTimeSelected: ((String, String) -> Void)?
     
     private let screenHeight = UIScreen.main.bounds.size.height
     private var hourRange = [Int](0...23)
@@ -90,14 +90,14 @@ final class TimeSettingViewController: UIViewController {
     }
     
     private func updatePickerView() {
-        if self.selectedCategory == .study {
-            let info = DataManager.shared.getStudyInfo()
+        if self.selectedCategory == .exercise {
+            let info = DataManager.shared.getExerciseInfo()
             let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
             setSelectRow(time: time)
         }
-        if self.selectedCategory == .exercise {
-            let info = DataManager.shared.getExerciseInfo()
-            let time = DataManager.shared.convertTime(toSeconds: info.objectiveTime)
+        if self.selectedCategory == .study {
+            let info = DataManager.shared.getStudyInfo()
+            let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
             setSelectRow(time: time)
         }
     }
@@ -106,18 +106,19 @@ final class TimeSettingViewController: UIViewController {
     @objc private func saveButtonTapped() {
         if selectedCategory == .study {
             print("DEBUG: SettingView - Saved StudyInfo ")
-            let info = DataManager.shared.getStudyInfo()
-            info?.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
+            let studyInfo = DataManager.shared.getStudyInfo()
+            studyInfo?.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
                                                                     toMinute: self.selectedMinute,
                                                                     toSeconds: self.selectedSecond)
-            DataManager.shared.updateObjectiveTime(info?.objectiveTime)
+            DataManager.shared.update(studyInfo)
         }
         if self.selectedCategory == .exercise {
             print("DEBUG: SettingView - Saved ExerciseInfo")
-            let info = DataManager.shared.getExerciseInfo()
-            info.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
+            let exerciseInfo = DataManager.shared.getExerciseInfo()
+            exerciseInfo?.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
                                                                     toMinute: self.selectedMinute,
                                                                     toSeconds: self.selectedSecond)
+            DataManager.shared.update(exerciseInfo)
         }
         let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
         onTimeSelected?(selectedTime, "")

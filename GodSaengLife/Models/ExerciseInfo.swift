@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExerciseInfo: Infomation {
+class ExerciseInfo: Codable {
     var totalTime: Int?
     var isDone: Bool? = false
     var objectiveTime: Int?

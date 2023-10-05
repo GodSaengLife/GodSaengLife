@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
         
         alarmSwitchIsOn()
         setStudySetTheTimeLabel()
+        setExerciseSetTheTimeLabel()
         setTimeSettingView()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
@@ -36,6 +37,13 @@ class MainViewController: UIViewController {
     
     
     //MARK: - Settings
+    
+    private func setExerciseSetTheTimeLabel() {
+        let info = DataManager.shared.getExerciseInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.exerciseSetTheTimeLabel.text = selectedTime
+    }
     
     private func setStudySetTheTimeLabel() {
         let info = DataManager.shared.getStudyInfo()

@@ -26,6 +26,19 @@ final class DataManager {
         return self.alarmInfo
     }
     
+    func getExerciseInfo() -> ExerciseInfo? {
+        if let data = userDefaults.data(forKey: Key.exerciseInfo.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let exerciseInfo = try decoder.decode(ExerciseInfo.self, from: data)
+                return exerciseInfo
+            } catch {
+                print("ERROR: Get ExerciseInfo Failed")
+            }
+        }
+        return nil
+    }
+    
     func getStudyInfo() -> StudyInfo? {
         if let data = userDefaults.data(forKey: Key.studyInfo.rawValue) {
             do {
@@ -39,11 +52,17 @@ final class DataManager {
         return nil
     }
     
-    func getExerciseInfo() -> ExerciseInfo {
-        return self.exerciseInfo
+    // MARK: - Create
+    func create(_ exerciseInfo: ExerciseInfo) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(exerciseInfo)
+            userDefaults.set(data, forKey: Key.exerciseInfo.rawValue)
+        } catch {
+            print("ERROR: Create ExerciseInfo Failed")
+        }
     }
     
-    // MARK: - Create
     func create(_ studyInfo: StudyInfo) {
         do {
             let encoder = JSONEncoder()
@@ -55,6 +74,13 @@ final class DataManager {
     }
     
     // MARK: - Update
+    private func updateUserDefautls(_ exerciseInfo: ExerciseInfo?) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(exerciseInfo) {
+            userDefaults.set(data, forKey: Key.exerciseInfo.rawValue)
+        }
+    }
+    
     private func updateUserDefautls(_ studyInfo: StudyInfo?) {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(studyInfo) {
@@ -66,14 +92,12 @@ final class DataManager {
         self.alarmInfo.wakeUpTime = alarmInfo.wakeUpTime
     }
     
-    func updateObjectiveTime(_ objectiveTime: Int?) {
-        let info = getStudyInfo()
-        info?.objectiveTime = objectiveTime
-        updateUserDefautls(info)
+    func update(_ exerciseInfo: ExerciseInfo?) {
+        updateUserDefautls(exerciseInfo)
     }
     
-    func updateObjectiveTime(_ exerciseInfo: ExerciseInfo) {
-        self.exerciseInfo.objectiveTime = exerciseInfo.objectiveTime
+    func update(_ studyInfo: StudyInfo?) {
+        updateUserDefautls(studyInfo)
     }
 
     func convertTime(toSeconds: Int?) -> (Int, Int, Int) {
