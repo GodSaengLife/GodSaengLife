@@ -279,6 +279,7 @@ class MainViewController: UIViewController {
     
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
+//        TimeLineSaver.shared.setType(on: .start)
         
         // 운동시간이 설정되어 있는지 확인
         if selectedTime.isEmpty {
