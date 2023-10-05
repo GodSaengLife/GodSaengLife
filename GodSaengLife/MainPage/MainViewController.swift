@@ -165,6 +165,10 @@ class MainViewController: UIViewController {
         stopStudyStopwatch()
         doneStudyStopwatch()
     }
+    //        TimeLineSaver.shared.setType(on: .start)
+    //        TimeLineSaver.shared.setType(on: .pause)
+    //        TimeLineSaver.shared.setType(on: .unpause)
+    //        TimeLineSaver.shared.setType(on: .stop)
     
     private func startExerciseStopwatch() {
         mainView.exerciseStartButton.addTarget(self, action: #selector(exerciseStartButtonTapped(_:)), for: .touchUpInside)
