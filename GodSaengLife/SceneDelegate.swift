@@ -16,8 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-//        window?.rootViewController = AlarmLandingViewController()
-        window?.rootViewController = MainTabBarController()
+        window?.rootViewController = AlarmLandingViewController()
+//        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
         
         if UserDefaults.standard.string(forKey: "nickname") == nil {
