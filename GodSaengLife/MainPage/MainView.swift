@@ -70,7 +70,7 @@ class MainView: UIView {
     
     let todayQuoteSentenceLabel: UILabel = {
         let label = UILabel()
-        let text = "인생에서 한계는 없습니다.\n여러분 자신이 만드는 한계만 제외한다면..."
+        let text = quotes.randomElement()
         // 폰트 변경
         let font = UIFont(name: "NanumMyeongjoOTF", size: 12.5)
         
@@ -79,7 +79,7 @@ class MainView: UIView {
         style.lineSpacing = 4
         
         // 폰트 스타일 적용
-        let attributedText = NSMutableAttributedString(string: text)
+        let attributedText = NSMutableAttributedString(string: text!)
         attributedText.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, attributedText.length))
         attributedText.addAttribute(.font, value: font as Any, range: NSMakeRange(0, attributedText.length))
         
