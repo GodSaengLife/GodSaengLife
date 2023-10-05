@@ -27,7 +27,7 @@ class MainTabBarController: UITabBarController {
         let MyPageNav = UINavigationController(rootViewController: MyPageVC)
         MyPageVC.tabBarItem = UITabBarItem(title: "My Page", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
         
-        self.viewControllers = [MainVC, CalendarVC, MyPageVC] 
+        self.viewControllers = [MainNav, CalendarVC, MyPageVC] 
         tabBar.backgroundColor = .white
         tabBar.tintColor = .systemBlue
     }
