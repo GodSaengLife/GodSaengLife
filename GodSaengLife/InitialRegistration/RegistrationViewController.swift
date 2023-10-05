@@ -114,7 +114,7 @@ final class RegistrationViewController: UIViewController {
             startButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
-    
+
     // MARK: - Update
     private func updateButtonColor() {
         if self.nickname?.isEmpty == true {
@@ -149,6 +149,9 @@ final class RegistrationViewController: UIViewController {
     @objc private func startButtonTapped() {
         if self.nickname?.isEmpty == false {
             UserDefaults.standard.set(self.nickname, forKey: "nickname")
+            DataManager.shared.create(AlarmInfo())
+            DataManager.shared.create(ExerciseInfo())
+            DataManager.shared.create(StudyInfo())
             guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
             let moveVC = MainViewController()
             sceneDelegate.changeRootViewController(moveVC)

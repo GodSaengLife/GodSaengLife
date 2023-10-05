@@ -161,7 +161,7 @@ class MainView: UIView {
     
     let wakeUpTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "05:35"
+        label.text = "00:00"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 44, weight: .thin)
         

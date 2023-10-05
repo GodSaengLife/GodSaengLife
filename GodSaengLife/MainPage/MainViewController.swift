@@ -20,24 +20,52 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         alarmSwitchIsOn()
+        setWakeUpTimeLabel()
+        setStudySetTheTimeLabel()
+        setExerciseSetTheTimeLabel()
         setTimeSettingView()
         setUserInfomation()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
     }
     
-    
     //MARK: - Properties
     
     let mainView = MainView()
     var exerciseStopwatch = Stopwatch()
     var studyStopwatch = Stopwatch()
-    
     var selectedTime: String = ""
     var selectedMeridiem: String = ""
     
     
     //MARK: - Settings
+    
+    private func setWakeUpTimeLabel() {
+        guard let wakeUpTime = DataManager.shared.getAlarmInfo()?.wakeUpTime else { return }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a"
+        // 메리디움 :: 오전, 오후 구분
+        let meridiem = dateFormatter.string(from: wakeUpTime)
+        // 시간 형식 설정
+        dateFormatter.dateFormat = "hh:mm"
+        let time = dateFormatter.string(from: wakeUpTime)
+        mainView.wakeUpTimeLabel.text = time
+        mainView.wakeUpTimeMeridiemLabel.text = meridiem
+    }
+    
+    private func setExerciseSetTheTimeLabel() {
+        let info = DataManager.shared.getExerciseInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.exerciseSetTheTimeLabel.text = selectedTime
+    }
+    
+    private func setStudySetTheTimeLabel() {
+        let info = DataManager.shared.getStudyInfo()
+        let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+        let selectedTime = String(format: "%02d:%02d:%02d", time.0, time.1, time.2)
+        mainView.studySetTheTimeLabel.text = selectedTime
+    }
     
     private func alarmSwitchIsOn() {
         mainView.alarmSwitchButton.addTarget(self, action: #selector(onClickSwitch(sender:)), for: .touchUpInside)
@@ -195,7 +223,7 @@ class MainViewController: UIViewController {
     @objc private func exerciseSettingButtonTapped() {
         // 운동 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getExerciseInfo())
+        moveVC.setCategory(.exercise)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -208,7 +236,7 @@ class MainViewController: UIViewController {
     @objc private func studySettingButtonTapped() {
         // 공부 시간 세팅버튼
         let moveVC = TimeSettingViewController()
-        moveVC.setInfomation(DataManager.shared.getStudyInfo())
+        moveVC.setCategory(.study)
         moveVC.onTimeSelected = { [weak self] (selectedTime, selectedMeridiem)  in
             self?.selectedTime = selectedTime
             
@@ -217,7 +245,6 @@ class MainViewController: UIViewController {
         }
         showTimeSettingView(moveVC)
     }
-    
     
     //MARK: - Actions :: Exercise Stopwatch
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlarmInfo {
+class AlarmInfo: Codable {
     var wakeUpTime: Date?
     var isActivated: Bool = false
     var isDone: Bool = false
