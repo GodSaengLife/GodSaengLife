@@ -122,8 +122,10 @@ class MyPageViewController: UIViewController {
         let editNickname = UIAlertAction(title: "닉네임 변경하기", style: .default) { _ in
             self.presentNicknameEditAlert()
         }
+        let cancel = UIAlertAction(title: "취소하기", style: .cancel)
         alert.addAction(editProfileImage)
         alert.addAction(editNickname)
+        alert.addAction(cancel)
         present(alert, animated: true)
     }
 
