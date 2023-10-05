@@ -170,7 +170,6 @@ extension TimeSettingViewController: UIPickerViewDelegate {
         default:
             break
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

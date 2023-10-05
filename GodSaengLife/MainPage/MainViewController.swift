@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         alarmSwitchIsOn()
+        setWakeUpTimeLabel()
         setStudySetTheTimeLabel()
         setExerciseSetTheTimeLabel()
         setTimeSettingView()
@@ -37,6 +38,19 @@ class MainViewController: UIViewController {
     
     
     //MARK: - Settings
+    
+    private func setWakeUpTimeLabel() {
+        guard let wakeUpTime = DataManager.shared.getAlarmInfo()?.wakeUpTime else { return }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a"
+        // 메리디움 :: 오전, 오후 구분
+        let meridiem = dateFormatter.string(from: wakeUpTime)
+        // 시간 형식 설정
+        dateFormatter.dateFormat = "hh:mm"
+        let time = dateFormatter.string(from: wakeUpTime)
+        mainView.wakeUpTimeLabel.text = time
+        mainView.wakeUpTimeMeridiemLabel.text = meridiem
+    }
     
     private func setExerciseSetTheTimeLabel() {
         let info = DataManager.shared.getExerciseInfo()

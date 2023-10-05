@@ -10,8 +10,6 @@ import UIKit
 final class DataManager {
     static let shared = DataManager()
     private let userDefaults = UserDefaults.standard
-    private let alarmInfo = AlarmInfo()
-    private let exerciseInfo = ExerciseInfo()
     
     enum Key: String {
         case alarmInfo
@@ -22,8 +20,17 @@ final class DataManager {
     private init() {}
     
     // MARK: - Get
-    func getAlarmInfo() -> AlarmInfo {
-        return self.alarmInfo
+    func getAlarmInfo() -> AlarmInfo? {
+        if let data = userDefaults.data(forKey: Key.alarmInfo.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let alarmInfo = try decoder.decode(AlarmInfo.self, from: data)
+                return alarmInfo
+            } catch {
+                print("ERROR: Get ExerciseInfo Failed")
+            }
+        }
+        return nil
     }
     
     func getExerciseInfo() -> ExerciseInfo? {
@@ -53,6 +60,16 @@ final class DataManager {
     }
     
     // MARK: - Create
+    func create(_ alarmInfo: AlarmInfo) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(alarmInfo)
+            userDefaults.set(data, forKey: Key.alarmInfo.rawValue)
+        } catch {
+            print("ERROR: Create AlarmInfo Failed")
+        }
+    }
+    
     func create(_ exerciseInfo: ExerciseInfo) {
         do {
             let encoder = JSONEncoder()
@@ -74,6 +91,13 @@ final class DataManager {
     }
     
     // MARK: - Update
+    private func updateUserDefautls(_ alarmInfo: AlarmInfo?) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(alarmInfo) {
+            userDefaults.set(data, forKey: Key.alarmInfo.rawValue)
+        }
+    }
+    
     private func updateUserDefautls(_ exerciseInfo: ExerciseInfo?) {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(exerciseInfo) {
@@ -88,8 +112,8 @@ final class DataManager {
         }
     }
     
-    func updateWakeUpTime(alarmInfo: AlarmInfo) {
-        self.alarmInfo.wakeUpTime = alarmInfo.wakeUpTime
+    func update(_ alarmInfo: AlarmInfo?) {
+        updateUserDefautls(alarmInfo)
     }
     
     func update(_ exerciseInfo: ExerciseInfo?) {

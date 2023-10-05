@@ -35,6 +35,7 @@ class AlarmSettingViewController: UIViewController {
         view.backgroundColor = .white
         addViews()
         setConstraints()
+        setSelectedTime()
     }
     
     // MARK: - Add Views
@@ -62,6 +63,11 @@ class AlarmSettingViewController: UIViewController {
         ])
     }
     
+    private func setSelectedTime() {
+        guard let wakeUpTime = DataManager.shared.getAlarmInfo()?.wakeUpTime else { return }
+        datePicker.setDate(wakeUpTime, animated: true)
+    }
+    
     // MARK: - Actions
     @objc private func saveButtonTapped() {
         let dateFormatter = DateFormatter()
@@ -74,6 +80,10 @@ class AlarmSettingViewController: UIViewController {
         dateFormatter.dateFormat = "hh:mm"
         let time = dateFormatter.string(from: datePicker.date)
         
+        // 데이터 저장
+        let alarmInfo = DataManager.shared.getAlarmInfo()
+        alarmInfo?.wakeUpTime = datePicker.date
+        DataManager.shared.update(alarmInfo)
         // 데이터 전달 - 클로저 사용
         onTimeSelected?(time, meridiem)
         
