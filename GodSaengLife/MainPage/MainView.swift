@@ -72,7 +72,7 @@ class MainView: UIView {
         let label = UILabel()
         let text = quotes.randomElement()
         // 폰트 변경
-        let font = UIFont(name: "NanumMyeongjoOTF", size: 12.5)
+        let font = UIFont(name: "NanumMyeongjoOTF", size: 13)
         
         // 행간 조절
         let style = NSMutableParagraphStyle()
@@ -496,7 +496,7 @@ class MainView: UIView {
         
         todayQuoteSentenceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            todayQuoteSentenceLabel.widthAnchor.constraint(equalToConstant: 360),
+            todayQuoteSentenceLabel.widthAnchor.constraint(equalToConstant: 325),
             todayQuoteSentenceLabel.heightAnchor.constraint(equalToConstant: 34),
             todayQuoteSentenceLabel.topAnchor.constraint(equalTo: todayQuoteTitleLabel.bottomAnchor, constant: 6),
             todayQuoteSentenceLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)

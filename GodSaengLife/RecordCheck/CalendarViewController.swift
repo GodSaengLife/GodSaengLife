@@ -12,36 +12,22 @@ class CalendarViewController: UIViewController {
         setCalendar()
         appleCreateCalendar()
 
-        bottomView()
+//        bottomView()
         
         TimeLineSaver.shared.fetchTimeLines()
         
         
-        //        TimeLineSaver.shared.resetTest()
+//                TimeLineSaver.shared.resetTest()
 //                TimeLineSaver.shared.setType(on: .start)
 //                TimeLineSaver.shared.setType(on: .pause)
 //                TimeLineSaver.shared.setType(on: .unpause)
 //                TimeLineSaver.shared.setType(on: .stop)
         
         
-//        TimeLineSaver.shared.addCustomTest(m: 4, d: 1)
+//        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
     }
     
     //MARK: - UI관련 start
-    private func bottomView(){
-        var bottomView = UIView()
-        view.addSubview(bottomView)
-        bottomView.backgroundColor = .white
-        bottomView.layer.cornerRadius = 15
-        bottomView.layer.borderWidth = 3
-        bottomView.layer.borderColor = UIColor.black.cgColor
-        bottomView.snp.makeConstraints{
-            $0.top.equalTo(calendarView.snp.bottom).inset(-30)
-            $0.right.left.equalTo(0).inset(20)
-            $0.bottom.equalToSuperview().inset(100)
-        }
-    }
-
     
     lazy var calendarView: UICalendarView = {
         let calendarView = UICalendarView()
@@ -98,12 +84,8 @@ class CalendarViewController: UIViewController {
             sheet.prefersGrabberVisible = true
             sheet.detents = [
                 .custom(resolver: {
-                    0.34 * $0.maximumDetentValue
-                }),
-                .custom(resolver: {
-                    0.70 * $0.maximumDetentValue
-                }),
-                .large()]
+                    0.40 * $0.maximumDetentValue
+                })]
             sheet.largestUndimmedDetentIdentifier = .large
         }
             present(timeLineView, animated: true)
@@ -151,7 +133,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
             var temp = calendar.dateComponents([.year, .month, .day],from: $0.date!)
             if temp.year == dateComponents?.year && temp.month == dateComponents?.month && temp.day == dateComponents?.day {
                 return true
-            }else{
+            } else {
                 return false
             }
         }

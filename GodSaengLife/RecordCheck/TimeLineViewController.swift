@@ -20,7 +20,7 @@ class TimeLineViewController: UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view.backgroundColor = UIColor(named: "Main Color 2")
         
         configure()
         self.isOnScreen = true
