@@ -59,7 +59,7 @@ class MainView: UIView {
     let todayQuoteTitleLabel: UILabel = {
         let label = UILabel()
         let font = UIFont(name: "NanumMyeongjoOTFBold", size: 14)
-        //        ChosunilboNM
+        
         label.text = "오늘의 한줄"
         label.font = font
         label.textColor = .gray
@@ -70,7 +70,7 @@ class MainView: UIView {
     
     let todayQuoteSentenceLabel: UILabel = {
         let label = UILabel()
-        let text = "인생에서 한계는 없습니다.\n여러분 자신이 만드는 한계만 제외한다면..."
+        let text = quotes.randomElement()
         // 폰트 변경
         let font = UIFont(name: "NanumMyeongjoOTF", size: 12.5)
         
@@ -79,7 +79,7 @@ class MainView: UIView {
         style.lineSpacing = 4
         
         // 폰트 스타일 적용
-        let attributedText = NSMutableAttributedString(string: text)
+        let attributedText = NSMutableAttributedString(string: text!)
         attributedText.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, attributedText.length))
         attributedText.addAttribute(.font, value: font as Any, range: NSMakeRange(0, attributedText.length))
         
@@ -134,7 +134,7 @@ class MainView: UIView {
     
     let wakeUpTimeSectionTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "기상 시간"
+        label.text = "갓생러의 아침"
         label.textColor = .darkGray
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         
@@ -161,7 +161,7 @@ class MainView: UIView {
     
     let wakeUpTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "05:35"
+        label.text = "00:00"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 44, weight: .thin)
         
@@ -179,9 +179,9 @@ class MainView: UIView {
     
     let setAWakeUpTimeNotiLabel: UILabel = {
         let label = UILabel()
-        label.text = "Set The Wake-Up Time"
+        label.text = "목표 기상 시간"
         label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         
         return label
     }()
@@ -282,7 +282,7 @@ class MainView: UIView {
     let exerciseSetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "운동 목표 시간"
-        label.textColor = .lightGray
+        label.textColor = .darkGray
         label.textAlignment = .center
         label.layer.cornerRadius = 10
         label.layer.borderWidth = 0.3
@@ -345,7 +345,7 @@ class MainView: UIView {
     let studySetTheTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "공부 목표 시간"
-        label.textColor = .lightGray
+        label.textColor = .darkGray
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.layer.cornerRadius = 10
@@ -598,7 +598,7 @@ class MainView: UIView {
         NSLayoutConstraint.activate([
             setAWakeUpTimeNotiLabel.widthAnchor.constraint(equalToConstant: 250),
             setAWakeUpTimeNotiLabel.heightAnchor.constraint(equalToConstant: 15),
-            setAWakeUpTimeNotiLabel.topAnchor.constraint(equalTo: wakeUpTimeViewDivider.bottomAnchor, constant: 12),
+            setAWakeUpTimeNotiLabel.topAnchor.constraint(equalTo: wakeUpTimeViewDivider.bottomAnchor, constant: 14),
             setAWakeUpTimeNotiLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 20)
         ])
     }
@@ -618,9 +618,9 @@ class MainView: UIView {
         
         wakeUpTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            wakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 113),
+            wakeUpTimeLabel.widthAnchor.constraint(equalToConstant: 115),
             wakeUpTimeLabel.heightAnchor.constraint(equalToConstant: 35),
-            wakeUpTimeLabel.topAnchor.constraint(equalTo: setAWakeUpTimeNotiLabel.bottomAnchor, constant: 10),
+            wakeUpTimeLabel.topAnchor.constraint(equalTo: setAWakeUpTimeNotiLabel.bottomAnchor, constant: 7),
             wakeUpTimeLabel.leadingAnchor.constraint(equalTo: todayQuoteBackgroundImageView.leadingAnchor, constant: 18)
         ])
     }
@@ -859,7 +859,6 @@ class MainView: UIView {
             studyTimeLabel.heightAnchor.constraint(equalToConstant: 32),
             studyTimeLabel.bottomAnchor.constraint(equalTo: studySetTheTimeLabel.bottomAnchor, constant: 45),
             studyTimeLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
-
         ])
     }
     
@@ -910,5 +909,4 @@ class MainView: UIView {
             studyDoneButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -32)
         ])
     }
-    
 }

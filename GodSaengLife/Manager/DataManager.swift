@@ -9,36 +9,119 @@ import UIKit
 
 final class DataManager {
     static let shared = DataManager()
-    private let alarmInfo = AlarmInfo()
-    private let studyInfo = StudyInfo()
-    private let exerciseInfo = ExerciseInfo()
+    private let userDefaults = UserDefaults.standard
+    
+    enum Key: String {
+        case alarmInfo
+        case studyInfo
+        case exerciseInfo
+    }
     
     private init() {}
     
     // MARK: - Get
-    func getAlarmInfo() -> AlarmInfo {
-        return self.alarmInfo
+    func getAlarmInfo() -> AlarmInfo? {
+        if let data = userDefaults.data(forKey: Key.alarmInfo.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let alarmInfo = try decoder.decode(AlarmInfo.self, from: data)
+                return alarmInfo
+            } catch {
+                print("ERROR: Get ExerciseInfo Failed")
+            }
+        }
+        return nil
     }
     
-    func getStudyInfo() -> StudyInfo {
-        return self.studyInfo
+    func getExerciseInfo() -> ExerciseInfo? {
+        if let data = userDefaults.data(forKey: Key.exerciseInfo.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let exerciseInfo = try decoder.decode(ExerciseInfo.self, from: data)
+                return exerciseInfo
+            } catch {
+                print("ERROR: Get ExerciseInfo Failed")
+            }
+        }
+        return nil
     }
     
-    func getExerciseInfo() -> ExerciseInfo {
-        return self.exerciseInfo
+    func getStudyInfo() -> StudyInfo? {
+        if let data = userDefaults.data(forKey: Key.studyInfo.rawValue) {
+            do {
+                let decoder = JSONDecoder()
+                let studyInfo = try decoder.decode(StudyInfo.self, from: data)
+                return studyInfo
+            } catch {
+                print("ERROR: Get StudyInfo Failed")
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Create
+    func create(_ alarmInfo: AlarmInfo) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(alarmInfo)
+            userDefaults.set(data, forKey: Key.alarmInfo.rawValue)
+        } catch {
+            print("ERROR: Create AlarmInfo Failed")
+        }
+    }
+    
+    func create(_ exerciseInfo: ExerciseInfo) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(exerciseInfo)
+            userDefaults.set(data, forKey: Key.exerciseInfo.rawValue)
+        } catch {
+            print("ERROR: Create ExerciseInfo Failed")
+        }
+    }
+    
+    func create(_ studyInfo: StudyInfo) {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(studyInfo)
+            userDefaults.set(data, forKey: Key.studyInfo.rawValue)
+        } catch {
+            print("ERROR: Create StudyInfo Failed")
+        }
     }
     
     // MARK: - Update
-    func updateWakeUpTime(alarmInfo: AlarmInfo) {
-        self.alarmInfo.wakeUpTime = alarmInfo.wakeUpTime
+    private func updateUserDefautls(_ alarmInfo: AlarmInfo?) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(alarmInfo) {
+            userDefaults.set(data, forKey: Key.alarmInfo.rawValue)
+        }
     }
     
-    func updateObjectiveTime(_ studyInfo: StudyInfo) {
-        self.studyInfo.objectiveTime = studyInfo.objectiveTime
+    private func updateUserDefautls(_ exerciseInfo: ExerciseInfo?) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(exerciseInfo) {
+            userDefaults.set(data, forKey: Key.exerciseInfo.rawValue)
+        }
     }
     
-    func updateObjectiveTime(_ exerciseInfo: ExerciseInfo) {
-        self.exerciseInfo.objectiveTime = exerciseInfo.objectiveTime
+    private func updateUserDefautls(_ studyInfo: StudyInfo?) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(studyInfo) {
+            userDefaults.set(data, forKey: Key.studyInfo.rawValue)
+        }
+    }
+    
+    func update(_ alarmInfo: AlarmInfo?) {
+        updateUserDefautls(alarmInfo)
+    }
+    
+    func update(_ exerciseInfo: ExerciseInfo?) {
+        updateUserDefautls(exerciseInfo)
+    }
+    
+    func update(_ studyInfo: StudyInfo?) {
+        updateUserDefautls(studyInfo)
     }
 
     func convertTime(toSeconds: Int?) -> (Int, Int, Int) {

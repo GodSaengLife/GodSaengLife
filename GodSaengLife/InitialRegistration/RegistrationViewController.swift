@@ -3,10 +3,12 @@ import UIKit
 
 final class RegistrationViewController: UIViewController {
     // MARK: - Constants
-    private let userDefaultImage = UIImage(systemName: "person.fill")
-    private let nicknameTitle = "갓생을 살려는 당신은 누구입니까?"
-    private let nicknameTextFieldPlaceholder = "닉네임을 입력해주세요."
-    private let startButtonTitle = "갓생살기"
+    private let userDefaultImage = UIImage(named: "profileImage")
+    private let godLifeBackgroundImage = UIImage(named: "godLifeBackground")
+    
+    private let nicknameTitle = "갓생러가 될 당신의 이름은?"
+    private let nicknameTextFieldPlaceholder = "이름을 입력해주세요."
+    private let startButtonTitle = "갓생 시작..하기"
     
     // MARK: - Properties
     private var nickname: String?
@@ -17,9 +19,26 @@ final class RegistrationViewController: UIViewController {
         iv.backgroundColor = .clear
         iv.image = self.userDefaultImage
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 75
-        iv.layer.borderWidth = 1
+        iv.layer.cornerRadius = 60
+        iv.layer.borderWidth = 0.5
         iv.layer.borderColor = UIColor.lightGray.cgColor
+        return iv
+    }()
+    
+    private lazy var backgroundView: UIImageView = {
+        let iv = UIImageView()
+        iv.backgroundColor = UIColor(named: "Main Color 5")
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }()
+    
+    private lazy var backgroundImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.backgroundColor = UIColor(named: "Main Color 5")
+        iv.image = self.godLifeBackgroundImage
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFit
         return iv
     }()
     
@@ -27,7 +46,8 @@ final class RegistrationViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = .clear
         label.text = self.nicknameTitle
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 17, weight: .medium)
+        
         return label
     }()
     
@@ -36,9 +56,9 @@ final class RegistrationViewController: UIViewController {
         tf.delegate = self
         tf.placeholder = self.nicknameTextFieldPlaceholder
         tf.textAlignment = .center
-        tf.font = .systemFont(ofSize: 20, weight: .regular)
-        tf.layer.cornerRadius = 4
-        tf.layer.borderWidth = 1
+        tf.font = .systemFont(ofSize: 15, weight: .regular)
+        tf.layer.cornerRadius = 10
+        tf.layer.borderWidth = 0.5
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
@@ -49,9 +69,8 @@ final class RegistrationViewController: UIViewController {
         button.backgroundColor = .lightGray
         button.isEnabled = false
         button.setTitle(self.startButtonTitle, for: .normal)
-        button.layer.cornerRadius = 4
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -82,7 +101,7 @@ final class RegistrationViewController: UIViewController {
     
     // MARK: - Add Views
     private func addViews() {
-        let views: [UIView] = [imageView, nicknameTitleLabel, nicknameTextField, startButton]
+        let views: [UIView] = [backgroundView,backgroundImageView,imageView,nicknameTitleLabel,nicknameTextField,startButton]
         views.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -92,11 +111,26 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Constraints
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 150),
-            imageView.heightAnchor.constraint(equalToConstant: 150)
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.heightAnchor.constraint(equalToConstant: 280)
         ])
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 180)
+        ])
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -65),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+            imageView.heightAnchor.constraint(equalToConstant: 120)
+        ])
+        
         NSLayoutConstraint.activate([
             nicknameTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             nicknameTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -105,13 +139,13 @@ final class RegistrationViewController: UIViewController {
             nicknameTextField.topAnchor.constraint(equalTo: nicknameTitleLabel.bottomAnchor, constant: 15),
             nicknameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             nicknameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            nicknameTextField.heightAnchor.constraint(equalToConstant: 35)
+            nicknameTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
         NSLayoutConstraint.activate([
             startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            startButton.heightAnchor.constraint(equalToConstant: 45)
+            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            startButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -122,7 +156,7 @@ final class RegistrationViewController: UIViewController {
             startButton.isEnabled = false
         }
         if self.nickname?.isEmpty == false {
-            startButton.backgroundColor = .systemBlue
+            startButton.backgroundColor = UIColor(named: "Main Color 2")
             startButton.isEnabled = true
         }
     }
@@ -142,15 +176,21 @@ final class RegistrationViewController: UIViewController {
     }
     
     @objc private func textDidChange() {
-        self.nickname = nicknameTextField.text
+        if let nickname = nicknameTextField.text {
+            let modifiedNickname = "\(nickname)님!"
+            self.nickname = modifiedNickname
+        }
         updateButtonColor()
     }
     
     @objc private func startButtonTapped() {
         if self.nickname?.isEmpty == false {
             UserDefaults.standard.set(self.nickname, forKey: "nickname")
+            DataManager.shared.create(AlarmInfo())
+            DataManager.shared.create(ExerciseInfo())
+            DataManager.shared.create(StudyInfo())
             guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
-            let moveVC = MainViewController()
+            let moveVC = MainTabBarController()
             sceneDelegate.changeRootViewController(moveVC)
         }
     }
@@ -173,5 +213,9 @@ extension RegistrationViewController: UINavigationControllerDelegate {
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
-
+    
 }
+
+
+
+

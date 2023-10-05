@@ -11,6 +11,7 @@ class TimeLineViewController: UIViewController {
     var isOnScreen:Bool = false
     
     
+
     
     override func loadView() {
         view = tableView
@@ -83,6 +84,7 @@ extension TimeLineViewController: UITableViewDataSource {
         label.text = timeString + " " + typeString
         
         
+
         
         cell.addSubview(label)
         

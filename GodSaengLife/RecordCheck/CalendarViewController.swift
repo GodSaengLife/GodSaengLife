@@ -11,6 +11,7 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
+
         bottomView()
         
         TimeLineSaver.shared.fetchTimeLines()
@@ -40,8 +41,16 @@ class CalendarViewController: UIViewController {
             $0.bottom.equalToSuperview().inset(100)
         }
     }
+
     
     lazy var calendarView: UICalendarView = {
+        let calendarView = UICalendarView()
+        calendarView.wantsDateDecorations = true
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        return calendarView
+    }()
+    
+    lazy var calendarTitleImage: UICalendarView = {
         let calendarView = UICalendarView()
         calendarView.wantsDateDecorations = true
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +70,7 @@ class CalendarViewController: UIViewController {
         calendarView.fontDesign = .rounded
         calendarView.backgroundColor = .white
         calendarView.layer.cornerRadius = 15
-        calendarView.layer.borderWidth = 3
+//        calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
         
         calendarView.delegate = self
@@ -71,7 +80,7 @@ class CalendarViewController: UIViewController {
         calendarView.snp.makeConstraints{
             $0.top.equalToSuperview().inset(60)
             $0.bottom.equalToSuperview().inset(300)
-            $0.left.right.equalTo(0).inset(20)
+            $0.left.right.equalTo(0).inset(15)
         }
         
         
@@ -130,6 +139,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
             timeLineView.isOnScreen = true
         }
         
+
         
         
         
@@ -150,7 +160,6 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
         
         
         
-        
 
         
         
@@ -159,6 +168,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     
     
+
 }
 
 

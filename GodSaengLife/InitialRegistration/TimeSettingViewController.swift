@@ -8,6 +8,11 @@
 import UIKit
 
 final class TimeSettingViewController: UIViewController {
+    enum Category {
+        case study
+        case exercise
+    }
+    
     var onTimeSelected: ((String, String) -> Void)?
     
     private let screenHeight = UIScreen.main.bounds.size.height
@@ -17,10 +22,9 @@ final class TimeSettingViewController: UIViewController {
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
     private var selectedSecond: Int = 0
-    private var settingInfomation: Infomation? {
+    private var selectedCategory: Category? {
         didSet {
-            let time = DataManager.shared.convertTime(toSeconds: settingInfomation?.objectiveTime)
-            setSelectRow(time: time)
+            updatePickerView()
         }
     }
     
@@ -81,29 +85,43 @@ final class TimeSettingViewController: UIViewController {
         timePickerView.selectRow(time.2, inComponent: 2, animated: true)
     }
     
-    func setInfomation(_ infomation: Infomation) {
-        self.settingInfomation = infomation
+    func setCategory(_ category: Category?) {
+        self.selectedCategory = category
     }
-
+    
+    private func updatePickerView() {
+        if self.selectedCategory == .exercise {
+            let info = DataManager.shared.getExerciseInfo()
+            let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+            setSelectRow(time: time)
+        }
+        if self.selectedCategory == .study {
+            let info = DataManager.shared.getStudyInfo()
+            let time = DataManager.shared.convertTime(toSeconds: info?.objectiveTime)
+            setSelectRow(time: time)
+        }
+    }
     
     // MARK: - Actions
     @objc private func saveButtonTapped() {
-        if let _ = self.settingInfomation as? StudyInfo {
-            let info = DataManager.shared.getStudyInfo()
-            info.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
-                                                                   toMinute: self.selectedMinute,
-                                                                   toSeconds: self.selectedSecond)
-            DataManager.shared.updateObjectiveTime(info)
+        if selectedCategory == .study {
+            print("DEBUG: SettingView - Saved StudyInfo ")
+            let studyInfo = DataManager.shared.getStudyInfo()
+            studyInfo?.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
+                                                                    toMinute: self.selectedMinute,
+                                                                    toSeconds: self.selectedSecond)
+            DataManager.shared.update(studyInfo)
         }
-        if let _ = self.settingInfomation as? ExerciseInfo {
-            let info = DataManager.shared.getExerciseInfo()
-            info.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
-                                                                   toMinute: self.selectedMinute,
-                                                                   toSeconds: self.selectedSecond)
-            DataManager.shared.updateObjectiveTime(info)
+        if self.selectedCategory == .exercise {
+            print("DEBUG: SettingView - Saved ExerciseInfo")
+            let exerciseInfo = DataManager.shared.getExerciseInfo()
+            exerciseInfo?.objectiveTime = DataManager.shared.convertSeconds(toHour: self.selectedHour,
+                                                                    toMinute: self.selectedMinute,
+                                                                    toSeconds: self.selectedSecond)
+            DataManager.shared.update(exerciseInfo)
         }
-         let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
-         onTimeSelected?(selectedTime, "")
+        let selectedTime = String(format: "%02d:%02d:%02d", selectedHour, selectedMinute, selectedSecond)
+        onTimeSelected?(selectedTime, "")
         self.dismiss(animated: true)
     }
 }
@@ -152,7 +170,6 @@ extension TimeSettingViewController: UIPickerViewDelegate {
         default:
             break
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

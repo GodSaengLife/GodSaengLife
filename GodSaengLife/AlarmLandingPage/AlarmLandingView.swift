@@ -18,9 +18,6 @@ class AlarmLandingView: UIView {
     var readQuoteLabel: UILabel!
     var completeButton: UIButton!
     
-    var quotes = ["명언1", "명언2", "명언3"]
-    var currentQuoteIndex = 0
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -33,8 +30,9 @@ class AlarmLandingView: UIView {
     }
     
     func setupUI() {
+        var userName = String(UserDefaults.standard.string(forKey: "nickname") ?? "사용자")
         titleLabel = UILabel()
-        titleLabel.text = "홍식님 갓생 사셔야죠?"
+        titleLabel.text = "\(userName)님 갓생 사셔야죠?"
         titleLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         titleLabel.textAlignment = .center
         
@@ -54,7 +52,9 @@ class AlarmLandingView: UIView {
         quoteBox.backgroundColor = .lightGray
         
         quoteLabel = UILabel()
-        quoteLabel.text = quotes[currentQuoteIndex]
+        quoteLabel.text = quotes.randomElement()
+        quoteLabel.numberOfLines = 0
+        quoteLabel.lineBreakMode = .byWordWrapping
         quoteLabel.textAlignment = .center
         
         quoteTextField = UITextField()
@@ -111,8 +111,11 @@ class AlarmLandingView: UIView {
             quoteBox.widthAnchor.constraint(equalToConstant: 300),
             quoteBox.heightAnchor.constraint(equalToConstant: 70),
             
-            quoteLabel.centerXAnchor.constraint(equalTo: quoteBox.centerXAnchor),
-            quoteLabel.centerYAnchor.constraint(equalTo: quoteBox.centerYAnchor),
+            
+            quoteLabel.topAnchor.constraint(equalTo: quoteBox.topAnchor, constant: 10),
+            quoteLabel.bottomAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: -10),
+            quoteLabel.leadingAnchor.constraint(equalTo: quoteBox.leadingAnchor, constant: 10),
+            quoteLabel.trailingAnchor.constraint(equalTo: quoteBox.trailingAnchor, constant: -10),
             
             quoteTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             quoteTextField.topAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: 25),
