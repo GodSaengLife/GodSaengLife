@@ -77,6 +77,8 @@ class AlarmSettingViewController: UIViewController {
         // 데이터 전달 - 클로저 사용
         onTimeSelected?(time, meridiem)
         
+        NotificationManager.shared.scheduleNotification(at: datePicker.date, title: "기상알람", body: "기상알람", identifier: "alarm")
+        
         self.dismiss(animated: true)
     }
 }
