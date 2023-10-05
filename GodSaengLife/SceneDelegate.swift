@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
+//        window?.rootViewController = AlarmLandingViewController()
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
         

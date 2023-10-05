@@ -32,7 +32,7 @@ class AlarmLandingView: UIView {
     func setupUI() {
         var userName = String(UserDefaults.standard.string(forKey: "nickname") ?? "사용자")
         titleLabel = UILabel()
-        titleLabel.text = "\(userName)님 갓생 사셔야죠?"
+        titleLabel.text = "\(userName) 갓생 사셔야죠?"
         titleLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         titleLabel.textAlignment = .center
         

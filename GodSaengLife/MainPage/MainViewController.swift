@@ -29,6 +29,11 @@ class MainViewController: UIViewController {
         stopwatchButtonisEnabaled()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     //MARK: - Properties
     
     let mainView = MainView()
@@ -279,7 +284,7 @@ class MainViewController: UIViewController {
     
     @objc func exerciseStartButtonTapped(_ sender: UIButton) {
         print ("운동 시작 버튼 탭")
-//        TimeLineSaver.shared.setType(on: .start)
+        //        TimeLineSaver.shared.setType(on: .start)
         
         // 운동시간이 설정되어 있는지 확인
         if selectedTime.isEmpty {
@@ -370,7 +375,7 @@ class MainViewController: UIViewController {
             mainView.studySetTheTimeLabel.text = "목표 달성!"
             mainView.studySetTheTimeLabel.textColor = .gray
             mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
-           
+            
             mainView.studyDoneButton.isEnabled = true
             mainView.studyDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.studyDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
@@ -438,7 +443,7 @@ class MainViewController: UIViewController {
             self.mainView.studySetTheTimeLabel.text = "공부 목표 시간"
             self.mainView.studySetTheTimeLabel.textColor = .lightGray
             self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-           
+            
             self.mainView.studyTimeSettingButton.isEnabled = true
             self.mainView.studyDoneButton.isEnabled = false
             

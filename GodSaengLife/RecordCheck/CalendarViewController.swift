@@ -12,10 +12,7 @@ class CalendarViewController: UIViewController {
         setCalendar()
         appleCreateCalendar()
 
-//        bottomView()
-        
         TimeLineSaver.shared.fetchTimeLines()
-        
         
 //                TimeLineSaver.shared.resetTest()
 //                TimeLineSaver.shared.setType(on: .start)
