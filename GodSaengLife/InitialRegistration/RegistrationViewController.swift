@@ -8,7 +8,7 @@ final class RegistrationViewController: UIViewController {
     
     private let nicknameTitle = "갓생러가 될 당신의 이름은?"
     private let nicknameTextFieldPlaceholder = "이름을 입력해주세요."
-    private let startButtonTitle = "갓생 가보자고~!~!!~~!"
+    private let startButtonTitle = "갓생 시..작하기"
     
     // MARK: - Properties
     private var nickname: String?
@@ -47,7 +47,7 @@ final class RegistrationViewController: UIViewController {
         label.backgroundColor = .clear
         label.text = self.nicknameTitle
         label.font = .systemFont(ofSize: 17, weight: .medium)
-//        label.textColor = UIColor(named: "Main Color 5")
+        //        label.textColor = UIColor(named: "Main Color 5")
         return label
     }()
     
@@ -148,7 +148,7 @@ final class RegistrationViewController: UIViewController {
             startButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-
+    
     // MARK: - Update
     private func updateButtonColor() {
         if self.nickname?.isEmpty == true {
@@ -176,7 +176,10 @@ final class RegistrationViewController: UIViewController {
     }
     
     @objc private func textDidChange() {
-        self.nickname = nicknameTextField.text
+        if let nickname = nicknameTextField.text{
+            let modifiedNickname = "\(nickname)님!"
+            self.nickname = modifiedNickname
+        }
         updateButtonColor()
     }
     
@@ -210,5 +213,9 @@ extension RegistrationViewController: UINavigationControllerDelegate {
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
-
+    
 }
+
+
+
+
