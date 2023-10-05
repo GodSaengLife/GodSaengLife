@@ -294,8 +294,11 @@ class MainViewController: UIViewController {
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
                 mainView.exerciseTimeLabel.textColor = .black
+                
                 changeButtonColor(button: mainView.exerciseStartButton, backgroundColor: UIColor(named: "Main Color 2")!, titleColor: .white)
-                changeButtonColor(button: mainView.exerciseStopButton, backgroundColor: .white, titleColor: .systemRed)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.changeButtonColor(button: self.mainView.exerciseStartButton, backgroundColor: .white, titleColor: .systemCyan)
+                }
             }
         }
     }
