@@ -5,33 +5,30 @@ import SnapKit
 
 class CalendarViewController: UIViewController {
     
+    let timeLineView = TimeLineViewController()
+        
     override func viewDidLoad(){
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
-//        bottomView()
-        //        TimeLineSaver.shared.resetTest()
-        //        TimeLineSaver.shared.setType(on: .start)
-        //        TimeLineSaver.shared.setType(on: .pause)
-        //        TimeLineSaver.shared.setType(on: .unpause)
-        //        TimeLineSaver.shared.setType(on: .stop)
-//        TimeLineSaver.shared.addCustomTest(m: 10, d: 10)
+
+
+        TimeLineSaver.shared.fetchTimeLines()
+        
+//                TimeLineSaver.shared.resetTest()
+//                TimeLineSaver.shared.setType(on: .start)
+//                TimeLineSaver.shared.setType(on: .pause)
+//                TimeLineSaver.shared.setType(on: .unpause)
+//                TimeLineSaver.shared.setType(on: .stop)
+
+//        TimeLineSaver.shared.resetTest()
+//                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+//                TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
+        
+        //        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
     }
     
     //MARK: - UI관련 start
-//    private func bottomView(){
-//        var bottomView = UIView()
-//        view.addSubview(bottomView)
-//        bottomView.backgroundColor = .white
-//        bottomView.layer.cornerRadius = 15
-//        bottomView.layer.borderWidth = 3
-//        bottomView.layer.borderColor = UIColor.black.cgColor
-//        bottomView.snp.makeConstraints{
-//            $0.top.equalTo(calendarView.snp.bottom).inset(-30)
-//            $0.right.left.equalTo(0).inset(20)
-//            $0.bottom.equalToSuperview().inset(100)
-//        }
-//    }
     
     lazy var calendarView: UICalendarView = {
         let calendarView = UICalendarView()
@@ -60,7 +57,7 @@ class CalendarViewController: UIViewController {
         calendarView.fontDesign = .rounded
         calendarView.backgroundColor = .white
         calendarView.layer.cornerRadius = 15
-//        calendarView.layer.borderWidth = 3
+        //        calendarView.layer.borderWidth = 3
         calendarView.layer.borderColor = UIColor.black.cgColor
         
         calendarView.delegate = self
@@ -77,6 +74,25 @@ class CalendarViewController: UIViewController {
     }
     //MARK: - UI관련 end
     
+    
+    
+    func presentBottomSheet() {
+        
+        //        timeLineView.isModalInPresentation = true
+        
+        if let sheet = timeLineView.sheetPresentationController {
+            sheet.preferredCornerRadius = 30
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [
+                .custom(resolver: {
+                    0.40 * $0.maximumDetentValue
+                })]
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        present(timeLineView, animated: true)
+        
+        
+    }
 }
 
 extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
@@ -101,7 +117,12 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         
-        let timeLineView = TimeLineViewController()
+        
+        
+        
+        
+        
+        
         TimeLineSaver.shared.fetchTimeLines()
         
         let calendar = Calendar(identifier: .gregorian)
@@ -110,17 +131,31 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
             var temp = calendar.dateComponents([.year, .month, .day],from: $0.date!)
             if temp.year == dateComponents?.year && temp.month == dateComponents?.month && temp.day == dateComponents?.day {
                 return true
-            }else{
+            } else {
                 return false
             }
         }
-        timeLineView.filteredData = filtered
+        if filtered!.isEmpty {
+            
+        }else{
+            presentBottomSheet()
+            timeLineView.filteredData = filtered
+            timeLineView.reload()
+        }
         
         
         
-        self.present(timeLineView,animated: true)
+        
+        
+        
+        
+        
+        
         
     }
+    
+    
+    
     
 }
 

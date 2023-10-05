@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: - Life Cycle
-    
     override func loadView() {
         view = mainView
         view.backgroundColor = .white
@@ -18,7 +17,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         alarmSwitchIsOn()
         setWakeUpTimeLabel()
         setStudySetTheTimeLabel()
@@ -27,6 +25,22 @@ class MainViewController: UIViewController {
         setUserInfomation()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setUserInfomation()
+    }
+    
+    deinit {
+        print("MainViewController 사라져유~")
+        
     }
     
     //MARK: - Properties
@@ -290,6 +304,9 @@ class MainViewController: UIViewController {
             // 운동시간이 설정되어 있는 경우 타이머 작동
             if exerciseStopwatch.timer == nil || !exerciseStopwatch.isStarted {
                 createExerciseTimer()
+                // 타임라인에 시작 시간 넘기기, 저장
+                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+                
                 exerciseStopwatch.isStarted = true
                 mainView.exerciseStopButton.isEnabled = true
                 mainView.exerciseTimeSettingButton.isEnabled = false
@@ -325,6 +342,9 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "운동하기 종료", message: "완료를 누르면 운동한 시간이 초기화됩니다.\n운동을 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
+            // 타임라인에 시간(초)데이터 넘기기
+            TimeLineSaver.shared.doneType(kind: .exercise, second: Int16(self.exerciseStopwatch.counter))
+            
             self.exerciseStopwatch.counter = 0
             self.exerciseStopwatch.isStarted = false
             
@@ -369,7 +389,7 @@ class MainViewController: UIViewController {
             mainView.studySetTheTimeLabel.text = "목표 달성!"
             mainView.studySetTheTimeLabel.textColor = .gray
             mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .medium)
-           
+            
             mainView.studyDoneButton.isEnabled = true
             mainView.studyDoneButton.layer.borderColor = UIColor.systemBlue.withAlphaComponent(0.4).cgColor
             mainView.studyDoneButton.setTitleColor(UIColor.systemBlue, for: .normal)
@@ -393,6 +413,11 @@ class MainViewController: UIViewController {
             // 공부시간이 설정되어 있는 경우 타이머 작동
             if studyStopwatch.timer == nil || !studyStopwatch.isStarted {
                 createStudyTimer()
+                
+                // 타임라인에 시작 시간 넘기기, 저장
+                TimeLineSaver.shared.setType(on: .start,kind: .study)
+                
+                
                 studyStopwatch.isStarted = true
                 mainView.studyStopButton.isEnabled = true
                 mainView.studyTimeSettingButton.isEnabled = false
@@ -428,6 +453,10 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: "공부하기 완료", message: "완료를 누르면 공부한 시간이 초기화됩니다.\n공부를 종료하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "종료", style: .default, handler: { (_) in
+            
+            // 타임라인에 시간(초)데이터 넘기기
+            TimeLineSaver.shared.doneType(kind: .study, second: Int16(self.studyStopwatch.counter))
+            
             self.studyStopwatch.counter = 0
             self.studyStopwatch.isStarted = false
             
@@ -437,7 +466,7 @@ class MainViewController: UIViewController {
             self.mainView.studySetTheTimeLabel.text = "공부 목표 시간"
             self.mainView.studySetTheTimeLabel.textColor = .lightGray
             self.mainView.studySetTheTimeLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-           
+            
             self.mainView.studyTimeSettingButton.isEnabled = true
             self.mainView.studyDoneButton.isEnabled = false
             
@@ -477,3 +506,4 @@ class MainViewController: UIViewController {
         NotificationManager.shared.scheduleImmediateNotification(title: title, body: body, identifier: identifier)
     }
 }
+

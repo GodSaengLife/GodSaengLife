@@ -9,19 +9,103 @@ import UIKit
 
 class AlarmLandingView: UIView {
     
-    var titleLabel: UILabel!
-    var subtitleLabel: UILabel!
-    var quoteOfTheDay: UILabel!
-    var quoteBox: UIView!
-    var quoteLabel: UILabel!
-    var quoteTextField: UITextField!
-    var readQuoteLabel: UILabel!
-    var completeButton: UIButton!
+    //MARK: - Properties
+    
+    lazy var safeArea = safeAreaLayoutGuide
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        var userName = String(UserDefaults.standard.string(forKey: "nickname") ?? "사용자")
+        
+        label.text = "\(userName) 갓생 사셔야죠?"
+        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "alarmBackground")
+        imageView.alpha = 0.5
+        imageView.contentMode = .scaleAspectFill
+        
+        return imageView
+    }()
+    
+    let quoteLabel: UILabel = {
+        let label = UILabel()
+        let text = quotes.randomElement()
+        // 폰트 변경
+        let font = UIFont(name: "NanumMyeongjoOTF", size: 15)
+        
+        // 행간 조절
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 5
+        
+        // 폰트 스타일 적용
+        let attributedText = NSMutableAttributedString(string: text!)
+        attributedText.addAttribute(.paragraphStyle, value: style, range: NSMakeRange(0, attributedText.length))
+        attributedText.addAttribute(.font, value: font as Any, range: NSMakeRange(0, attributedText.length))
+        
+        label.attributedText = attributedText
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    let quoteBox: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "오늘의한줄")
+        imageView.contentMode = .scaleToFill
+        
+        return imageView
+    }()
+    
+    let quoteTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "명언을 입력해주세요."
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 10
+        textField.layer.borderWidth = 0.3
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.textAlignment = .left
+        
+        return textField
+    }()
+    
+    let readQuoteLabel: UILabel = {
+        let label = UILabel()
+        label.text = "명언을 정확히 입력하면 버튼이 활성화됩니다."
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .gray
+        label.textAlignment = .left
+        
+        return label
+    }()
+    
+    let completeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.systemGray4
+        button.setTitle("역시 당신은 갓생러!", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        button.layer.cornerRadius = 10
+        
+        return button
+    }()
+    
+    
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         setupUI()
+        configureUI()
         setupConstraints()
     }
     
@@ -29,115 +113,109 @@ class AlarmLandingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
-        var userName = String(UserDefaults.standard.string(forKey: "nickname") ?? "사용자")
-        titleLabel = UILabel()
-        titleLabel.text = "\(userName)님 갓생 사셔야죠?"
-        titleLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        titleLabel.textAlignment = .center
-        
-        subtitleLabel = UILabel()
-        subtitleLabel.text = "인생에서 한계는 없습니다.\n여러분 자신이 만드는 한계만 제외한다면..."
-        subtitleLabel.font = UIFont.systemFont(ofSize: 16)
-        subtitleLabel.numberOfLines = 2
-        subtitleLabel.textAlignment = .center
-        
-        quoteOfTheDay = UILabel()
-        quoteOfTheDay.text = "오늘의 명언"
-        quoteOfTheDay.font = UIFont.systemFont(ofSize: 20)
-        quoteOfTheDay.textAlignment = .center
-        
-        quoteBox = UIView()
-        quoteBox.layer.cornerRadius = 20
-        quoteBox.backgroundColor = .lightGray
-        
-        quoteLabel = UILabel()
-        quoteLabel.text = quotes.randomElement()
-        quoteLabel.numberOfLines = 0
-        quoteLabel.lineBreakMode = .byWordWrapping
-        quoteLabel.textAlignment = .center
-        
-        quoteTextField = UITextField()
-        quoteTextField.placeholder = "명언을 입력해주세요."
-        quoteTextField.borderStyle = .roundedRect
-        quoteTextField.textAlignment = .center
-        
-        readQuoteLabel = UILabel()
-        readQuoteLabel.text = "오늘의 명언을 정확히 입력하면 일어나기 버튼이 활성화됩니다."
-        readQuoteLabel.font = UIFont.systemFont(ofSize: 12)
-        readQuoteLabel.textColor = .gray
-        readQuoteLabel.textAlignment = .center
-        
-        completeButton = UIButton(type: .system)
-        completeButton.setTitle("일어나기", for: .normal)
-        completeButton.layer.cornerRadius = 30
-        completeButton.setTitleColor(UIColor.black, for: .normal)
-        completeButton.backgroundColor = UIColor.lightGray
-        
-        self.addSubview(titleLabel)
-        self.addSubview(subtitleLabel)
-        self.addSubview(quoteOfTheDay)
-        quoteBox.addSubview(quoteLabel)
-        self.addSubview(quoteBox)
-        self.addSubview(quoteTextField)
-        self.addSubview(readQuoteLabel)
-        self.addSubview(completeButton)
-    }
     
-    func setupConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        quoteOfTheDay.translatesAutoresizingMaskIntoConstraints = false
-        quoteBox.translatesAutoresizingMaskIntoConstraints = false
-        quoteLabel.translatesAutoresizingMaskIntoConstraints = false
-        quoteTextField.translatesAutoresizingMaskIntoConstraints = false
-        readQuoteLabel.translatesAutoresizingMaskIntoConstraints = false
-        completeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            
-            subtitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            subtitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8),
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
-            
-            quoteOfTheDay.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            quoteOfTheDay.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 50),
-            
-            quoteBox.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            quoteBox.topAnchor.constraint(equalTo: quoteOfTheDay
-                .bottomAnchor, constant: 10),
-            quoteBox.widthAnchor.constraint(equalToConstant: 300),
-            quoteBox.heightAnchor.constraint(equalToConstant: 70),
-            
-            
-            quoteLabel.topAnchor.constraint(equalTo: quoteBox.topAnchor, constant: 10),
-            quoteLabel.bottomAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: -10),
-            quoteLabel.leadingAnchor.constraint(equalTo: quoteBox.leadingAnchor, constant: 10),
-            quoteLabel.trailingAnchor.constraint(equalTo: quoteBox.trailingAnchor, constant: -10),
-            
-            quoteTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            quoteTextField.topAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: 25),
-            quoteTextField.widthAnchor.constraint(equalTo: quoteBox.widthAnchor),
-            quoteTextField.heightAnchor.constraint(equalTo: quoteBox.heightAnchor),
-            
-            readQuoteLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            readQuoteLabel.topAnchor.constraint(equalTo: quoteTextField.bottomAnchor, constant: 5),
-            
-            completeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            completeButton.topAnchor.constraint(equalTo: readQuoteLabel.bottomAnchor, constant: 100),
-            completeButton.widthAnchor.constraint(equalTo: quoteBox.widthAnchor),
-            completeButton.heightAnchor.constraint(equalTo: quoteBox.heightAnchor),
-        ])
-    }
+    //MARK: - Settings
     
     func updateButtonAppearance(isEnabled: Bool) {
         if isEnabled {
             completeButton.backgroundColor = UIColor.systemBlue
         } else {
-            completeButton.backgroundColor = UIColor.lightGray
+            completeButton.backgroundColor = UIColor.systemGray4
         }
+    }
+    
+    
+    //MARK: - UI
+    
+    func setupUI() {
+        addSubview(backgroundImageView)
+        addSubview(titleLabel)
+        quoteBox.addSubview(quoteLabel)
+        addSubview(quoteBox)
+        addSubview(quoteTextField)
+        addSubview(readQuoteLabel)
+        addSubview(completeButton)
+    }
+    
+    func configureUI(){
+        configureBackgroundImageView()
+        configureTitleLabel()
+        configureQuoteLabel()
+        configureQuoteBox()
+        configureQuoteTextField()
+        configureReadQuoteLabel()
+        configureCompleteButton()
+        
+    }
+    
+    func setupConstraints() {
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        quoteBox.translatesAutoresizingMaskIntoConstraints = false
+        quoteLabel.translatesAutoresizingMaskIntoConstraints = false
+        quoteTextField.translatesAutoresizingMaskIntoConstraints = false
+        readQuoteLabel.translatesAutoresizingMaskIntoConstraints = false
+        completeButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func configureBackgroundImageView(){
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+    }
+    
+    func configureTitleLabel(){
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 150)
+        ])
+    }
+    
+    func configureQuoteBox(){
+        NSLayoutConstraint.activate([
+            quoteBox.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            quoteBox.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 70),
+            quoteBox.widthAnchor.constraint(equalToConstant: 345),
+            quoteBox.heightAnchor.constraint(equalToConstant: 120)
+        ])
+    }
+    func configureQuoteLabel(){
+        NSLayoutConstraint.activate([
+            quoteLabel.topAnchor.constraint(equalTo: quoteBox.topAnchor, constant: 27),
+            quoteLabel.bottomAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: -20),
+            quoteLabel.leadingAnchor.constraint(equalTo: quoteBox.leadingAnchor, constant: 20),
+            quoteLabel.trailingAnchor.constraint(equalTo: quoteBox.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    
+    func configureQuoteTextField(){
+        NSLayoutConstraint.activate([
+            quoteTextField.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            quoteTextField.topAnchor.constraint(equalTo: quoteBox.bottomAnchor, constant: 20),
+            quoteTextField.widthAnchor.constraint(equalToConstant: 340),
+            quoteTextField.heightAnchor.constraint(equalToConstant: 55)
+        ])
+    }
+    
+    func configureReadQuoteLabel(){
+        NSLayoutConstraint.activate([
+            readQuoteLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            readQuoteLabel.topAnchor.constraint(equalTo: quoteTextField.bottomAnchor, constant: 10),
+            readQuoteLabel.widthAnchor.constraint(equalToConstant: 330)
+        ])
+    }
+    
+    func configureCompleteButton(){
+        NSLayoutConstraint.activate([
+            completeButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            completeButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -30),
+            completeButton.widthAnchor.constraint(equalToConstant: 340),
+            completeButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
 }
 
