@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "오늘의한줄.png",
+      "filename" : "오늘의한줄.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "오늘의한줄 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
