@@ -18,7 +18,9 @@ class CalendarViewController: UIViewController {
         
         
 //                TimeLineSaver.shared.resetTest()
-//                TimeLineSaver.shared.setType(on: .start)
+//        TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+//        TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
+        TimeLineSaver.shared.setType(on: .done,kind: .study)
 //                TimeLineSaver.shared.setType(on: .pause)
 //                TimeLineSaver.shared.setType(on: .unpause)
 //                TimeLineSaver.shared.setType(on: .stop)
@@ -116,10 +118,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
 
-        if timeLineView.isOnScreen != true{
-            presentBottomSheet()
-            timeLineView.isOnScreen = true
-        }
+        
         
 
         
@@ -137,8 +136,16 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
                 return false
             }
         }
-        timeLineView.filteredData = filtered
-        timeLineView.reload()
+        if filtered!.isEmpty {
+            
+        }else{
+            presentBottomSheet()
+            timeLineView.filteredData = filtered
+            timeLineView.reload()
+        }
+        
+        
+
         
         
         

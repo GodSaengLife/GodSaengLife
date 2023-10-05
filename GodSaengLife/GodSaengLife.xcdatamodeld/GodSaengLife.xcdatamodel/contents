@@ -19,6 +19,7 @@
     </entity>
     <entity name="TimeLine" representedClassName="TimeLine" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="kind" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
 </model>

@@ -25,24 +25,30 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
     }
     
     
-    func setType(on type: TimeLineType) {
+    func setType(on type: TimeLineType,kind: exerciseOrStudy) {
         
         var newTimeLine = TimeLine(context: self.context)
         newTimeLine.date = Date()
+        
+        switch kind {
+        case .exercise:
+            newTimeLine.kind = 0
+        case .study:
+            newTimeLine.kind = 1
+        case .alarm:
+            newTimeLine.kind = 2
+        }
         
         switch type {
             
         case .start:
             newTimeLine.type = "start"
-        case .pause:
-            newTimeLine.type = "pause"
-        case .unpause:
-            newTimeLine.type = "unpause"
-        case .stop:
-            newTimeLine.type = "stop"
+        case .done:
+            newTimeLine.type = "done"
+        case .alarm:
+            newTimeLine.type = "alarm"
         case .non:
             newTimeLine.type = "none"
-            print("none")
         }
         
         do {
@@ -71,7 +77,7 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
         newTimeLine.date = calendar
         
         newTimeLine.type = "none"
-
+        
         do {
             try self.context.save()
         }
@@ -80,25 +86,17 @@ class TimeLineSaver { // 프로그램 실행될때 인스턴스화 이후 값을
         }
     }
 }
-    
-    enum TimeLineType{
-        case non, start, pause, unpause, stop
-    }
-    
-    class TimeLineOneDay {
-        
-        //    var calData = Calendar(identifier: .gregorian)
-        
-        //    var targetTime = Date() // 설정되었던 그날의 목표 시간들
-        //    var targetWakeUpTime = Date() // 설정된 기상 알람
-        //
-        //    var actualWakeUpTime = Date() // 실제 기상 시간
-        
-    }
-    
-    
-    
-    
-    
-    
-    
+
+enum TimeLineType{
+    case non, start, done, alarm
+}
+enum exerciseOrStudy{
+    case exercise, study, alarm
+}
+
+
+
+
+
+
+
