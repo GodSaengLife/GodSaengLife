@@ -59,7 +59,7 @@ class MainView: UIView {
     let todayQuoteTitleLabel: UILabel = {
         let label = UILabel()
         let font = UIFont(name: "NanumMyeongjoOTFBold", size: 14)
-        //        ChosunilboNM
+        
         label.text = "오늘의 한줄"
         label.font = font
         label.textColor = .gray
