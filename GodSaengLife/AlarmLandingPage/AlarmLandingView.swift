@@ -128,6 +128,7 @@ class AlarmLandingView: UIView {
     //MARK: - UI
     
     func setupUI() {
+        completeButton.isEnabled = false
         addSubview(backgroundImageView)
         addSubview(titleLabel)
         quoteBox.addSubview(quoteLabel)

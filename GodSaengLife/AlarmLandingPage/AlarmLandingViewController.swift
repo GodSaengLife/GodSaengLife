@@ -46,6 +46,7 @@ class AlarmLandingViewController: UIViewController {
     @objc func checkMatchingText() {
         let isMatching = alarmLandingView.quoteLabel.text == alarmLandingView.quoteTextField.text
         alarmLandingView.updateButtonAppearance(isEnabled: isMatching)
+        alarmLandingView.completeButton.isEnabled = isMatching
     }
     
     @objc func didTapCompleteButton() {
