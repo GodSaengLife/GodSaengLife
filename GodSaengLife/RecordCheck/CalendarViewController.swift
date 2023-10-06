@@ -69,8 +69,6 @@ class CalendarViewController: UIViewController {
             $0.bottom.equalToSuperview().inset(300)
             $0.left.right.equalTo(0).inset(15)
         }
-        
-        
     }
     //MARK: - UI관련 end
     
@@ -90,8 +88,6 @@ class CalendarViewController: UIViewController {
             sheet.largestUndimmedDetentIdentifier = .large
         }
         present(timeLineView, animated: true)
-        
-        
     }
 }
 
@@ -100,28 +96,18 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
         let calendar = Calendar(identifier: .gregorian)
         TimeLineSaver.shared.fetchTimeLines()
         for i in TimeLineSaver.shared.timeline! {
-            
-            
             var temp = calendar.dateComponents([.year,.month,.day], from: i.date!)
-            
             if temp.year == dateComponents.year && temp.month == dateComponents.month && temp.day == dateComponents.day {
-                
                 calendarView.wantsDateDecorations = true
                 return UICalendarView.Decoration.default(color: .systemBlue, size: .large)
             }else{
-                
+        
             }
         }
         return nil
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        
-        
-        
-        
-        
-        
         
         TimeLineSaver.shared.fetchTimeLines()
         
@@ -143,20 +129,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
             timeLineView.reload()
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
-    
-    
-    
-    
 }
 
 
