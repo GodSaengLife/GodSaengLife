@@ -51,8 +51,7 @@ class AlarmLandingViewController: UIViewController {
     
     @objc func didTapCompleteButton() {
         TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
-        let mainVC = MainViewController()
-        navigationController?.setViewControllers([mainVC], animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 
