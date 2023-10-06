@@ -21,8 +21,8 @@ class CalendarViewController: UIViewController {
         //                TimeLineSaver.shared.setType(on: .stop)
         
         //        TimeLineSaver.shared.resetTest()
-        //                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
-        //                TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
+//                        TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+//                        TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
         
         //        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
     }
@@ -116,18 +116,12 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         
-        
-        
-        
-        
-        
-        
         TimeLineSaver.shared.fetchTimeLines()
         
         let calendar = Calendar(identifier: .gregorian)
         
         let filtered = TimeLineSaver.shared.timeline?.filter{
-            var temp = calendar.dateComponents([.year, .month, .day],from: $0.date!)
+            let temp = calendar.dateComponents([.year, .month, .day],from: $0.date!)
             if temp.year == dateComponents?.year && temp.month == dateComponents?.month && temp.day == dateComponents?.day {
                 return true
             } else {
@@ -137,8 +131,31 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
         if filtered!.isEmpty {
             
         }else{
+            var temp:[[String]] = [[],[],[]]
             presentBottomSheet()
-            timeLineView.filteredData = filtered
+            filtered?.forEach{
+                let date = $0.date!
+                let timeString = DateParser.getTimeLineString(date)
+                if $0.kind == 0 {
+                    if $0.type == "start" {
+                        temp[1].append(("스타트 " + timeString))
+                    }else {
+                        temp[1].append(("종료 " + timeString))
+                    }
+                }
+                if $0.kind == 1 {
+                    if $0.type == "start" {
+                        temp[2].append(("스타트 " + timeString))
+                    }else {
+                        temp[2].append(("종료 " + timeString))
+                    }
+                }
+                if $0.kind == 2 {
+                    temp[0].append("알람 완료")
+                }
+            }
+            
+            timeLineView.items = temp
             timeLineView.reload()
         }
         
