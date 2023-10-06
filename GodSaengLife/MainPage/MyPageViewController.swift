@@ -39,6 +39,126 @@ class MyPageViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Total Done Count
+    private let totalDoneCountTitleLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private let totalDoneCountNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var totalDoneCountStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [totalDoneCountTitleLabel, totalDoneCountNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // MARK: - Total ExerciseTime
+    private let totalExerciseTimeTitleLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private let totalExerciseTimeNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var totalExerciseTimeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [totalExerciseTimeTitleLabel, totalExerciseTimeNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // MARK: - Total StudyTime
+    private let totalStudyTimeTitleLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+
+    private let totalStudyTimeNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var totalStudyTimeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [totalStudyTimeTitleLabel, totalStudyTimeNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // MARK: - TotalTime
+    private let totalTimeLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private let totalTimeNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var totalTimeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [totalTimeLabel, totalTimeNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // MARK: - Average ExerciseTime
+    private let averageExerciseTimeTitleLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private let averageExerciseTimeNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var averageExerciseTimeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [averageExerciseTimeTitleLabel, averageExerciseTimeNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // MARK: - Average StudyTime
+    private let averageStudyTimeTitleLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+
+    private let averageStudyTimeNumberLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+    }
+    
+    private lazy var averageStudyTimeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [averageStudyTimeTitleLabel, averageStudyTimeNumberLabel])
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
     private lazy var stackViewFirst = UIStackView().then {
         $0.axis = .horizontal
         $0.layer.cornerRadius = 30
@@ -66,28 +186,61 @@ class MyPageViewController: UIViewController {
         addViews()
         setConstraints()
         setUserData()
-        
+        setTimeSaverData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setTimeSaverData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         TimeLineSaver.shared.fetchTimeLines()
+        setTimeSaverData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.reloadInputViews()
         print("diss")
     }
+    
     // MARK: - Add Views
     private func addViews() {
-        let views: [UIView] = [imageView, nicknameTitleLabel, editButton]
+        stackViewFirst.addArrangedSubview(totalDoneCountStackView)
+        stackViewFirst.addArrangedSubview(totalExerciseTimeStackView)
+        stackViewFirst.addArrangedSubview(totalStudyTimeStackView)
+        
+        stackViewSecond.addArrangedSubview(totalTimeStackView)
+        stackViewSecond.addArrangedSubview(averageExerciseTimeStackView)
+        stackViewSecond.addArrangedSubview(averageStudyTimeStackView)
+        let views: [UIView] = [imageView, nicknameTitleLabel, editButton, stackViewFirst, stackViewSecond]
         views.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        configureStackView()
     }
     
-    func addStatisticViews(_ list:[String],stack:UIStackView){
+    func configureStackView() {
+        view.addSubview(stackViewFirst)
+        stackViewFirst.snp.makeConstraints{
+            $0.top.equalTo(editButton.snp.bottom).inset(-50)
+            $0.right.left.equalToSuperview().inset(30)
+            $0.height.equalTo(100)
+        }
+        
+        view.addSubview(stackViewSecond)
+        stackViewSecond.snp.makeConstraints{
+            $0.top.equalTo(stackViewFirst.snp.bottom).inset(-20)
+            $0.right.left.equalToSuperview().inset(30)
+            $0.height.equalTo(100)
+        }
+    }
+    
+    // 제목 설정 메서드
+    func addStatisticViews(_ list: [String], stack: UIStackView) -> ([UILabel], [UILabel]) {
+        var labeViews: [UILabel] = []
+        var numberViews: [UILabel] = []
         for i in list {
             let view = UIView()
             view.snp.makeConstraints{
@@ -96,7 +249,7 @@ class MyPageViewController: UIViewController {
             let label = UILabel()
             label.text = i
             view.addSubview(label)
-            
+            labeViews.append(label)
             label.snp.makeConstraints{
                 $0.centerX.equalToSuperview()
                 $0.top.equalToSuperview().inset(20)
@@ -108,33 +261,16 @@ class MyPageViewController: UIViewController {
                 $0.top.equalTo(label.snp.bottom).inset(-20)
                 $0.centerX.equalToSuperview()
             }
+            numberViews.append(number)
             stack.addArrangedSubview(view)
         }
-    }
-    
-    func configureStackView(){
-        view.addSubview(stackViewFirst)
-        stackViewFirst.snp.makeConstraints{
-            $0.top.equalTo(editButton.snp.bottom).inset(-50)
-            $0.right.left.equalToSuperview().inset(30)
-            $0.height.equalTo(100)
-        }
-        addStatisticViews(fieldsFirst,stack: stackViewFirst)
-        
-        view.addSubview(stackViewSecond)
-        stackViewSecond.snp.makeConstraints{
-            $0.top.equalTo(stackViewFirst.snp.bottom).inset(-20)
-            $0.right.left.equalToSuperview().inset(30)
-            $0.height.equalTo(100)
-        }
-        addStatisticViews(fieldsSecond,stack: stackViewSecond)
+        return (labeViews, numberViews)
     }
     
     //MARK: - 데이터 구분
-    
     private func dateDataFilter(_ type:String) -> String{
         let calendar = Calendar(identifier: .gregorian)
-        switch type{
+        switch type {
         case fieldsFirst[0]:
             var temp:Set<DateComponents> = []
             TimeLineSaver.shared.timeline?.forEach{
@@ -146,6 +282,7 @@ class MyPageViewController: UIViewController {
             TimeLineSaver.shared.timeline?.forEach{
                 if $0.kind == 0 && $0.second != -1{
                     totalEx += Int($0.second)
+                    print(totalEx)
                 }
             }
             return "\(totalEx)초"
@@ -200,9 +337,7 @@ class MyPageViewController: UIViewController {
             return "error"
         }
     }
-    
-    
-    
+
     // MARK: - Constraints
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -222,6 +357,17 @@ class MyPageViewController: UIViewController {
             editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             editButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+        NSLayoutConstraint.activate([
+            stackViewFirst.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 20),
+            stackViewFirst.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            stackViewFirst.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            stackViewSecond.topAnchor.constraint(equalTo: stackViewFirst.bottomAnchor, constant: 20),
+            stackViewSecond.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            stackViewSecond.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ])
     }
     
     // MARK: - Setting
@@ -234,6 +380,25 @@ class MyPageViewController: UIViewController {
         }
         let nickname = UserDefaults.standard.string(forKey: "nickname")
         nicknameTitleLabel.text = nickname
+    }
+    
+    // MARK: - TimeLineSave Data Setting
+    private func setTimeSaverData() {
+        totalDoneCountTitleLabel.text = fieldsFirst[0]
+        totalExerciseTimeTitleLabel.text = fieldsFirst[1]
+        totalStudyTimeTitleLabel.text = fieldsFirst[2]
+        
+        totalDoneCountNumberLabel.text = dateDataFilter(fieldsFirst[0])
+        totalExerciseTimeNumberLabel.text = dateDataFilter(fieldsFirst[1])
+        totalStudyTimeNumberLabel.text = dateDataFilter(fieldsFirst[2])
+        
+        totalTimeLabel.text = fieldsSecond[0]
+        averageExerciseTimeTitleLabel.text = fieldsSecond[1]
+        averageStudyTimeTitleLabel.text = fieldsSecond[2]
+        
+        totalTimeNumberLabel.text = dateDataFilter(fieldsSecond[0])
+        averageExerciseTimeNumberLabel.text = dateDataFilter(fieldsSecond[1])
+        averageStudyTimeNumberLabel.text = dateDataFilter(fieldsSecond[2])
     }
     
     // MARK: - Present

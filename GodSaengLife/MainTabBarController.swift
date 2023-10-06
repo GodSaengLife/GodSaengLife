@@ -32,3 +32,4 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = .systemBlue
     }
 }
+
