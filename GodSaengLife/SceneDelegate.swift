@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         window = UIWindow(windowScene: windowScene)
         
         window?.rootViewController = MainTabBarController()
+//        window?.rootViewController = MyPageViewController()
         window?.makeKeyAndVisible()
         
         if UserDefaults.standard.string(forKey: "nickname") == nil {

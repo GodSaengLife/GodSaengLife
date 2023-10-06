@@ -6,24 +6,23 @@ import SnapKit
 class CalendarViewController: UIViewController {
     
     let timeLineView = TimeLineViewController()
-        
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         setCalendar()
         appleCreateCalendar()
-
-
-        TimeLineSaver.shared.fetchTimeLines()
         
-//                TimeLineSaver.shared.resetTest()
-//                TimeLineSaver.shared.setType(on: .start)
-//                TimeLineSaver.shared.setType(on: .pause)
-//                TimeLineSaver.shared.setType(on: .unpause)
-//                TimeLineSaver.shared.setType(on: .stop)
-
+        
+        TimeLineSaver.shared.fetchTimeLines()
 //        TimeLineSaver.shared.resetTest()
-//                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
-//                TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
+        //                TimeLineSaver.shared.setType(on: .start)
+        //                TimeLineSaver.shared.setType(on: .pause)
+        //                TimeLineSaver.shared.setType(on: .unpause)
+        //                TimeLineSaver.shared.setType(on: .stop)
+        
+        //        TimeLineSaver.shared.resetTest()
+        //                TimeLineSaver.shared.setType(on: .start,kind: .exercise)
+        //                TimeLineSaver.shared.setType(on: .alarm,kind: .alarm)
         
         //        TimeLineSaver.shared.addCustomTest(m: 10, d: 1)
     }
