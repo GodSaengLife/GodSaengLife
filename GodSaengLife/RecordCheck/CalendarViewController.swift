@@ -151,7 +151,7 @@ extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSin
                     }
                 }
                 if $0.kind == 2 {
-                    temp[0].append("알람 완료")
+                    temp[0].append(("알람 완료 " + timeString))
                 }
             }
             
