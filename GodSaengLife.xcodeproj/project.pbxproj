@@ -171,7 +171,6 @@
 		27F2830B2AC16470006E180B /* RecordCheck */ = {
 			isa = PBXGroup;
 			children = (
-				27F283362ACD5A85006E180B /* CoreDataModel */,
 				27F2830F2AC164B9006E180B /* CalendarView.swift */,
 				27F283282AC27764006E180B /* CalendarViewController.swift */,
 				27F2832C2AC84B43006E180B /* TimeLineViewController.swift */,
@@ -189,13 +188,6 @@
 				6968A7F72AC3E0CA004369BF /* AlarmLandingView.swift */,
 			);
 			path = AlarmLandingPage;
-			sourceTree = "<group>";
-		};
-		27F283362ACD5A85006E180B /* CoreDataModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		7B2191472AC28BAD0096400C /* Font */ = {
