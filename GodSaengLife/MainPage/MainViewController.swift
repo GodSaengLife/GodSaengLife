@@ -25,6 +25,8 @@ class MainViewController: UIViewController {
         setUserInfomation()
         setStopwatchButtons()
         stopwatchButtonisEnabaled()
+        
+        TimeLineSaver.shared.fetchTimeLines()
     }
     
     

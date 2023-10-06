@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Then
 
 class MyPageViewController: UIViewController {
     // MARK: - Components
@@ -37,7 +38,27 @@ class MyPageViewController: UIViewController {
         button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
+    private lazy var stackViewFirst = UIStackView().then {
+        $0.axis = .horizontal
+        $0.layer.cornerRadius = 30
+        $0.backgroundColor = .cyan
+        $0.distribution = .fillEqually
+        $0.spacing = 20
+    }
+    private lazy var stackViewSecond = UIStackView().then {
+        $0.axis = .horizontal
+        $0.layer.cornerRadius = 30
+        $0.backgroundColor = .cyan
+        $0.distribution = .fillEqually
+        $0.spacing = 20
+    }
+    
+    private lazy var textView = UILabel()
+    
+    private var fieldsFirst:[String] = ["갓생산날","총운동시간","총공부시간"]
+    private var fieldsSecond:[String] = ["총시간","평균운동시간","평균공부시간"]
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +66,16 @@ class MyPageViewController: UIViewController {
         addViews()
         setConstraints()
         setUserData()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        TimeLineSaver.shared.fetchTimeLines()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.reloadInputViews()
+        print("diss")
+    }
     // MARK: - Add Views
     private func addViews() {
         let views: [UIView] = [imageView, nicknameTitleLabel, editButton]
@@ -54,7 +83,125 @@ class MyPageViewController: UIViewController {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        configureStackView()
     }
+    
+    func addStatisticViews(_ list:[String],stack:UIStackView){
+        for i in list {
+            let view = UIView()
+            view.snp.makeConstraints{
+                $0.width.equalTo(50)
+            }
+            let label = UILabel()
+            label.text = i
+            view.addSubview(label)
+            
+            label.snp.makeConstraints{
+                $0.centerX.equalToSuperview()
+                $0.top.equalToSuperview().inset(20)
+            }
+            let number = UILabel()
+            number.text = dateDataFilter(i)
+            view.addSubview(number)
+            number.snp.makeConstraints{
+                $0.top.equalTo(label.snp.bottom).inset(-20)
+                $0.centerX.equalToSuperview()
+            }
+            stack.addArrangedSubview(view)
+        }
+    }
+    
+    func configureStackView(){
+        view.addSubview(stackViewFirst)
+        stackViewFirst.snp.makeConstraints{
+            $0.top.equalTo(editButton.snp.bottom).inset(-50)
+            $0.right.left.equalToSuperview().inset(30)
+            $0.height.equalTo(100)
+        }
+        addStatisticViews(fieldsFirst,stack: stackViewFirst)
+        
+        view.addSubview(stackViewSecond)
+        stackViewSecond.snp.makeConstraints{
+            $0.top.equalTo(stackViewFirst.snp.bottom).inset(-20)
+            $0.right.left.equalToSuperview().inset(30)
+            $0.height.equalTo(100)
+        }
+        addStatisticViews(fieldsSecond,stack: stackViewSecond)
+    }
+    
+    //MARK: - 데이터 구분
+    
+    private func dateDataFilter(_ type:String) -> String{
+        let calendar = Calendar(identifier: .gregorian)
+        switch type{
+        case fieldsFirst[0]:
+            var temp:Set<DateComponents> = []
+            TimeLineSaver.shared.timeline?.forEach{
+                temp.insert(calendar.dateComponents([.year, .month, .day],from: $0.date!))
+            }
+            return "\(temp.count)일"
+        case fieldsFirst[1]:
+            var totalEx:Int = 0
+            TimeLineSaver.shared.timeline?.forEach{
+                if $0.kind == 0 && $0.second != -1{
+                    totalEx += Int($0.second)
+                }
+            }
+            return "\(totalEx)초"
+        case fieldsFirst[2]:
+            var totalStudy:Int = 0
+            TimeLineSaver.shared.timeline?.forEach{
+                if $0.kind == 1 && $0.second != -1 {
+                    totalStudy += Int($0.second)
+                }
+            }
+            return "\(totalStudy)초"
+        case fieldsSecond[0]:
+            var total:Int = 0
+            TimeLineSaver.shared.timeline?.forEach{
+                if $0.second != -1 {
+                    total += Int($0.second)
+                }
+            }
+            return "\(total)초"
+        case fieldsSecond[1]:
+            var totalEx:Int = 0
+            var aver = 0
+            TimeLineSaver.shared.timeline?.forEach{
+                if $0.kind == 0 && $0.second != -1{
+                    totalEx += Int($0.second)
+                    aver += 1
+                }
+            }
+            if aver != 0 {
+                return "\(totalEx/aver)초"
+            }else{
+                return "\(totalEx)초"
+            }
+        case fieldsSecond[2]:
+            var totalStudy:Int = 0
+            var aver = 0
+            TimeLineSaver.shared.timeline?.forEach{
+                if $0.kind == 1 && $0.second != -1{
+                    totalStudy += Int($0.second)
+                    aver += 1
+                }
+            }
+            if aver != 0 {
+                return "\(totalStudy/aver)초"
+            }else{
+                return "\(totalStudy)초"
+            }
+            
+            
+        default:
+            print("error")
+            return "error"
+        }
+    }
+    
+    
     
     // MARK: - Constraints
     private func setConstraints() {
@@ -128,7 +275,7 @@ class MyPageViewController: UIViewController {
         alert.addAction(cancel)
         present(alert, animated: true)
     }
-
+    
     // MARK: - Actions
     @objc private func editButtonTapped() {
         presentActionSheet()
@@ -149,3 +296,4 @@ extension MyPageViewController: UIImagePickerControllerDelegate {
 extension MyPageViewController: UINavigationControllerDelegate {
     
 }
+
