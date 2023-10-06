@@ -213,7 +213,14 @@ extension RegistrationViewController: UINavigationControllerDelegate {
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 8
+        guard let text = textField.text else { return false }
+            if text.count >= maxLength && range.length == 0 {
+                return false
+        }
+        return true
+    }
 }
 
 
