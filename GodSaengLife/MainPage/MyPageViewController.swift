@@ -228,7 +228,6 @@ class MyPageViewController: UIViewController {
             $0.right.left.equalToSuperview().inset(30)
             $0.height.equalTo(100)
         }
-        self.labelViews = addStatisticViews(fieldsFirst,stack: stackViewFirst).0
         
         view.addSubview(stackViewSecond)
         stackViewSecond.snp.makeConstraints{
@@ -236,7 +235,6 @@ class MyPageViewController: UIViewController {
             $0.right.left.equalToSuperview().inset(30)
             $0.height.equalTo(100)
         }
-        self.numberViews = addStatisticViews(fieldsSecond,stack: stackViewSecond).1
     }
     
     // 제목 설정 메서드
